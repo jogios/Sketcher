@@ -7,13 +7,14 @@ import java.io.FileOutputStream;
 
 import org.sketcher.style.StylesFactory;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Bitmap.CompressFormat;
-import android.os.AsyncTask;
+import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -125,11 +126,19 @@ public class Surface extends SurfaceView implements Callback {
 	}
 
 	public void save() {
+		String externalStorageState = Environment.getExternalStorageState();
+		if (!externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
+			Toast.makeText(getContext(), "SD card is not available",
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+
 		String path = "/sdcard/sketcher/";
 		String filename = "image_";
 		String extension = ".png";
 
 		boolean exists = new File(path).exists();
+
 		if (!exists) {
 			new File(path).mkdirs();
 		}
@@ -141,24 +150,17 @@ public class Surface extends SurfaceView implements Callback {
 		}
 
 		final String fileName = path + filename + suffix + extension;
-		new AsyncTask<Void, Integer, Long>() {
-			@Override
-			protected Long doInBackground(Void... params) {
-				try {
-					FileOutputStream fos = new FileOutputStream(fileName);
-					bitmap.compress(CompressFormat.PNG, 100, fos);
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-				return null;
-			}
 
-			@Override
-			protected void onPostExecute(Long result) {
-				Toast.makeText(getContext(), "Image saved to SD",
-						Toast.LENGTH_SHORT).show();
-			}
+		ProgressDialog dialog = ProgressDialog.show(getContext(), "",
+				"Saving to SD. Please wait...", true);
 
-		}.execute();
+		try {
+			FileOutputStream fos = new FileOutputStream(fileName);
+			bitmap.compress(CompressFormat.PNG, 100, fos);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		dialog.hide();
 	}
 }
