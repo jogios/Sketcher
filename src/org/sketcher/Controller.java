@@ -6,9 +6,13 @@ import android.graphics.Canvas;
 import android.view.MotionEvent;
 
 public class Controller {
-	Style style = StylesFactory.getStyle(StylesFactory.SKETCHY);
+	private Style style;
 	private boolean toStroke;
 	private boolean toDraw;
+
+	{
+		clear();
+	}
 
 	public void draw(Canvas c) {
 		if (toDraw) {
@@ -39,5 +43,10 @@ public class Controller {
 			break;
 		}
 		return true;
+	}
+
+	public void clear() {
+		StylesFactory.clearCache();
+		style = StylesFactory.getCurrentStyle();
 	}
 }

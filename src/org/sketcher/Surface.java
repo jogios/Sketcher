@@ -5,8 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import org.sketcher.style.StylesFactory;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -134,7 +132,7 @@ public class Surface extends SurfaceView implements Callback {
 
 	public void clearBitmap() {
 		bitmap.eraseColor(Color.WHITE);
-		StylesFactory.clearCache();
+		controller.clear();
 	}
 
 	public void saveState() {

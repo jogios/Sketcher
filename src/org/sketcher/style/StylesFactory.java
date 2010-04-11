@@ -18,12 +18,18 @@ public class StylesFactory {
 	public static final int GRID = 0x1010;
 
 	private static Map<Integer, Style> cache = new HashMap<Integer, Style>();
+	private static int currentStyle = SKETCHY;
 
 	public static Style getStyle(int id) {
 		if (!cache.containsKey(id)) {
 			cache.put(id, getStyleInstance(id));
 		}
+		currentStyle = id;
 		return cache.get(id);
+	}
+
+	public static Style getCurrentStyle() {
+		return getStyle(currentStyle);
 	}
 
 	public static void clearCache() {
