@@ -14,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Bitmap.CompressFormat;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -25,6 +26,9 @@ public class Surface extends SurfaceView implements Callback {
 	private static final String STATE_FILE = "backup";
 
 	private final class DrawThread extends Thread {
+		private boolean mRun = true;
+		private boolean mPause = false;
+
 		@Override
 		public void run() {
 			SurfaceHolder surfaceHolder = getHolder();
@@ -40,11 +44,19 @@ public class Surface extends SurfaceView implements Callback {
 			try {
 				FileInputStream fis = getContext().openFileInput(STATE_FILE);
 				Bitmap savedBitmap = BitmapFactory.decodeStream(fis);
-				drawArea.drawBitmap(savedBitmap, 0, 0, null);
+				if (savedBitmap != null) {
+					drawArea.drawBitmap(savedBitmap, 0, 0, null);
+				}
 			} catch (FileNotFoundException e) {
 			}
 
 			while (mRun) {
+				while (mPause) {
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+					}
+				}
 				Canvas canvas = null;
 				try {
 					canvas = surfaceHolder.lockCanvas();
@@ -59,10 +71,21 @@ public class Surface extends SurfaceView implements Callback {
 				}
 			}
 		}
+
+		public void stopDrawing() {
+			mRun = false;
+		}
+
+		public void pauseDrawing() {
+			mPause = true;
+		}
+
+		public void resumeDrawing() {
+			mPause = false;
+		}
 	}
 
-	private boolean mRun;
-	private Thread drawThread;
+	private DrawThread drawThread;
 	private Controller controller;
 
 	private Bitmap bitmap;
@@ -87,14 +110,13 @@ public class Surface extends SurfaceView implements Callback {
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		mRun = true;
 		drawThread = new DrawThread();
 		drawThread.start();
 	}
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
-		mRun = false;
+		drawThread.stopDrawing();
 		while (true) {
 			try {
 				drawThread.join();
@@ -133,34 +155,45 @@ public class Surface extends SurfaceView implements Callback {
 			return;
 		}
 
-		String path = "/sdcard/sketcher/";
-		String filename = "image_";
-		String extension = ".png";
-
-		boolean exists = new File(path).exists();
-
-		if (!exists) {
-			new File(path).mkdirs();
-		}
-
-		int suffix = 1;
-
-		while (new File(path + filename + suffix + extension).exists()) {
-			suffix++;
-		}
-
-		final String fileName = path + filename + suffix + extension;
-
-		ProgressDialog dialog = ProgressDialog.show(getContext(), "",
+		final ProgressDialog dialog = ProgressDialog.show(getContext(), "",
 				"Saving to SD. Please wait...", true);
 
-		try {
-			FileOutputStream fos = new FileOutputStream(fileName);
-			bitmap.compress(CompressFormat.PNG, 100, fos);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		new AsyncTask<Void, Void, Void>() {
+			protected Void doInBackground(Void... urls) {
+				drawThread.pauseDrawing();
 
-		dialog.hide();
+				String path = "/sdcard/sketcher/";
+				String filename = "image_";
+				String extension = ".png";
+
+				boolean exists = new File(path).exists();
+
+				if (!exists) {
+					new File(path).mkdirs();
+				}
+
+				int suffix = 1;
+
+				while (new File(path + filename + suffix + extension).exists()) {
+					suffix++;
+				}
+
+				final String fileName = path + filename + suffix + extension;
+
+				try {
+					FileOutputStream fos = new FileOutputStream(fileName);
+					bitmap.compress(CompressFormat.PNG, 100, fos);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+
+				return null;
+			}
+
+			protected void onPostExecute(Void result) {
+				drawThread.resumeDrawing();
+				dialog.hide();
+			}
+		}.execute();
 	}
 }
