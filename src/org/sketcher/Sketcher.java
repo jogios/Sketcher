@@ -11,6 +11,7 @@ import android.widget.RelativeLayout.LayoutParams;
 public class Sketcher extends Activity {
 	private static final int MENU_CLEAR = 0x2001;
 	private static final int MENU_SAVE = 0x2002;
+	private static final int MENU_SEND = 0x2003;
 
 	private Surface surface;
 
@@ -33,6 +34,7 @@ public class Sketcher extends Activity {
 
 		menu.add(0, MENU_CLEAR, 0, "Clear");
 		menu.add(0, MENU_SAVE, 0, "Save");
+		menu.add(0, MENU_SEND, 0, "Send");
 		menu.add(0, StylesFactory.SKETCHY, 0, "Sketchy");
 		menu.add(0, StylesFactory.SHADED, 0, "Shaded");
 		menu.add(0, StylesFactory.CHROME, 0, "Chrome");
@@ -55,6 +57,9 @@ public class Sketcher extends Activity {
 			return true;
 		case MENU_SAVE:
 			surface.save();
+			return true;
+		case MENU_SEND:
+			surface.send();
 			return true;
 
 		default:

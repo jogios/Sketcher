@@ -7,11 +7,13 @@ import java.io.FileOutputStream;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Bitmap.CompressFormat;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.view.MotionEvent;
@@ -21,7 +23,7 @@ import android.view.SurfaceHolder.Callback;
 import android.widget.Toast;
 
 public class Surface extends SurfaceView implements Callback {
-	private static final String STATE_FILE = "backup";
+	private static final String STATE_FILE = "asketch.png";
 
 	private final class DrawThread extends Thread {
 		private boolean mRun = true;
@@ -136,13 +138,15 @@ public class Surface extends SurfaceView implements Callback {
 	}
 
 	public void saveState() {
+		drawThread.pauseDrawing();
 		try {
 			FileOutputStream fos = getContext().openFileOutput(STATE_FILE,
-					Context.MODE_PRIVATE);
+					Context.MODE_WORLD_READABLE);
 			bitmap.compress(CompressFormat.PNG, 100, fos);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		drawThread.resumeDrawing();
 	}
 
 	public void save() {
@@ -193,5 +197,16 @@ public class Surface extends SurfaceView implements Callback {
 				dialog.hide();
 			}
 		}.execute();
+	}
+
+	public void send() {
+		File file = getContext().getFileStreamPath(STATE_FILE);
+		Uri uri = Uri.fromFile(file);
+
+		Intent i = new Intent(Intent.ACTION_SEND);
+		i.setType("image/png");
+		i.putExtra(Intent.EXTRA_STREAM, uri);
+		i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+		getContext().startActivity(Intent.createChooser(i, "Send Image To:"));
 	}
 }
