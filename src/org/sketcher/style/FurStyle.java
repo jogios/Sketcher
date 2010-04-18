@@ -26,10 +26,6 @@ class FurStyle implements Style {
 	}
 
 	@Override
-	public void destroy() {
-	}
-
-	@Override
 	public void draw(Canvas c) {
 		points.add(new PointF(x, y));
 
@@ -63,10 +59,6 @@ class FurStyle implements Style {
 	public void stroke(float x, float y) {
 		this.x = x;
 		this.y = y;
-	}
-
-	@Override
-	public void strokeEnd(float x, float y) {
 	}
 
 	@Override

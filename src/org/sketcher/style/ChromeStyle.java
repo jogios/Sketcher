@@ -22,14 +22,10 @@ class ChromeStyle implements Style {
 	private float y;
 
 	{
-		paint.setARGB(25, 0, 0, 0);
+		paint.setARGB(30, 0, 0, 0);
 		paint.setAntiAlias(true);
 
 		randPaint.setAntiAlias(true);
-	}
-
-	@Override
-	public void destroy() {
 	}
 
 	@Override
@@ -51,8 +47,8 @@ class ChromeStyle implements Style {
 			length = dx * dx + dy * dy;
 
 			if (length < 1000) {
-				randPaint.setARGB(30, (int) Math.random() * 255, (int) Math
-						.random() * 255, (int) Math.random() * 255);
+				randPaint.setARGB(35, (int) (Math.random() * 255), (int) (Math
+						.random() * 255), (int) (Math.random() * 255));
 				c
 						.drawLine(_point.x + (dx * 0.2F), _point.y
 								+ (dy * 0.2F), point.x - (dx * 0.2F), point.y
@@ -70,10 +66,6 @@ class ChromeStyle implements Style {
 	public void stroke(float x, float y) {
 		this.x = x;
 		this.y = y;
-	}
-
-	@Override
-	public void strokeEnd(float x, float y) {
 	}
 
 	@Override

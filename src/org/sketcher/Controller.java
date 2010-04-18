@@ -29,7 +29,6 @@ public class Controller {
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_UP:
 			toStroke = false;
-			style.strokeEnd(event.getX(), event.getY());
 			break;
 		case MotionEvent.ACTION_DOWN:
 			toStroke = true;

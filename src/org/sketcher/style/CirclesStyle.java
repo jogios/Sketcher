@@ -21,26 +21,22 @@ class CirclesStyle implements Style {
 	}
 
 	@Override
-	public void destroy() {
-	}
-
-	@Override
 	public void draw(Canvas c) {
 		float dx = x - prevX;
 		float dy = y - prevY;
 
-		int dxy = (int) Math.sqrt(dx * dx + dy * dy) * 2;
+		int dxy = (int) (Math.sqrt(dx * dx + dy * dy) * 2);
 
-		int gridx = (int) Math.floor(x / 100) * 100 + 50;
-		int gridy = (int) Math.floor(y / 100) * 100 + 50;
+		int gridx = (int) (Math.floor(x / 50) * 50 + 25);
+		int gridy = (int) (Math.floor(y / 50) * 50 + 25);
 
-		int rand = (int) Math.floor(Math.random() * 9) + 1;
+		int rand = (int) (Math.floor(Math.random() * 9) + 1);
 		int radius = dxy / rand;
 
 		for (int i = 0; i < rand; i++) {
 			c.drawCircle(gridx, gridy, (rand - i) * radius, paint);
 		}
-		
+
 		prevX = x;
 		prevY = y;
 	}
@@ -49,10 +45,6 @@ class CirclesStyle implements Style {
 	public void stroke(float x, float y) {
 		this.x = x;
 		this.y = y;
-	}
-
-	@Override
-	public void strokeEnd(float x, float y) {
 	}
 
 	@Override

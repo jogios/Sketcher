@@ -34,10 +34,6 @@ class RibbonStyle implements Style {
 	}
 
 	@Override
-	public void destroy() {
-	}
-
-	@Override
 	public void draw(Canvas c) {
 		float startX = 0;
 		float startY = 0;
@@ -61,15 +57,12 @@ class RibbonStyle implements Style {
 	}
 
 	@Override
-	public void strokeEnd(float x, float y) {
-	}
-
-	@Override
 	public void strokeStart(float x, float y) {
 		this.x = x;
 		this.y = y;
 
-		for (Painter painter : painters) {
+		for (int i = 0, max = painters.length; i < max; i++) {
+			Painter painter = painters[i];
 			painter.dx = x;
 			painter.dy = y;
 		}

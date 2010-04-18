@@ -17,10 +17,6 @@ class GridStyle implements Style {
 	}
 
 	@Override
-	public void destroy() {
-	}
-
-	@Override
 	public void draw(Canvas c) {
 		float gridx = Math.round(x / 100) * 100;
 		float gridy = Math.round(y / 100) * 100;
@@ -38,10 +34,6 @@ class GridStyle implements Style {
 	public void stroke(float x, float y) {
 		this.x = x;
 		this.y = y;
-	}
-
-	@Override
-	public void strokeEnd(float x, float y) {
 	}
 
 	@Override

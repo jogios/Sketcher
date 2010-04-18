@@ -21,12 +21,8 @@ class SketchyStyle implements Style {
 	private float y;
 
 	{
-		paint.setARGB(25, 0, 0, 0);
+		paint.setARGB(30, 0, 0, 0);
 		paint.setAntiAlias(true);
-	}
-
-	@Override
-	public void destroy() {
 	}
 
 	@Override
@@ -63,10 +59,6 @@ class SketchyStyle implements Style {
 	public void stroke(float x, float y) {
 		this.x = x;
 		this.y = y;
-	}
-
-	@Override
-	public void strokeEnd(float x, float y) {
 	}
 
 	@Override

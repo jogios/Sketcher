@@ -21,10 +21,6 @@ class SquaresStyle implements Style {
 	}
 
 	@Override
-	public void destroy() {
-	}
-
-	@Override
 	public void draw(Canvas c) {
 		float dx = x - prevX;
 		float dy = y - prevY;
@@ -47,10 +43,6 @@ class SquaresStyle implements Style {
 	public void stroke(float x, float y) {
 		this.x = x;
 		this.y = y;
-	}
-
-	@Override
-	public void strokeEnd(float x, float y) {
 	}
 
 	@Override
