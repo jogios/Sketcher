@@ -18,9 +18,6 @@ class ChromeStyle implements Style {
 	private Paint paint = new Paint();
 	private Paint randPaint = new Paint();
 
-	private float x;
-	private float y;
-
 	{
 		paint.setARGB(30, 0, 0, 0);
 		paint.setAntiAlias(true);
@@ -29,7 +26,7 @@ class ChromeStyle implements Style {
 	}
 
 	@Override
-	public void draw(Canvas c) {
+	public void stroke(Canvas c, float x, float y) {
 		points.add(new PointF(x, y));
 
 		c.drawLine(prevX, prevY, x, y, paint);
@@ -63,14 +60,12 @@ class ChromeStyle implements Style {
 	}
 
 	@Override
-	public void stroke(float x, float y) {
-		this.x = x;
-		this.y = y;
-	}
-
-	@Override
 	public void strokeStart(float x, float y) {
 		prevX = x;
 		prevY = y;
+	}
+
+	@Override
+	public void draw(Canvas c) {
 	}
 }

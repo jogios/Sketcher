@@ -14,15 +14,12 @@ class ShadedStyle implements Style {
 
 	private Paint paint = new Paint();
 
-	private float x;
-	private float y;
-
 	{
 		paint.setAntiAlias(true);
 	}
 
 	@Override
-	public void draw(Canvas c) {
+	public void stroke(Canvas c, float x, float y) {
 		points.add(new PointF(x, y));
 
 		float dx = 0;
@@ -48,12 +45,10 @@ class ShadedStyle implements Style {
 	}
 
 	@Override
-	public void stroke(float x, float y) {
-		this.x = x;
-		this.y = y;
-	}
-
-	@Override
 	public void strokeStart(float x, float y) {
+	}
+	
+	@Override
+	public void draw(Canvas c) {
 	}
 }

@@ -34,6 +34,7 @@ public class Surface extends SurfaceView implements Callback {
 			}
 			bitmap.eraseColor(Color.WHITE);
 			Canvas drawArea = new Canvas(bitmap);
+			controller.setCanvas(drawArea);
 
 			try {
 				FileInputStream fis = getContext().openFileInput(STATE_FILE);
@@ -55,8 +56,8 @@ public class Surface extends SurfaceView implements Callback {
 				try {
 					canvas = surfaceHolder.lockCanvas();
 					synchronized (surfaceHolder) {
-						canvas.drawBitmap(bitmap, 0, 0, null);
 						controller.draw(drawArea);
+						canvas.drawBitmap(bitmap, 0, 0, null);
 					}
 				} finally {
 					if (canvas != null) {

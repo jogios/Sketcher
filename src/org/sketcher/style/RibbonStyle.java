@@ -51,7 +51,7 @@ class RibbonStyle implements Style {
 	}
 
 	@Override
-	public void stroke(float x, float y) {
+	public void stroke(Canvas c, float x, float y) {
 		this.x = x;
 		this.y = y;
 	}

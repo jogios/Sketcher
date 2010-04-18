@@ -6,9 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 class GridStyle implements Style {
-	private float x;
-	private float y;
-
 	private Paint paint = new Paint();
 
 	{
@@ -17,7 +14,7 @@ class GridStyle implements Style {
 	}
 
 	@Override
-	public void draw(Canvas c) {
+	public void stroke(Canvas c, float x, float y) {
 		float gridx = Math.round(x / 100) * 100;
 		float gridy = Math.round(y / 100) * 100;
 
@@ -31,12 +28,10 @@ class GridStyle implements Style {
 	}
 
 	@Override
-	public void stroke(float x, float y) {
-		this.x = x;
-		this.y = y;
-	}
-
-	@Override
 	public void strokeStart(float x, float y) {
+	}
+	
+	@Override
+	public void draw(Canvas c) {
 	}
 }

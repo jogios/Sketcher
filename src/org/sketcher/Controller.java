@@ -7,8 +7,8 @@ import android.view.MotionEvent;
 
 public class Controller {
 	private Style style;
-	private boolean toStroke;
-	private boolean toDraw;
+	private Canvas canvas;
+	private boolean toDraw = false;
 
 	{
 		clear();
@@ -17,34 +17,33 @@ public class Controller {
 	public void draw(Canvas c) {
 		if (toDraw) {
 			style.draw(c);
-			toDraw = false;
 		}
 	}
 
 	public void setStyle(Style style) {
+		toDraw = false;
 		this.style = style;
+	}
+
+	public void setCanvas(Canvas canvas) {
+		this.canvas = canvas;
 	}
 
 	public boolean onTouchEvent(MotionEvent event) {
 		switch (event.getAction()) {
-		case MotionEvent.ACTION_UP:
-			toStroke = false;
-			break;
 		case MotionEvent.ACTION_DOWN:
-			toStroke = true;
+			toDraw = true;
 			style.strokeStart(event.getX(), event.getY());
 			break;
 		case MotionEvent.ACTION_MOVE:
-			if (toStroke) {
-				style.stroke(event.getX(), event.getY());
-				toDraw = true;
-			}
+			style.stroke(canvas, event.getX(), event.getY());
 			break;
 		}
 		return true;
 	}
 
 	public void clear() {
+		toDraw = false;
 		StylesFactory.clearCache();
 		style = StylesFactory.getCurrentStyle();
 	}

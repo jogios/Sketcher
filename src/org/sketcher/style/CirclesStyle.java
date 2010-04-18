@@ -11,9 +11,6 @@ class CirclesStyle implements Style {
 
 	private Paint paint = new Paint();
 
-	private float x;
-	private float y;
-
 	{
 		paint.setARGB(50, 0, 0, 0);
 		paint.setStyle(Paint.Style.STROKE);
@@ -21,7 +18,7 @@ class CirclesStyle implements Style {
 	}
 
 	@Override
-	public void draw(Canvas c) {
+	public void stroke(Canvas c, float x, float y) {
 		float dx = x - prevX;
 		float dy = y - prevY;
 
@@ -42,14 +39,12 @@ class CirclesStyle implements Style {
 	}
 
 	@Override
-	public void stroke(float x, float y) {
-		this.x = x;
-		this.y = y;
-	}
-
-	@Override
 	public void strokeStart(float x, float y) {
 		prevX = x;
 		prevY = y;
+	}
+
+	@Override
+	public void draw(Canvas c) {
 	}
 }
