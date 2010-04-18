@@ -1,31 +1,24 @@
 package org.sketcher;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Bitmap.CompressFormat;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder.Callback;
-import android.widget.Toast;
 
 public class Surface extends SurfaceView implements Callback {
-	private static final String STATE_FILE = "asketch.png";
+	public static final String STATE_FILE = "asketch.png";
 
-	private final class DrawThread extends Thread {
+	public final class DrawThread extends Thread {
 		private boolean mRun = true;
 		private boolean mPause = false;
 
@@ -138,7 +131,6 @@ public class Surface extends SurfaceView implements Callback {
 	}
 
 	public void saveState() {
-		drawThread.pauseDrawing();
 		try {
 			FileOutputStream fos = getContext().openFileOutput(STATE_FILE,
 					Context.MODE_WORLD_READABLE);
@@ -146,67 +138,14 @@ public class Surface extends SurfaceView implements Callback {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		drawThread.resumeDrawing();
 	}
 
-	public void save() {
-		String externalStorageState = Environment.getExternalStorageState();
-		if (!externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
-			Toast.makeText(getContext(), "SD card is not available",
-					Toast.LENGTH_SHORT).show();
-			return;
-		}
-
-		final ProgressDialog dialog = ProgressDialog.show(getContext(), "",
-				"Saving to SD. Please wait...", true);
-
-		new AsyncTask<Void, Void, Void>() {
-			protected Void doInBackground(Void... urls) {
-				drawThread.pauseDrawing();
-
-				String path = "/sdcard/sketcher/";
-				String filename = "image_";
-				String extension = ".png";
-
-				boolean exists = new File(path).exists();
-
-				if (!exists) {
-					new File(path).mkdirs();
-				}
-
-				int suffix = 1;
-
-				while (new File(path + filename + suffix + extension).exists()) {
-					suffix++;
-				}
-
-				final String fileName = path + filename + suffix + extension;
-
-				try {
-					FileOutputStream fos = new FileOutputStream(fileName);
-					bitmap.compress(CompressFormat.PNG, 100, fos);
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-
-				return null;
-			}
-
-			protected void onPostExecute(Void result) {
-				drawThread.resumeDrawing();
-				dialog.hide();
-			}
-		}.execute();
+	public void saveBitmap(String fileName) throws FileNotFoundException {
+		FileOutputStream fos = new FileOutputStream(fileName);
+		bitmap.compress(CompressFormat.PNG, 100, fos);
 	}
 
-	public void send() {
-		File file = getContext().getFileStreamPath(STATE_FILE);
-		Uri uri = Uri.fromFile(file);
-
-		Intent i = new Intent(Intent.ACTION_SEND);
-		i.setType("image/png");
-		i.putExtra(Intent.EXTRA_STREAM, uri);
-		i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-		getContext().startActivity(Intent.createChooser(i, "Send Image To:"));
+	public DrawThread getThread() {
+		return drawThread;
 	}
 }
