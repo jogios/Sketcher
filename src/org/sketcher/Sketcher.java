@@ -30,6 +30,8 @@ public class Sketcher extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		upgrade();
+
 		surface = new Surface(this);
 
 		LayoutParams params = new LayoutParams(
@@ -37,6 +39,14 @@ public class Sketcher extends Activity {
 				android.view.ViewGroup.LayoutParams.FILL_PARENT);
 
 		setContentView(surface, params);
+	}
+
+	private void upgrade() {
+		File oldFile = getFileStreamPath(Surface.OLD_STATE_FILE);
+		if (oldFile.exists()) {
+			File newName = getFileStreamPath(Surface.STATE_FILE);
+			oldFile.renameTo(newName);
+		}
 	}
 
 	@Override

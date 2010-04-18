@@ -17,6 +17,7 @@ import android.view.SurfaceHolder.Callback;
 
 public class Surface extends SurfaceView implements Callback {
 	public static final String STATE_FILE = "asketch.png";
+	public static final String OLD_STATE_FILE = "backup";
 
 	public final class DrawThread extends Thread {
 		private boolean mRun = true;
