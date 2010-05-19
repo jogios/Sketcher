@@ -16,6 +16,7 @@ public class StylesFactory {
 	public static final short RIBBON = 0x1008;
 	public static final short CIRCLES = 0x1009;
 	public static final short GRID = 0x1010;
+	public static final short SIMPLE = 0x1011;
 
 	private static Map<Integer, Style> cache = new HashMap<Integer, Style>();
 	private static int currentStyle = SKETCHY;
@@ -58,6 +59,8 @@ public class StylesFactory {
 			return new CirclesStyle();
 		case GRID:
 			return new GridStyle();
+		case SIMPLE:
+			return new SimpleStyle();
 
 		default:
 			throw new RuntimeException("Invalid style ID");

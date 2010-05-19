@@ -59,6 +59,7 @@ public class Sketcher extends Activity {
 		SubMenu subMenu = menu.addSubMenu("Brushes")
 				.setIcon(R.drawable.brushes);
 		subMenu.add(GROUP_BRUSHES, StylesFactory.SKETCHY, 0, "Sketchy");
+		subMenu.add(GROUP_BRUSHES, StylesFactory.SIMPLE, 0, "Simple");
 		subMenu.add(GROUP_BRUSHES, StylesFactory.SHADED, 0, "Shaded");
 		subMenu.add(GROUP_BRUSHES, StylesFactory.CHROME, 0, "Chrome");
 		subMenu.add(GROUP_BRUSHES, StylesFactory.FUR, 0, "Fur");
@@ -108,7 +109,6 @@ public class Sketcher extends Activity {
 		Intent i = new Intent(Intent.ACTION_SEND);
 		i.setType("image/png");
 		i.putExtra(Intent.EXTRA_STREAM, uri);
-		i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 		startActivity(Intent.createChooser(i, "Send Image To:"));
 	}
 
