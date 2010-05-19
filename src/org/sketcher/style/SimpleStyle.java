@@ -3,6 +3,7 @@ package org.sketcher.style;
 import org.sketcher.Style;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 
 class SimpleStyle implements Style {
@@ -12,9 +13,10 @@ class SimpleStyle implements Style {
 	private Paint paint = new Paint();
 
 	{
-		paint.setARGB(100, 0, 0, 0);
+		paint.setColor(Color.BLACK);
+		paint.setAlpha(100);
 		paint.setAntiAlias(true);
-		paint.setStrokeWidth(1);
+		paint.setStrokeWidth(1.5F);
 	}
 
 	@Override
@@ -33,5 +35,11 @@ class SimpleStyle implements Style {
 
 	@Override
 	public void draw(Canvas c) {
+	}
+
+	@Override
+	public void setColor(int color) {
+		paint.setColor(color);
+		paint.setAlpha(100);
 	}
 }

@@ -3,6 +3,7 @@ package org.sketcher.style;
 import org.sketcher.Style;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 
 class RibbonStyle implements Style {
@@ -25,7 +26,8 @@ class RibbonStyle implements Style {
 	}
 
 	{
-		paint.setARGB(25, 0, 0, 0);
+		paint.setColor(Color.BLACK);
+		paint.setAlpha(25);
 		paint.setAntiAlias(true);
 
 		for (int i = 0; i < 50; i++) {
@@ -66,5 +68,11 @@ class RibbonStyle implements Style {
 			painter.dx = x;
 			painter.dy = y;
 		}
+	}
+
+	@Override
+	public void setColor(int color) {
+		paint.setColor(color);
+		paint.setAlpha(25);
 	}
 }

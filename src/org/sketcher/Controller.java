@@ -3,12 +3,14 @@ package org.sketcher;
 import org.sketcher.style.StylesFactory;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.view.MotionEvent;
 
 public class Controller {
 	private Style style;
 	private Canvas canvas;
 	private boolean toDraw = false;
+	private int color = Color.BLACK;
 
 	{
 		clear();
@@ -22,6 +24,7 @@ public class Controller {
 
 	public void setStyle(Style style) {
 		toDraw = false;
+		style.setColor(color);
 		this.style = style;
 	}
 
@@ -45,6 +48,15 @@ public class Controller {
 	public void clear() {
 		toDraw = false;
 		StylesFactory.clearCache();
-		style = StylesFactory.getCurrentStyle();
+		setStyle(StylesFactory.getCurrentStyle());
+	}
+
+	public void setPaintColor(int color) {
+		this.color = color;
+		style.setColor(color);
+	}
+
+	public int getPaintColor() {
+		return color;
 	}
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.sketcher.Style;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 
@@ -18,7 +19,8 @@ class WebStyle implements Style {
 	private Paint paint = new Paint();
 
 	{
-		paint.setARGB(25, 0, 0, 0);
+		paint.setColor(Color.BLACK);
+		paint.setAlpha(25);
 		paint.setAntiAlias(true);
 	}
 
@@ -59,5 +61,11 @@ class WebStyle implements Style {
 
 	@Override
 	public void draw(Canvas c) {
+	}
+
+	@Override
+	public void setColor(int color) {
+		paint.setColor(color);
+		paint.setAlpha(25);
 	}
 }

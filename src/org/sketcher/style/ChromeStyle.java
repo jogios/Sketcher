@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.sketcher.Style;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 
@@ -19,7 +20,8 @@ class ChromeStyle implements Style {
 	private Paint randPaint = new Paint();
 
 	{
-		paint.setARGB(30, 0, 0, 0);
+		paint.setColor(Color.BLACK);
+		paint.setAlpha(30);
 		paint.setAntiAlias(true);
 
 		randPaint.setAntiAlias(true);
@@ -67,5 +69,11 @@ class ChromeStyle implements Style {
 
 	@Override
 	public void draw(Canvas c) {
+	}
+
+	@Override
+	public void setColor(int color) {
+		paint.setColor(color);
+		paint.setAlpha(30);
 	}
 }

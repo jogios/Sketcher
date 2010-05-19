@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.sketcher.Style;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 
@@ -15,6 +16,7 @@ class ShadedStyle implements Style {
 	private Paint paint = new Paint();
 
 	{
+		paint.setColor(Color.BLACK);
 		paint.setAntiAlias(true);
 	}
 
@@ -36,7 +38,7 @@ class ShadedStyle implements Style {
 			length = (int) (dx * dx + dy * dy);
 
 			if (length < 1000) {
-				paint.setARGB(((1 - (length / 1000)) * 30), 0, 0, 0);
+				paint.setAlpha(((1 - (length / 1000)) * 30));
 				c.drawLine(_point.x, _point.y, point.x, point.y, paint);
 			}
 		}
@@ -47,8 +49,13 @@ class ShadedStyle implements Style {
 	@Override
 	public void strokeStart(float x, float y) {
 	}
-	
+
 	@Override
 	public void draw(Canvas c) {
+	}
+
+	@Override
+	public void setColor(int color) {
+		paint.setColor(color);
 	}
 }

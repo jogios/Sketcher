@@ -150,4 +150,12 @@ public class Surface extends SurfaceView implements Callback {
 	public DrawThread getThread() {
 		return drawThread;
 	}
+
+	public void setPaintColor(int color) {
+		controller.setPaintColor(color);
+	}
+
+	public int getPaintColor() {
+		return controller.getPaintColor();
+	}
 }

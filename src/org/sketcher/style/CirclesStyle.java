@@ -3,6 +3,7 @@ package org.sketcher.style;
 import org.sketcher.Style;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 
 class CirclesStyle implements Style {
@@ -12,9 +13,11 @@ class CirclesStyle implements Style {
 	private Paint paint = new Paint();
 
 	{
-		paint.setARGB(50, 0, 0, 0);
+		paint.setColor(Color.BLACK);
+		paint.setAlpha(50);
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setAntiAlias(true);
+		paint.setStrokeWidth(1);
 	}
 
 	@Override
@@ -46,5 +49,11 @@ class CirclesStyle implements Style {
 
 	@Override
 	public void draw(Canvas c) {
+	}
+
+	@Override
+	public void setColor(int color) {
+		paint.setColor(color);
+		paint.setAlpha(50);
 	}
 }

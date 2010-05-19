@@ -3,6 +3,7 @@ package org.sketcher;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import org.sketcher.ColorPickerDialog.OnColorChangedListener;
 import org.sketcher.style.StylesFactory;
 
 import android.app.Activity;
@@ -23,14 +24,13 @@ public class Sketcher extends Activity {
 	private static final short MENU_CLEAR = 0x2001;
 	private static final short MENU_SAVE = 0x2002;
 	private static final short MENU_SEND = 0x2003;
+	private static final short MENU_COLOR = 0x2004;
 
 	private Surface surface;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		upgrade();
 
 		surface = new Surface(this);
 
@@ -41,14 +41,6 @@ public class Sketcher extends Activity {
 		setContentView(surface, params);
 	}
 
-	private void upgrade() {
-		File oldFile = getFileStreamPath(Surface.OLD_STATE_FILE);
-		if (oldFile.exists()) {
-			File newName = getFileStreamPath(Surface.STATE_FILE);
-			oldFile.renameTo(newName);
-		}
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
@@ -56,6 +48,7 @@ public class Sketcher extends Activity {
 		menu.add(0, MENU_SAVE, 0, "Save").setIcon(R.drawable.save);
 		menu.add(0, MENU_SEND, 0, "Send").setIcon(R.drawable.send);
 		menu.add(0, MENU_CLEAR, 0, "Clear").setIcon(R.drawable.clear);
+		menu.add(0, MENU_COLOR, 0, "Color");
 		SubMenu subMenu = menu.addSubMenu("Brushes")
 				.setIcon(R.drawable.brushes);
 		subMenu.add(GROUP_BRUSHES, StylesFactory.SKETCHY, 0, "Sketchy");
@@ -89,6 +82,14 @@ public class Sketcher extends Activity {
 			return true;
 		case MENU_SEND:
 			sendImage();
+			return true;
+		case MENU_COLOR:
+			new ColorPickerDialog(this, new OnColorChangedListener() {
+				@Override
+				public void colorChanged(int color) {
+					surface.setPaintColor(color);
+				}
+			}, surface.getPaintColor()).show();
 			return true;
 
 		default:
@@ -127,8 +128,10 @@ public class Sketcher extends Activity {
 		new AsyncTask<Void, Void, Void>() {
 			protected Void doInBackground(Void... urls) {
 				surface.getThread().pauseDrawing();
+				String sdPath = Environment.getExternalStorageDirectory()
+						.getAbsolutePath();
 
-				String path = "/sdcard/sketcher/";
+				String path = sdPath + "/sketcher/";
 				String filename = "image_";
 				String extension = ".png";
 
@@ -147,8 +150,12 @@ public class Sketcher extends Activity {
 				try {
 					surface.saveBitmap(fileName);
 				} catch (FileNotFoundException e) {
-					e.printStackTrace();
+					throw new RuntimeException(e);
 				}
+
+				Uri uri = Uri.fromFile(new File(fileName));
+				sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+						uri));
 
 				return null;
 			}

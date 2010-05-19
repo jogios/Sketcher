@@ -3,6 +3,7 @@ package org.sketcher.style;
 import org.sketcher.Style;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 
 class SquaresStyle implements Style {
@@ -12,7 +13,8 @@ class SquaresStyle implements Style {
 	private Paint paint = new Paint();
 
 	{
-		paint.setARGB(100, 0, 0, 0);
+		paint.setColor(Color.BLACK);
+		paint.setAlpha(100);
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setAntiAlias(true);
 	}
@@ -41,8 +43,14 @@ class SquaresStyle implements Style {
 		prevX = x;
 		prevY = y;
 	}
-	
+
 	@Override
 	public void draw(Canvas c) {
+	}
+
+	@Override
+	public void setColor(int color) {
+		paint.setColor(color);
+		paint.setAlpha(100);
 	}
 }
