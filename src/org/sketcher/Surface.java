@@ -30,6 +30,7 @@ public class Surface extends SurfaceView implements Callback {
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
 			bitmap.eraseColor(Color.WHITE);
@@ -43,6 +44,7 @@ public class Surface extends SurfaceView implements Callback {
 					drawArea.drawBitmap(savedBitmap, 0, 0, null);
 				}
 			} catch (FileNotFoundException e) {
+				// ok, continue
 			}
 
 			while (mRun) {
