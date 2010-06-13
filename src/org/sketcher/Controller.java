@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 
 public class Controller {
 	private Style style;
-	private Canvas canvas;
+	private Canvas canvas = new Canvas();
 	private boolean toDraw = false;
 	private int color = Color.BLACK;
 

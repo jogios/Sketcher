@@ -83,14 +83,13 @@ public class Surface extends SurfaceView implements Callback {
 	}
 
 	private DrawThread drawThread;
-	private Controller controller;
+	private Controller controller = new Controller();
 
 	private Bitmap bitmap;
 
 	public Surface(Context context) {
 		super(context);
 
-		controller = new Controller();
 		getHolder().addCallback(this);
 		setFocusable(true);
 	}
