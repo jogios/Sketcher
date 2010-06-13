@@ -116,7 +116,6 @@ public class Surface extends SurfaceView implements Callback {
 		while (true) {
 			try {
 				drawThread.join();
-				bitmap = null;
 				break;
 			} catch (InterruptedException e) {
 			}
