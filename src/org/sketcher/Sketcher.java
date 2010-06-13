@@ -45,23 +45,23 @@ public class Sketcher extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
-		menu.add(0, MENU_SAVE, 0, "Save").setIcon(R.drawable.save);
-		menu.add(0, MENU_SEND, 0, "Send").setIcon(R.drawable.send);
-		menu.add(0, MENU_CLEAR, 0, "Clear").setIcon(R.drawable.clear);
-		menu.add(0, MENU_COLOR, 0, "Color");
-		SubMenu subMenu = menu.addSubMenu("Brushes")
-				.setIcon(R.drawable.brushes);
-		subMenu.add(GROUP_BRUSHES, StylesFactory.SKETCHY, 0, "Sketchy");
-		subMenu.add(GROUP_BRUSHES, StylesFactory.SIMPLE, 0, "Simple");
-		subMenu.add(GROUP_BRUSHES, StylesFactory.SHADED, 0, "Shaded");
-		subMenu.add(GROUP_BRUSHES, StylesFactory.CHROME, 0, "Chrome");
-		subMenu.add(GROUP_BRUSHES, StylesFactory.FUR, 0, "Fur");
-		subMenu.add(GROUP_BRUSHES, StylesFactory.LONGFUR, 0, "Longfur");
-		subMenu.add(GROUP_BRUSHES, StylesFactory.WEB, 0, "Web");
-		subMenu.add(GROUP_BRUSHES, StylesFactory.SQUARES, 0, "Squares");
-		subMenu.add(GROUP_BRUSHES, StylesFactory.RIBBON, 0, "Ribbon");
-		subMenu.add(GROUP_BRUSHES, StylesFactory.CIRCLES, 0, "Circles");
-		subMenu.add(GROUP_BRUSHES, StylesFactory.GRID, 0, "Grid");
+		menu.add(0, MENU_SAVE, 0, R.string.save).setIcon(R.drawable.save);
+		menu.add(0, MENU_SEND, 0, R.string.send).setIcon(R.drawable.send);
+		menu.add(0, MENU_CLEAR, 0, R.string.clear).setIcon(R.drawable.clear);
+		menu.add(0, MENU_COLOR, 0, R.string.color);
+		SubMenu subMenu = menu.addSubMenu(R.string.brushes).setIcon(
+				R.drawable.brushes);
+		subMenu.add(GROUP_BRUSHES, StylesFactory.SKETCHY, 0, R.string.sketchy);
+		subMenu.add(GROUP_BRUSHES, StylesFactory.SIMPLE, 0, R.string.simple);
+		subMenu.add(GROUP_BRUSHES, StylesFactory.SHADED, 0, R.string.shaded);
+		subMenu.add(GROUP_BRUSHES, StylesFactory.CHROME, 0, R.string.chrome);
+		subMenu.add(GROUP_BRUSHES, StylesFactory.FUR, 0, R.string.fur);
+		subMenu.add(GROUP_BRUSHES, StylesFactory.LONGFUR, 0, R.string.longfur);
+		subMenu.add(GROUP_BRUSHES, StylesFactory.WEB, 0, R.string.web);
+		subMenu.add(GROUP_BRUSHES, StylesFactory.SQUARES, 0, R.string.squares);
+		subMenu.add(GROUP_BRUSHES, StylesFactory.RIBBON, 0, R.string.ribbon);
+		subMenu.add(GROUP_BRUSHES, StylesFactory.CIRCLES, 0, R.string.circles);
+		subMenu.add(GROUP_BRUSHES, StylesFactory.GRID, 0, R.string.grid);
 
 		return true;
 	}
@@ -110,20 +110,20 @@ public class Sketcher extends Activity {
 		Intent i = new Intent(Intent.ACTION_SEND);
 		i.setType("image/png");
 		i.putExtra(Intent.EXTRA_STREAM, uri);
-		startActivity(Intent.createChooser(i, "Send Image To:"));
+		startActivity(Intent
+				.createChooser(i, getString(R.string.send_image_to)));
 	}
 
 	private void saveToSD() {
 		String externalStorageState = Environment.getExternalStorageState();
 		if (!externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
-			Toast
-					.makeText(this, "SD card is not available",
-							Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.sd_card_is_not_available,
+					Toast.LENGTH_SHORT).show();
 			return;
 		}
 
 		final ProgressDialog dialog = ProgressDialog.show(this, "",
-				"Saving to SD. Please wait...", true);
+				getString(R.string.saving_to_sd_please_wait), true);
 
 		new AsyncTask<Void, Void, Void>() {
 			protected Void doInBackground(Void... urls) {
