@@ -26,8 +26,10 @@ class SquaresStyle implements Style {
 
 		float alpha = 1.57079633F;
 
-		float ax = (float) (Math.cos(alpha) * dx - Math.sin(alpha) * dy);
-		float ay = (float) (Math.sin(alpha) * dx + Math.cos(alpha) * dy);
+		double cosA = Math.cos(alpha);
+		double sinA = Math.sin(alpha);
+		float ax = (float) (cosA * dx - sinA * dy);
+		float ay = (float) (sinA * dx + cosA * dy);
 
 		c.drawLine(prevX - ax, prevY - ay, prevX + ax, prevY + ay, paint);
 		c.drawLine(prevX + ax, prevY + ay, x + ax, y + ay, paint);

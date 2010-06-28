@@ -5,8 +5,9 @@ import org.sketcher.style.StylesFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.MotionEvent;
+import android.view.View;
 
-public class Controller {
+public class Controller implements View.OnTouchListener {
 	private Style style;
 	private Canvas canvas = new Canvas();
 	private boolean toDraw = false;
@@ -32,7 +33,8 @@ public class Controller {
 		this.canvas = canvas;
 	}
 
-	public boolean onTouchEvent(MotionEvent event) {
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			toDraw = true;
@@ -59,4 +61,5 @@ public class Controller {
 	public int getPaintColor() {
 		return color;
 	}
+
 }

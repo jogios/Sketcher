@@ -10,12 +10,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Bitmap.CompressFormat;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder.Callback;
 
-public class Surface extends SurfaceView implements Callback {
+public final class Surface extends SurfaceView implements Callback {
 	public static final String STATE_FILE = "asketch.png";
 	public static final String OLD_STATE_FILE = "backup";
 
@@ -23,18 +22,17 @@ public class Surface extends SurfaceView implements Callback {
 		private boolean mRun = true;
 		private boolean mPause = false;
 
-		@Override
-		public void run() {
-			SurfaceHolder surfaceHolder = getHolder();
-			while (bitmap == null) {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
+		private Bitmap bitmap;
+		private Canvas drawArea;
+
+		public Bitmap getBitmap() {
+			return bitmap;
+		}
+
+		public void setBitmap(Bitmap bitmap) {
+			this.bitmap = bitmap;
 			bitmap.eraseColor(Color.WHITE);
-			Canvas drawArea = new Canvas(bitmap);
+			drawArea = new Canvas(bitmap);
 			controller.setCanvas(drawArea);
 
 			try {
@@ -46,9 +44,22 @@ public class Surface extends SurfaceView implements Callback {
 			} catch (FileNotFoundException e) {
 				// ok, continue
 			}
+		}
+
+		@Override
+		public void run() {
+			while (bitmap == null) {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+
+			SurfaceHolder surfaceHolder = getHolder();
 
 			while (mRun) {
-				while (mPause) {
+				while (mRun && mPause) {
 					try {
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
@@ -85,13 +96,12 @@ public class Surface extends SurfaceView implements Callback {
 	private DrawThread drawThread;
 	private Controller controller = new Controller();
 
-	private Bitmap bitmap;
-
 	public Surface(Context context) {
 		super(context);
 
 		getHolder().addCallback(this);
 		setFocusable(true);
+		setOnTouchListener(controller);
 	}
 
 	public void setStyle(Style style) {
@@ -101,7 +111,8 @@ public class Surface extends SurfaceView implements Callback {
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
-		bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+		drawThread.setBitmap(Bitmap.createBitmap(width, height,
+				Bitmap.Config.ARGB_8888));
 	}
 
 	@Override
@@ -122,17 +133,16 @@ public class Surface extends SurfaceView implements Callback {
 		}
 	}
 
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		return controller.onTouchEvent(event);
-	}
-
 	public void clearBitmap() {
-		bitmap.eraseColor(Color.WHITE);
+		drawThread.getBitmap().eraseColor(Color.WHITE);
 		controller.clear();
 	}
 
 	public void saveState() {
+		final Bitmap bitmap = drawThread.getBitmap();
+		if (bitmap == null) {
+			return;
+		}
 		try {
 			FileOutputStream fos = getContext().openFileOutput(STATE_FILE,
 					Context.MODE_WORLD_READABLE);
@@ -144,7 +154,7 @@ public class Surface extends SurfaceView implements Callback {
 
 	public void saveBitmap(String fileName) throws FileNotFoundException {
 		FileOutputStream fos = new FileOutputStream(fileName);
-		bitmap.compress(CompressFormat.PNG, 100, fos);
+		drawThread.getBitmap().compress(CompressFormat.PNG, 100, fos);
 	}
 
 	public DrawThread getThread() {
@@ -158,4 +168,5 @@ public class Surface extends SurfaceView implements Callback {
 	public int getPaintColor() {
 		return controller.getPaintColor();
 	}
+
 }

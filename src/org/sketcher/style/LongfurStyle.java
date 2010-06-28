@@ -11,7 +11,6 @@ import android.graphics.PointF;
 
 class LongfurStyle implements Style {
 	private ArrayList<PointF> points = new ArrayList<PointF>();
-	private int count = 0;
 
 	private Paint paint = new Paint();
 
@@ -23,7 +22,8 @@ class LongfurStyle implements Style {
 
 	@Override
 	public void stroke(Canvas c, float x, float y) {
-		points.add(new PointF(x, y));
+		PointF current = new PointF(x, y);
+		points.add(current);
 
 		float dx = 0;
 		float dy = 0;
@@ -32,23 +32,21 @@ class LongfurStyle implements Style {
 
 		for (int i = 0, max = points.size(); i < max; i++) {
 			PointF point = points.get(i);
-			PointF _point = points.get(count);
 
-			dx = point.x - _point.x;
-			dy = point.y - _point.y;
+			dx = point.x - current.x;
+			dy = point.y - current.y;
 
 			rand = (float) -Math.random();
 			length = dx * dx + dy * dy;
 
 			if (length < 4000 && Math.random() > length / 4000) {
-				c.drawLine(_point.x + (dx * rand), _point.y + (dy * rand),
-						point.x - (dx * rand) + (float) Math.random() * 2,
-						point.y - (dy * rand) + (float) Math.random() * 2,
-						paint);
+				float ddx = dx * rand;
+				float ddy = dy * rand;
+				c.drawLine(current.x + ddx, current.y + ddy, point.x - ddx
+						+ (float) Math.random() * 2, point.y - ddy
+						+ (float) Math.random() * 2, paint);
 			}
 		}
-
-		count++;
 	}
 
 	@Override

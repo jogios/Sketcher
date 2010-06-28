@@ -14,19 +14,19 @@ class SketchyStyle implements Style {
 	private float prevY;
 
 	private ArrayList<PointF> points = new ArrayList<PointF>();
-	private int count = 0;
 
 	private Paint paint = new Paint();
 
 	{
 		paint.setColor(Color.BLACK);
-		paint.setAlpha(30);
+		paint.setAlpha(80);
 		paint.setAntiAlias(true);
 	}
 
 	@Override
 	public void stroke(Canvas c, float x, float y) {
-		points.add(new PointF(x, y));
+		PointF current = new PointF(x, y);
+		points.add(current);
 
 		c.drawLine(prevX, prevY, x, y, paint);
 
@@ -36,22 +36,21 @@ class SketchyStyle implements Style {
 
 		for (int i = 0, max = points.size(); i < max; i++) {
 			PointF point = points.get(i);
-			PointF _point = points.get(count);
-			dx = point.x - _point.x;
-			dy = point.y - _point.y;
+			dx = point.x - current.x;
+			dy = point.y - current.y;
 
 			length = dx * dx + dy * dy;
 
-			if (length < 4000 && Math.random() > length / 2000) {
-				c.drawLine(_point.x + (dx * 0.3F), _point.y + (dy * 0.3F),
-						point.x - (dx * 0.3F), point.y - (dy * 0.3F), paint);
+			if (length < 4000 && Math.random() > (length / 2000)) {
+				float ddx = dx * 0.3F;
+				float ddy = dy * 0.3F;
+				c.drawLine(current.x + ddx, current.y + ddy, point.x - ddx,
+						point.y - ddy, paint);
 			}
 		}
 
 		prevX = x;
 		prevY = y;
-
-		count++;
 	}
 
 	@Override

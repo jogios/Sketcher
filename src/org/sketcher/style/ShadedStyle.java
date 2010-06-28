@@ -11,7 +11,6 @@ import android.graphics.PointF;
 
 class ShadedStyle implements Style {
 	private ArrayList<PointF> points = new ArrayList<PointF>();
-	private int count = 0;
 
 	private Paint paint = new Paint();
 
@@ -22,7 +21,8 @@ class ShadedStyle implements Style {
 
 	@Override
 	public void stroke(Canvas c, float x, float y) {
-		points.add(new PointF(x, y));
+		PointF current = new PointF(x, y);
+		points.add(current);
 
 		float dx = 0;
 		float dy = 0;
@@ -30,20 +30,17 @@ class ShadedStyle implements Style {
 
 		for (int i = 0, max = points.size(); i < max; i++) {
 			PointF point = points.get(i);
-			PointF _point = points.get(count);
 
-			dx = point.x - _point.x;
-			dy = point.y - _point.y;
+			dx = point.x - current.x;
+			dy = point.y - current.y;
 
 			length = (int) (dx * dx + dy * dy);
 
 			if (length < 1000) {
 				paint.setAlpha(((1 - (length / 1000)) * 30));
-				c.drawLine(_point.x, _point.y, point.x, point.y, paint);
+				c.drawLine(current.x, current.y, point.x, point.y, paint);
 			}
 		}
-
-		count++;
 	}
 
 	@Override

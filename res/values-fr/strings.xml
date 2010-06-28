@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Translated by Michael Crombeen -->
 <resources>
 	<string name="pick_a_color">Choisissez une couleur</string>
 	<string name="saving_to_sd_please_wait">Enregistre sur SD</string>
+	<string name="please_wait">Please wait...</string>
 	<string name="sd_card_is_not_available">SD card is not available</string>
 	<string name="brushes">Pinceaux</string>
 	<string name="color">Couleur</string>

@@ -2,6 +2,7 @@
 <resources>
 	<string name="pick_a_color">Выберите цвет</string>
 	<string name="saving_to_sd_please_wait">Сохраняю...</string>
+	<string name="please_wait">Минуточку...</string>
 	<string name="sd_card_is_not_available">SD-карта не доступна</string>
 	<string name="brushes">Кисти</string>
 	<string name="color">Цвет</string>

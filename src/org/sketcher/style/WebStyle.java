@@ -14,7 +14,6 @@ class WebStyle implements Style {
 	private float prevY;
 
 	private ArrayList<PointF> points = new ArrayList<PointF>();
-	private int count = 0;
 
 	private Paint paint = new Paint();
 
@@ -26,7 +25,8 @@ class WebStyle implements Style {
 
 	@Override
 	public void stroke(Canvas c, float x, float y) {
-		points.add(new PointF(x, y));
+		PointF current = new PointF(x, y);
+		points.add(current);
 
 		c.drawLine(prevX, prevY, x, y, paint);
 
@@ -36,21 +36,19 @@ class WebStyle implements Style {
 
 		for (int i = 0, max = points.size(); i < max; i++) {
 			PointF point = points.get(i);
-			PointF _point = points.get(count);
-			dx = point.x - _point.x;
-			dy = point.y - _point.y;
+
+			dx = point.x - current.x;
+			dy = point.y - current.y;
 
 			length = dx * dx + dy * dy;
 
 			if (length < 2500 && Math.random() > 0.9) {
-				c.drawLine(_point.x, _point.y, point.x, point.y, paint);
+				c.drawLine(current.x, current.y, point.x, point.y, paint);
 			}
 		}
 
 		prevX = x;
 		prevY = y;
-
-		count++;
 	}
 
 	@Override
