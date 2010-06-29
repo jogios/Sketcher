@@ -9,3 +9,4 @@ Thanks to:
 
 * mrdoob - the author of original Harmony procedural drawing tool
 * Michael Crombeen - translation to French
+* Scott - translation to Korean
