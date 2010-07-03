@@ -23,7 +23,7 @@ public class Sketcher extends Activity {
 	private static final short GROUP_BRUSHES = 0x1000;
 	private static final short MENU_CLEAR = 0x2001;
 	private static final short MENU_SAVE = 0x2002;
-	private static final short MENU_SEND = 0x2003;
+	private static final short MENU_SHARE = 0x2003;
 	private static final short MENU_COLOR = 0x2004;
 
 	private Surface surface;
@@ -46,7 +46,7 @@ public class Sketcher extends Activity {
 		super.onCreateOptionsMenu(menu);
 
 		menu.add(0, MENU_SAVE, 0, R.string.save).setIcon(R.drawable.save);
-		menu.add(0, MENU_SEND, 0, R.string.send).setIcon(R.drawable.send);
+		menu.add(0, MENU_SHARE, 0, R.string.send).setIcon(R.drawable.send);
 		menu.add(0, MENU_CLEAR, 0, R.string.clear).setIcon(R.drawable.clear);
 		menu.add(0, MENU_COLOR, 0, R.string.color).setIcon(R.drawable.color);
 		SubMenu subMenu = menu.addSubMenu(R.string.brushes).setIcon(
@@ -80,8 +80,8 @@ public class Sketcher extends Activity {
 		case MENU_SAVE:
 			saveToSD();
 			return true;
-		case MENU_SEND:
-			sendImage();
+		case MENU_SHARE:
+			share();
 			return true;
 		case MENU_COLOR:
 			new ColorPickerDialog(this, new OnColorChangedListener() {
@@ -103,7 +103,7 @@ public class Sketcher extends Activity {
 		surface.saveState();
 	}
 
-	private void sendImage() {
+	private void share() {
 		if (!checkStorage()) {
 			return;
 		}
@@ -180,10 +180,6 @@ public class Sketcher extends Activity {
 		String filename = "image_";
 		String extension = ".png";
 
-		if (!new File(path).exists()) {
-			new File(path).mkdirs();
-		}
-
 		int suffix = 1;
 
 		while (new File(path + filename + suffix + extension).exists()) {
@@ -194,7 +190,14 @@ public class Sketcher extends Activity {
 	}
 
 	private String getSDDir() {
-		return Environment.getExternalStorageDirectory().getAbsolutePath()
+		String path = Environment.getExternalStorageDirectory()
+				.getAbsolutePath()
 				+ "/sketcher/";
+
+		if (!new File(path).exists()) {
+			new File(path).mkdirs();
+		}
+
+		return path;
 	}
 }
