@@ -108,38 +108,45 @@ public final class Surface extends SurfaceView implements Callback {
 		controller.setStyle(style);
 	}
 
+	public DrawThread getDrawThread() {
+		if (drawThread == null) {
+			drawThread = new DrawThread();
+		}
+		return drawThread;
+	}
+
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
-		drawThread.setBitmap(Bitmap.createBitmap(width, height,
-				Bitmap.Config.ARGB_8888));
+		getDrawThread().setBitmap(
+				Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888));
 	}
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		drawThread = new DrawThread();
-		drawThread.start();
+		getDrawThread().start();
 	}
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
-		drawThread.stopDrawing();
+		getDrawThread().stopDrawing();
 		while (true) {
 			try {
-				drawThread.join();
+				getDrawThread().join();
 				break;
 			} catch (InterruptedException e) {
 			}
 		}
+		drawThread = null;
 	}
 
 	public void clearBitmap() {
-		drawThread.getBitmap().eraseColor(Color.WHITE);
+		getDrawThread().getBitmap().eraseColor(Color.WHITE);
 		controller.clear();
 	}
 
 	public void saveState() {
-		final Bitmap bitmap = drawThread.getBitmap();
+		final Bitmap bitmap = getDrawThread().getBitmap();
 		if (bitmap == null) {
 			return;
 		}
@@ -154,11 +161,7 @@ public final class Surface extends SurfaceView implements Callback {
 
 	public void saveBitmap(String fileName) throws FileNotFoundException {
 		FileOutputStream fos = new FileOutputStream(fileName);
-		drawThread.getBitmap().compress(CompressFormat.PNG, 100, fos);
-	}
-
-	public DrawThread getThread() {
-		return drawThread;
+		getDrawThread().getBitmap().compress(CompressFormat.PNG, 100, fos);
 	}
 
 	public void setPaintColor(int color) {

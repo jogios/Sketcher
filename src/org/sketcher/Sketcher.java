@@ -32,6 +32,8 @@ public class Sketcher extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		ErrorReporter.INSTANCE.init(this);
+
 		surface = new Surface(this);
 
 		LayoutParams params = new LayoutParams(
@@ -114,7 +116,8 @@ public class Sketcher extends Activity {
 
 			protected String doInBackground(Void... none) {
 				String fileName = getSDDir() + "tmp.png";
-				return saveBitmap(fileName);
+				saveBitmap(fileName);
+				return fileName;
 			}
 
 			protected void onPostExecute(String fileName) {
@@ -150,8 +153,10 @@ public class Sketcher extends Activity {
 					"", getString(R.string.saving_to_sd_please_wait), true);
 
 			protected String doInBackground(Void... none) {
-				surface.getThread().pauseDrawing();
-				return saveBitmap(getUniqueFilePath());
+				surface.getDrawThread().pauseDrawing();
+				String uniqueFilePath = getUniqueFilePath();
+				saveBitmap(uniqueFilePath);
+				return uniqueFilePath;
 			}
 
 			protected void onPostExecute(String fileName) {
@@ -160,19 +165,17 @@ public class Sketcher extends Activity {
 						uri));
 
 				dialog.hide();
-				surface.getThread().resumeDrawing();
+				surface.getDrawThread().resumeDrawing();
 			}
 		}.execute();
 	}
 
-	private String saveBitmap(String fileName) {
+	private void saveBitmap(String fileName) {
 		try {
 			surface.saveBitmap(fileName);
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		}
-
-		return fileName;
 	}
 
 	private String getUniqueFilePath() {
