@@ -19,6 +19,8 @@ import android.view.SubMenu;
 import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 
+import com.nullwire.trace.ExceptionHandler;
+
 public class Sketcher extends Activity {
 	private static final short GROUP_BRUSHES = 0x1000;
 	private static final short MENU_CLEAR = 0x2001;
@@ -32,7 +34,9 @@ public class Sketcher extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		ErrorReporter.INSTANCE.init(this);
+		// register nullwire exception handler which sends crash reports to
+		// http://trace.nullwire.com/
+		ExceptionHandler.register(this);
 
 		surface = new Surface(this);
 
