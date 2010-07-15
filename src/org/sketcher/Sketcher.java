@@ -1,6 +1,7 @@
 package org.sketcher;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import org.sketcher.ColorPickerDialog.OnColorChangedListener;
@@ -9,10 +10,13 @@ import org.sketcher.style.StylesFactory;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StatFs;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -30,9 +34,31 @@ public class Sketcher extends Activity {
 
 	private Surface surface;
 
+	private class SaveTask extends AsyncTask<Void, Void, String> {
+		private ProgressDialog dialog = ProgressDialog.show(Sketcher.this, "",
+				getString(R.string.saving_to_sd_please_wait), true);
+
+		protected String doInBackground(Void... none) {
+			surface.getDrawThread().pauseDrawing();
+			String uniqueFilePath = getUniqueFilePath(getSDDir());
+			saveBitmap(uniqueFilePath);
+			return uniqueFilePath;
+		}
+
+		protected void onPostExecute(String fileName) {
+			Uri uri = Uri.fromFile(new File(fileName));
+			sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
+
+			dialog.hide();
+			surface.getDrawThread().resumeDrawing();
+		}
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		versionCleanup();
 
 		// register nullwire exception handler which sends crash reports to
 		// http://trace.nullwire.com/
@@ -45,6 +71,27 @@ public class Sketcher extends Activity {
 				android.view.ViewGroup.LayoutParams.FILL_PARENT);
 
 		setContentView(surface, params);
+	}
+
+	// FIXME remove me the next version
+	@Deprecated
+	private void versionCleanup() {
+		{
+			File file = getFileStreamPath("asketch.png");
+			if (file.exists()) {
+				file.delete();
+			}
+		}
+		{
+			String externalStorageState = Environment.getExternalStorageState();
+			if (!externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
+				return;
+			}
+			File file = new File(getSDDir() + "tmp.png");
+			if (file.exists()) {
+				file.delete();
+			}
+		}
 	}
 
 	@Override
@@ -103,29 +150,13 @@ public class Sketcher extends Activity {
 		}
 	}
 
-	@Override
-	protected void onPause() {
-		super.onPause();
-		surface.saveState();
-	}
-
 	private void share() {
-		if (!checkStorage()) {
+		if (!isStorageAvailable()) {
 			return;
 		}
 
-		new AsyncTask<Void, Void, String>() {
-			private ProgressDialog dialog = ProgressDialog.show(Sketcher.this,
-					"", getString(R.string.please_wait), true);
-
-			protected String doInBackground(Void... none) {
-				String fileName = getSDDir() + "tmp.png";
-				saveBitmap(fileName);
-				return fileName;
-			}
-
+		new SaveTask() {
 			protected void onPostExecute(String fileName) {
-				dialog.hide();
 				Uri uri = Uri.fromFile(new File(fileName));
 
 				Intent i = new Intent(Intent.ACTION_SEND);
@@ -133,11 +164,13 @@ public class Sketcher extends Activity {
 				i.putExtra(Intent.EXTRA_STREAM, uri);
 				startActivity(Intent.createChooser(i,
 						getString(R.string.send_image_to)));
+
+				super.onPostExecute(fileName);
 			}
 		}.execute();
 	}
 
-	private boolean checkStorage() {
+	private boolean isStorageAvailable() {
 		String externalStorageState = Environment.getExternalStorageState();
 		if (!externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
 			Toast.makeText(this, R.string.sd_card_is_not_available,
@@ -148,42 +181,33 @@ public class Sketcher extends Activity {
 	}
 
 	private void saveToSD() {
-		if (!checkStorage()) {
+		if (!isStorageAvailable()) {
 			return;
 		}
 
-		new AsyncTask<Void, Void, String>() {
-			private ProgressDialog dialog = ProgressDialog.show(Sketcher.this,
-					"", getString(R.string.saving_to_sd_please_wait), true);
-
-			protected String doInBackground(Void... none) {
-				surface.getDrawThread().pauseDrawing();
-				String uniqueFilePath = getUniqueFilePath();
-				saveBitmap(uniqueFilePath);
-				return uniqueFilePath;
-			}
-
-			protected void onPostExecute(String fileName) {
-				Uri uri = Uri.fromFile(new File(fileName));
-				sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
-						uri));
-
-				dialog.hide();
-				surface.getDrawThread().resumeDrawing();
-			}
-		}.execute();
+		new SaveTask().execute();
 	}
 
 	private void saveBitmap(String fileName) {
 		try {
 			surface.saveBitmap(fileName);
+			throw new FileNotFoundException();
 		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
+			File file = new File(fileName); // FIXME
+			File sd = Environment.getDataDirectory();
+			StatFs stat = new StatFs(sd.getPath());
+			long blockSize = stat.getBlockSize();
+			long availableBlocks = stat.getAvailableBlocks();
+			throw new RuntimeException(String.format(
+					"is_dir: %b, writable: %b, parent_is_dir: %b, "
+							+ "parent_exists: %b, free: %s",
+					file.isDirectory(), file.canWrite(), file.getParentFile()
+							.isDirectory(), file.getParentFile().exists(),
+					availableBlocks * blockSize), e);
 		}
 	}
 
-	private String getUniqueFilePath() {
-		String path = getSDDir();
+	private String getUniqueFilePath(String path) {
 		String filename = "image_";
 		String extension = ".png";
 
@@ -196,15 +220,55 @@ public class Sketcher extends Activity {
 		return path + filename + suffix + extension;
 	}
 
+	private File getLastFile(String path) {
+		String filename = "image_";
+		String extension = ".png";
+
+		int suffix = 1;
+
+		File newFile = null;
+		File file = null;
+		boolean exists = false;
+		do {
+			file = newFile;
+			newFile = new File(path + filename + suffix + extension);
+			suffix++;
+			exists = newFile.exists();
+		} while (exists);
+
+		return file;
+	}
+
 	private String getSDDir() {
 		String path = Environment.getExternalStorageDirectory()
 				.getAbsolutePath()
 				+ "/sketcher/";
 
-		if (!new File(path).exists()) {
-			new File(path).mkdirs();
+		File file = new File(path);
+		if (!file.exists()) {
+			file.mkdirs();
 		}
 
 		return path;
+	}
+
+	public Bitmap getSavedBitmap() {
+		if (!isStorageAvailable()) {
+			return null;
+		}
+
+		File lastFile = getLastFile(getSDDir());
+		if (lastFile == null) {
+			return null;
+		}
+
+		Bitmap savedBitmap = null;
+		try {
+			FileInputStream fis = new FileInputStream(lastFile);
+			savedBitmap = BitmapFactory.decodeStream(fis);
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+		return savedBitmap;
 	}
 }

@@ -1,12 +1,9 @@
 package org.sketcher;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Bitmap.CompressFormat;
@@ -16,7 +13,6 @@ import android.view.SurfaceHolder.Callback;
 
 public final class Surface extends SurfaceView implements Callback {
 	public static final String STATE_FILE = "asketch.png";
-	public static final String OLD_STATE_FILE = "backup";
 
 	public final class DrawThread extends Thread {
 		private boolean mRun = true;
@@ -35,14 +31,9 @@ public final class Surface extends SurfaceView implements Callback {
 			drawArea = new Canvas(bitmap);
 			controller.setCanvas(drawArea);
 
-			try {
-				FileInputStream fis = getContext().openFileInput(STATE_FILE);
-				Bitmap savedBitmap = BitmapFactory.decodeStream(fis);
-				if (savedBitmap != null) {
-					drawArea.drawBitmap(savedBitmap, 0, 0, null);
-				}
-			} catch (FileNotFoundException e) {
-				// ok, continue
+			Bitmap savedBitmap = context.getSavedBitmap();
+			if (savedBitmap != null) {
+				drawArea.drawBitmap(savedBitmap, 0, 0, null);
 			}
 		}
 
@@ -99,9 +90,12 @@ public final class Surface extends SurfaceView implements Callback {
 
 	private DrawThread drawThread;
 	private Controller controller = new Controller();
+	private Sketcher context;
 
-	public Surface(Context context) {
+	public Surface(Sketcher context) {
 		super(context);
+
+		this.context = context;
 
 		getHolder().addCallback(this);
 		setFocusable(true);
@@ -149,20 +143,6 @@ public final class Surface extends SurfaceView implements Callback {
 		controller.clear();
 	}
 
-	public void saveState() {
-		final Bitmap bitmap = getDrawThread().getBitmap();
-		if (bitmap == null) {
-			return;
-		}
-		try {
-			FileOutputStream fos = getContext().openFileOutput(STATE_FILE,
-					Context.MODE_WORLD_READABLE);
-			bitmap.compress(CompressFormat.PNG, 100, fos);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void saveBitmap(String fileName) throws FileNotFoundException {
 		FileOutputStream fos = new FileOutputStream(fileName);
 		getDrawThread().getBitmap().compress(CompressFormat.PNG, 100, fos);
@@ -175,5 +155,4 @@ public final class Surface extends SurfaceView implements Callback {
 	public int getPaintColor() {
 		return controller.getPaintColor();
 	}
-
 }
