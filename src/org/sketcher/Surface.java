@@ -48,15 +48,10 @@ public final class Surface extends SurfaceView implements Callback {
 
 		@Override
 		public void run() {
-			while (bitmap == null) {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
+			waitForBitmap();
 
 			SurfaceHolder surfaceHolder = getHolder();
+			Canvas canvas = null;
 
 			while (mRun) {
 				while (mRun && mPause) {
@@ -65,7 +60,6 @@ public final class Surface extends SurfaceView implements Callback {
 					} catch (InterruptedException e) {
 					}
 				}
-				Canvas canvas = null;
 				try {
 					canvas = surfaceHolder.lockCanvas();
 					synchronized (surfaceHolder) {
@@ -76,6 +70,16 @@ public final class Surface extends SurfaceView implements Callback {
 					if (canvas != null) {
 						surfaceHolder.unlockCanvasAndPost(canvas);
 					}
+				}
+			}
+		}
+
+		private void waitForBitmap() {
+			while (bitmap == null) {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
 		}
