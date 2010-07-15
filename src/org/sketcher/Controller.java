@@ -17,9 +17,9 @@ public class Controller implements View.OnTouchListener {
 		clear();
 	}
 
-	public void draw(Canvas c) {
+	public void draw() {
 		if (toDraw) {
-			style.draw(c);
+			style.draw(canvas);
 		}
 	}
 

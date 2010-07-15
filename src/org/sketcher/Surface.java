@@ -69,7 +69,7 @@ public final class Surface extends SurfaceView implements Callback {
 				try {
 					canvas = surfaceHolder.lockCanvas();
 					synchronized (surfaceHolder) {
-						controller.draw(drawArea);
+						controller.draw();
 						canvas.drawBitmap(bitmap, 0, 0, null);
 					}
 				} finally {
