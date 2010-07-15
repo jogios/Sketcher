@@ -191,7 +191,6 @@ public class Sketcher extends Activity {
 	private void saveBitmap(String fileName) {
 		try {
 			surface.saveBitmap(fileName);
-			throw new FileNotFoundException();
 		} catch (FileNotFoundException e) {
 			File file = new File(fileName); // FIXME
 			File sd = Environment.getDataDirectory();
