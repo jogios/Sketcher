@@ -104,6 +104,7 @@ public class Sketcher extends Activity {
 		menu.add(0, MENU_COLOR, 0, R.string.color).setIcon(R.drawable.color);
 		SubMenu subMenu = menu.addSubMenu(R.string.brushes).setIcon(
 				R.drawable.brushes);
+		subMenu.add(GROUP_BRUSHES, StylesFactory.ERASER, 0, R.string.eraser);
 		subMenu.add(GROUP_BRUSHES, StylesFactory.SKETCHY, 0, R.string.sketchy);
 		subMenu.add(GROUP_BRUSHES, StylesFactory.SIMPLE, 0, R.string.simple);
 		subMenu.add(GROUP_BRUSHES, StylesFactory.SHADED, 0, R.string.shaded);

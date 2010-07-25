@@ -21,6 +21,7 @@
 	<string name="shaded">Shaded</string>
 	<string name="simple">Simple</string>
 	<string name="sketchy">Sketchy</string>
+	<string name="eraser">Ластик</string>
 
 	<string name="app_name">Sketcher</string>
 </resources>

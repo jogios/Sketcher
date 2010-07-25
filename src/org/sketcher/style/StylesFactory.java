@@ -17,6 +17,7 @@ public class StylesFactory {
 	public static final short CIRCLES = 0x1009;
 	public static final short GRID = 0x1010;
 	public static final short SIMPLE = 0x1011;
+	public static final short ERASER = 0x1012;
 
 	private static Map<Integer, Style> cache = new HashMap<Integer, Style>();
 	private static int currentStyle = SKETCHY;
@@ -61,6 +62,8 @@ public class StylesFactory {
 			return new GridStyle();
 		case SIMPLE:
 			return new SimpleStyle();
+		case ERASER:
+			return new EraserStyle();
 
 		default:
 			throw new RuntimeException("Invalid style ID");
