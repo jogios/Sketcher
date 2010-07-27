@@ -16,7 +16,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.StatFs;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -193,17 +192,7 @@ public class Sketcher extends Activity {
 		try {
 			surface.saveBitmap(fileName);
 		} catch (FileNotFoundException e) {
-			File file = new File(fileName); // FIXME
-			File sd = Environment.getDataDirectory();
-			StatFs stat = new StatFs(sd.getPath());
-			long blockSize = stat.getBlockSize();
-			long availableBlocks = stat.getAvailableBlocks();
-			throw new RuntimeException(String.format(
-					"is_dir: %b, writable: %b, parent_is_dir: %b, "
-							+ "parent_exists: %b, free: %s",
-					file.isDirectory(), file.canWrite(), file.getParentFile()
-							.isDirectory(), file.getParentFile().exists(),
-					availableBlocks * blockSize), e);
+			throw new RuntimeException(e);
 		}
 	}
 
