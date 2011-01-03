@@ -20,7 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.widget.Toast;
-import android.widget.RelativeLayout.LayoutParams;
 
 public class Sketcher extends Activity {
 	private static final short GROUP_BRUSHES = 0x1000;
@@ -59,13 +58,15 @@ public class Sketcher extends Activity {
 		// http://trace.nullwire.com/. Disabled since it's down
 		// ExceptionHandler.register(this);
 
-		surface = new Surface(this);
+		setContentView(R.layout.main);
+		surface = (Surface) findViewById(R.id.surface);
+	}
 
-		LayoutParams params = new LayoutParams(
-				android.view.ViewGroup.LayoutParams.FILL_PARENT,
-				android.view.ViewGroup.LayoutParams.FILL_PARENT);
+	@Override
+	protected void onResume() {
+		super.onResume();
 
-		setContentView(surface, params);
+		surface.setInitialBitmap(getSavedBitmap());
 	}
 
 	@Override

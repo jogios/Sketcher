@@ -3,38 +3,29 @@ package org.sketcher;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Bitmap.CompressFormat;
+import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder.Callback;
 
 public final class Surface extends SurfaceView implements Callback {
-	public static final String STATE_FILE = "asketch.png";
-
 	public final class DrawThread extends Thread {
 		private boolean mRun = true;
 		private boolean mPause = false;
 
 		private Bitmap bitmap;
-		private Canvas drawArea;
 
 		public Bitmap getBitmap() {
 			return bitmap;
 		}
 
-		public void setBitmap(Bitmap bitmap) {
+		private void setBitmap(Bitmap bitmap) {
 			this.bitmap = bitmap;
-			bitmap.eraseColor(Color.WHITE);
-			drawArea = new Canvas(bitmap);
-			controller.setCanvas(drawArea);
-
-			Bitmap savedBitmap = context.getSavedBitmap();
-			if (savedBitmap != null) {
-				drawArea.drawBitmap(savedBitmap, 0, 0, null);
-			}
 		}
 
 		@Override
@@ -90,12 +81,11 @@ public final class Surface extends SurfaceView implements Callback {
 
 	private DrawThread drawThread;
 	private Controller controller = new Controller();
-	private Sketcher context;
+	private Canvas drawCanvas;
+	private Bitmap initialBitmap;
 
-	public Surface(Sketcher context) {
-		super(context);
-
-		this.context = context;
+	public Surface(Context context, AttributeSet attributes) {
+		super(context, attributes);
 
 		getHolder().addCallback(this);
 		setFocusable(true);
@@ -116,8 +106,19 @@ public final class Surface extends SurfaceView implements Callback {
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
-		getDrawThread().setBitmap(
-				Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888));
+		Bitmap bitmap = Bitmap.createBitmap(width, height,
+				Bitmap.Config.ARGB_8888);
+		bitmap.eraseColor(Color.WHITE);
+
+		bitmap.eraseColor(Color.WHITE);
+		drawCanvas = new Canvas(bitmap);
+		controller.setCanvas(drawCanvas);
+
+		if (initialBitmap != null) {
+			drawCanvas.drawBitmap(initialBitmap, 0, 0, null);
+		}
+
+		getDrawThread().setBitmap(bitmap);
 	}
 
 	@Override
@@ -154,5 +155,9 @@ public final class Surface extends SurfaceView implements Callback {
 
 	public int getPaintColor() {
 		return controller.getPaintColor();
+	}
+
+	public void setInitialBitmap(Bitmap initialBitmap) {
+		this.initialBitmap = initialBitmap;
 	}
 }
