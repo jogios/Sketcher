@@ -3,6 +3,7 @@ package org.sketcher;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 import org.sketcher.ColorPickerDialog.OnColorChangedListener;
 import org.sketcher.style.StylesFactory;
@@ -12,6 +13,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import android.view.SubMenu;
 import android.widget.Toast;
 
 public class Sketcher extends Activity {
+	private static final String FILENAME_PATTERN = "image_%d.png";
 	private static final short GROUP_BRUSHES = 0x1000;
 	private static final short MENU_CLEAR = 0x2001;
 	private static final short MENU_SAVE = 0x2002;
@@ -166,45 +169,40 @@ public class Sketcher extends Activity {
 
 	private void saveBitmap(String fileName) {
 		try {
-			surface.saveBitmap(fileName);
+			FileOutputStream fos = new FileOutputStream(fileName);
+			surface.getDrawThread().getBitmap().compress(CompressFormat.PNG,
+					100, fos);
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	private String getUniqueFilePath(String path) {
-		String filename = "image_";
-		String extension = ".png";
-
+	private String getUniqueFilePath(File dir) {
 		int suffix = 1;
 
-		while (new File(path + filename + suffix + extension).exists()) {
+		while (new File(dir, String.format(FILENAME_PATTERN, suffix)).exists()) {
 			suffix++;
 		}
 
-		return path + filename + suffix + extension;
+		return new File(dir, String.format(FILENAME_PATTERN, suffix))
+				.getAbsolutePath();
 	}
 
-	private File getLastFile(String path) {
-		String filename = "image_";
-		String extension = ".png";
-
+	private File getLastFile(File dir) {
 		int suffix = 1;
 
 		File newFile = null;
 		File file = null;
-		boolean exists = false;
 		do {
 			file = newFile;
-			newFile = new File(path + filename + suffix + extension);
+			newFile = new File(dir, String.format(FILENAME_PATTERN, suffix));
 			suffix++;
-			exists = newFile.exists();
-		} while (exists);
+		} while (newFile.exists());
 
 		return file;
 	}
 
-	private String getSDDir() {
+	private File getSDDir() {
 		String path = Environment.getExternalStorageDirectory()
 				.getAbsolutePath()
 				+ "/sketcher/";
@@ -214,7 +212,7 @@ public class Sketcher extends Activity {
 			file.mkdirs();
 		}
 
-		return path;
+		return file;
 	}
 
 	public Bitmap getSavedBitmap() {

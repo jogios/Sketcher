@@ -1,13 +1,9 @@
 package org.sketcher;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Bitmap.CompressFormat;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -142,11 +138,6 @@ public final class Surface extends SurfaceView implements Callback {
 	public void clearBitmap() {
 		getDrawThread().getBitmap().eraseColor(Color.WHITE);
 		controller.clear();
-	}
-
-	public void saveBitmap(String fileName) throws FileNotFoundException {
-		FileOutputStream fos = new FileOutputStream(fileName);
-		getDrawThread().getBitmap().compress(CompressFormat.PNG, 100, fos);
 	}
 
 	public void setPaintColor(int color) {
