@@ -22,8 +22,6 @@ import android.view.SubMenu;
 import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 
-import com.nullwire.trace.ExceptionHandler;
-
 public class Sketcher extends Activity {
 	private static final short GROUP_BRUSHES = 0x1000;
 	private static final short MENU_CLEAR = 0x2001;
@@ -57,11 +55,9 @@ public class Sketcher extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		versionCleanup();
-
 		// register nullwire exception handler which sends crash reports to
-		// http://trace.nullwire.com/
-		ExceptionHandler.register(this);
+		// http://trace.nullwire.com/. Disabled since it's down
+		// ExceptionHandler.register(this);
 
 		surface = new Surface(this);
 
@@ -70,27 +66,6 @@ public class Sketcher extends Activity {
 				android.view.ViewGroup.LayoutParams.FILL_PARENT);
 
 		setContentView(surface, params);
-	}
-
-	// FIXME remove me the next version
-	@Deprecated
-	private void versionCleanup() {
-		{
-			File file = getFileStreamPath("asketch.png");
-			if (file.exists()) {
-				file.delete();
-			}
-		}
-		{
-			String externalStorageState = Environment.getExternalStorageState();
-			if (!externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
-				return;
-			}
-			File file = new File(getSDDir() + "tmp.png");
-			if (file.exists()) {
-				file.delete();
-			}
-		}
 	}
 
 	@Override
