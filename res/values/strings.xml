@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="app_name">Sketcher</string>
 	<string name="pick_a_color">Pick a Color</string>
 	<string name="saving_to_sd_please_wait">Saving to SD. Please wait...</string>
 	<string name="please_wait">Please wait...</string>
 	<string name="sd_card_is_not_available">SD card is not available</string>
+	<string name="send_image_to">Send Image To:</string>
+
+	<!-- Menu -->
 	<string name="brushes">Brushes</string>
 	<string name="color">Color</string>
 	<string name="clear">Clear</string>
 	<string name="send">Share</string>
 	<string name="save">Save</string>
-	<string name="send_image_to">Send Image To:</string>
+	<string name="about">About</string>
+
+	<!-- Submenu -->
 	<string name="grid">Grid</string>
 	<string name="circles">Circles</string>
 	<string name="ribbon">Ribbon</string>
@@ -23,5 +29,20 @@
 	<string name="sketchy">Sketchy</string>
 	<string name="eraser">Eraser</string>
 
-	<string name="app_name">Sketcher</string>
+	<!-- About dialog -->
+	<string name="about_title">About</string>
+	<string name="about_text">Sketcher is an open-source application licensed under
+		<i>Apache License v2.0</i>: http://www.apache.org/licenses/LICENSE-2.0.html.
+		Source code available at https://github.com/wargoth/Sketcher. This application is a port of 
+		Harmony drawing application http://mrdoob.com/projects/harmony
+		\n
+        \nProgramming: Valentine Mayamsin yavalek@gmail.com
+		\nDesign: Jakub Netza http://www.jakubnetza.com
+		\n
+		\n<b>Special thanks to:</b>
+		\n
+		\nMichael Crombeen for tranlation to French
+		\nScott for tranlation to Korean
+	</string>
+	<string name="button_close">Close</string>
 </resources>

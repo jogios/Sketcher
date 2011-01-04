@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="app_name">Sketcher</string>
 	<string name="pick_a_color">Выберите цвет</string>
 	<string name="saving_to_sd_please_wait">Сохраняю...</string>
 	<string name="please_wait">Минуточку...</string>
 	<string name="sd_card_is_not_available">SD-карта не доступна</string>
+
+	<!-- Menu -->
 	<string name="brushes">Кисти</string>
 	<string name="color">Цвет</string>
 	<string name="clear">Очистить</string>
 	<string name="send">Отправить</string>
 	<string name="save">Сохранить</string>
 	<string name="send_image_to">Отправить:</string>
+	<string name="about">О программе</string>
+
+	<!-- Submenu -->
 	<string name="grid">Grid</string>
 	<string name="circles">Circles</string>
 	<string name="ribbon">Ribbon</string>
@@ -23,5 +29,20 @@
 	<string name="sketchy">Sketchy</string>
 	<string name="eraser">Ластик</string>
 
-	<string name="app_name">Sketcher</string>
+	<!-- About dialog -->
+    <string name="about_title">О программе</string>
+    <string name="about_text">Sketcher - приложение с открытым исходным кодом, лицензированным под
+        <i>лицензией Apache версии 2.0</i>: http://www.apache.org/licenses/LICENSE-2.0.html .
+        Исходные коды доступны здесь: https://github.com/wargoth/Sketcher. Это приложение - порт рисовалки
+        Harmony: http://mrdoob.com/projects/harmony
+        \n
+        \nПрограммирование: Маямсин Валентин yavalek@gmail.com
+        \nДизайн: Jakub Netza http://www.jakubnetza.com
+        \n
+        \n<b>Отдельное спасибо:</b>
+        \n
+        \nMichael Crombeen за перевод на французский
+        \nScott за перевод на корейский
+    </string>
+    <string name="button_close">Закрыть</string>
 </resources>

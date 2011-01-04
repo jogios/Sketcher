@@ -2,11 +2,12 @@ Sketcher is an Android drawing tool written in java. A port of Harmony procedura
 
 Features:
 * 11 brushes
-* saving to SD
+* save to SD
 * share by e-mail, MMS, etc.
 
 Thanks to:
 
-* mrdoob - the author of original Harmony procedural drawing tool
+* Jakub Netza - application design
 * Michael Crombeen - translation to French
 * Scott - translation to Korean
+* mrdoob - the author of original Harmony procedural drawing tool

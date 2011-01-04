@@ -9,6 +9,7 @@ import org.sketcher.ColorPickerDialog.OnColorChangedListener;
 import org.sketcher.style.StylesFactory;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -30,6 +31,7 @@ public class Sketcher extends Activity {
 	private static final short MENU_SAVE = 0x2002;
 	private static final short MENU_SHARE = 0x2003;
 	private static final short MENU_COLOR = 0x2004;
+	private static final short MENU_ABOUT = 0x2005;
 
 	private Surface surface;
 
@@ -80,6 +82,7 @@ public class Sketcher extends Activity {
 		menu.add(0, MENU_SHARE, 0, R.string.send).setIcon(R.drawable.send);
 		menu.add(0, MENU_CLEAR, 0, R.string.clear).setIcon(R.drawable.clear);
 		menu.add(0, MENU_COLOR, 0, R.string.color).setIcon(R.drawable.color);
+		menu.add(0, MENU_ABOUT, 0, R.string.about);
 		SubMenu subMenu = menu.addSubMenu(R.string.brushes).setIcon(
 				R.drawable.brushes);
 		subMenu.add(GROUP_BRUSHES, StylesFactory.ERASER, 0, R.string.eraser);
@@ -114,6 +117,9 @@ public class Sketcher extends Activity {
 			return true;
 		case MENU_SHARE:
 			share();
+			return true;
+		case MENU_ABOUT:
+			showAboutDialog();
 			return true;
 		case MENU_COLOR:
 			new ColorPickerDialog(this, new OnColorChangedListener() {
@@ -215,7 +221,7 @@ public class Sketcher extends Activity {
 		return file;
 	}
 
-	public Bitmap getSavedBitmap() {
+	private Bitmap getSavedBitmap() {
 		if (!isStorageAvailable()) {
 			return null;
 		}
@@ -233,5 +239,10 @@ public class Sketcher extends Activity {
 			throw new RuntimeException(e);
 		}
 		return savedBitmap;
+	}
+
+	private void showAboutDialog() {
+		Dialog dialog = new AboutDialog(this);
+		dialog.show();
 	}
 }
