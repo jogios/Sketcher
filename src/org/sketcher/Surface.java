@@ -14,16 +14,6 @@ public final class Surface extends SurfaceView implements Callback {
 		private boolean mRun = true;
 		private boolean mPause = false;
 
-		private Bitmap bitmap;
-
-		public Bitmap getBitmap() {
-			return bitmap;
-		}
-
-		private void setBitmap(Bitmap bitmap) {
-			this.bitmap = bitmap;
-		}
-
 		@Override
 		public void run() {
 			waitForBitmap();
@@ -79,6 +69,7 @@ public final class Surface extends SurfaceView implements Callback {
 	private Controller controller = new Controller();
 	private Canvas drawCanvas;
 	private Bitmap initialBitmap;
+	private Bitmap bitmap;
 
 	public Surface(Context context, AttributeSet attributes) {
 		super(context, attributes);
@@ -102,19 +93,15 @@ public final class Surface extends SurfaceView implements Callback {
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
-		Bitmap bitmap = Bitmap.createBitmap(width, height,
-				Bitmap.Config.ARGB_8888);
+		bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 		bitmap.eraseColor(Color.WHITE);
 
-		bitmap.eraseColor(Color.WHITE);
 		drawCanvas = new Canvas(bitmap);
 		controller.setCanvas(drawCanvas);
 
 		if (initialBitmap != null) {
 			drawCanvas.drawBitmap(initialBitmap, 0, 0, null);
 		}
-
-		getDrawThread().setBitmap(bitmap);
 	}
 
 	@Override
@@ -136,7 +123,7 @@ public final class Surface extends SurfaceView implements Callback {
 	}
 
 	public void clearBitmap() {
-		getDrawThread().getBitmap().eraseColor(Color.WHITE);
+		bitmap.eraseColor(Color.WHITE);
 		controller.clear();
 	}
 
@@ -150,5 +137,9 @@ public final class Surface extends SurfaceView implements Callback {
 
 	public void setInitialBitmap(Bitmap initialBitmap) {
 		this.initialBitmap = initialBitmap;
+	}
+
+	public Bitmap getBitmap() {
+		return bitmap;
 	}
 }

@@ -1,31 +1,16 @@
 package org.sketcher;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-
 import org.sketcher.ColorPickerDialog.OnColorChangedListener;
 import org.sketcher.style.StylesFactory;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Bitmap.CompressFormat;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
-import android.widget.Toast;
 
 public class Sketcher extends Activity {
-	private static final String FILENAME_PATTERN = "image_%d.png";
 	private static final short GROUP_BRUSHES = 0x1000;
 	private static final short MENU_CLEAR = 0x2001;
 	private static final short MENU_SAVE = 0x2002;
@@ -34,26 +19,7 @@ public class Sketcher extends Activity {
 	private static final short MENU_ABOUT = 0x2005;
 
 	private Surface surface;
-
-	private class SaveTask extends AsyncTask<Void, Void, String> {
-		private ProgressDialog dialog = ProgressDialog.show(Sketcher.this, "",
-				getString(R.string.saving_to_sd_please_wait), true);
-
-		protected String doInBackground(Void... none) {
-			surface.getDrawThread().pauseDrawing();
-			String uniqueFilePath = getUniqueFilePath(getSDDir());
-			saveBitmap(uniqueFilePath);
-			return uniqueFilePath;
-		}
-
-		protected void onPostExecute(String fileName) {
-			Uri uri = Uri.fromFile(new File(fileName));
-			sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
-
-			dialog.hide();
-			surface.getDrawThread().resumeDrawing();
-		}
-	}
+	private FileHelper fileHelper = new FileHelper(this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +34,27 @@ public class Sketcher extends Activity {
 	}
 
 	@Override
+	protected void onPause() {
+		super.onPause();
+
+		if (fileHelper.isSaved) {
+			return;
+		}
+		// wrapped to a new thread since it can be killed due to time limits for
+		// #onPause() method
+		new Thread() {
+			@Override
+			public void run() {
+				fileHelper.saveBitmap();
+			}
+		}.run();
+	}
+
+	@Override
 	protected void onResume() {
 		super.onResume();
-
-		surface.setInitialBitmap(getSavedBitmap());
+		fileHelper.isSaved = false;
+		getSurface().setInitialBitmap(fileHelper.getSavedBitmap());
 	}
 
 	@Override
@@ -104,19 +87,19 @@ public class Sketcher extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getGroupId() == GROUP_BRUSHES) {
-			surface.setStyle(StylesFactory.getStyle(item.getItemId()));
+			getSurface().setStyle(StylesFactory.getStyle(item.getItemId()));
 			return true;
 		}
 
 		switch (item.getItemId()) {
 		case MENU_CLEAR:
-			surface.clearBitmap();
+			getSurface().clearBitmap();
 			return true;
 		case MENU_SAVE:
-			saveToSD();
+			fileHelper.saveToSD();
 			return true;
 		case MENU_SHARE:
-			share();
+			fileHelper.share();
 			return true;
 		case MENU_ABOUT:
 			showAboutDialog();
@@ -125,9 +108,9 @@ public class Sketcher extends Activity {
 			new ColorPickerDialog(this, new OnColorChangedListener() {
 				@Override
 				public void colorChanged(int color) {
-					surface.setPaintColor(color);
+					getSurface().setPaintColor(color);
 				}
-			}, surface.getPaintColor()).show();
+			}, getSurface().getPaintColor()).show();
 			return true;
 
 		default:
@@ -135,114 +118,12 @@ public class Sketcher extends Activity {
 		}
 	}
 
-	private void share() {
-		if (!isStorageAvailable()) {
-			return;
-		}
-
-		new SaveTask() {
-			protected void onPostExecute(String fileName) {
-				Uri uri = Uri.fromFile(new File(fileName));
-
-				Intent i = new Intent(Intent.ACTION_SEND);
-				i.setType("image/png");
-				i.putExtra(Intent.EXTRA_STREAM, uri);
-				startActivity(Intent.createChooser(i,
-						getString(R.string.send_image_to)));
-
-				super.onPostExecute(fileName);
-			}
-		}.execute();
-	}
-
-	private boolean isStorageAvailable() {
-		String externalStorageState = Environment.getExternalStorageState();
-		if (!externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
-			Toast.makeText(this, R.string.sd_card_is_not_available,
-					Toast.LENGTH_SHORT).show();
-			return false;
-		}
-		return true;
-	}
-
-	private void saveToSD() {
-		if (!isStorageAvailable()) {
-			return;
-		}
-
-		new SaveTask().execute();
-	}
-
-	private void saveBitmap(String fileName) {
-		try {
-			FileOutputStream fos = new FileOutputStream(fileName);
-			surface.getDrawThread().getBitmap().compress(CompressFormat.PNG,
-					100, fos);
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	private String getUniqueFilePath(File dir) {
-		int suffix = 1;
-
-		while (new File(dir, String.format(FILENAME_PATTERN, suffix)).exists()) {
-			suffix++;
-		}
-
-		return new File(dir, String.format(FILENAME_PATTERN, suffix))
-				.getAbsolutePath();
-	}
-
-	private File getLastFile(File dir) {
-		int suffix = 1;
-
-		File newFile = null;
-		File file = null;
-		do {
-			file = newFile;
-			newFile = new File(dir, String.format(FILENAME_PATTERN, suffix));
-			suffix++;
-		} while (newFile.exists());
-
-		return file;
-	}
-
-	private File getSDDir() {
-		String path = Environment.getExternalStorageDirectory()
-				.getAbsolutePath()
-				+ "/sketcher/";
-
-		File file = new File(path);
-		if (!file.exists()) {
-			file.mkdirs();
-		}
-
-		return file;
-	}
-
-	private Bitmap getSavedBitmap() {
-		if (!isStorageAvailable()) {
-			return null;
-		}
-
-		File lastFile = getLastFile(getSDDir());
-		if (lastFile == null) {
-			return null;
-		}
-
-		Bitmap savedBitmap = null;
-		try {
-			FileInputStream fis = new FileInputStream(lastFile);
-			savedBitmap = BitmapFactory.decodeStream(fis);
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
-		}
-		return savedBitmap;
-	}
-
 	private void showAboutDialog() {
 		Dialog dialog = new AboutDialog(this);
 		dialog.show();
+	}
+
+	Surface getSurface() {
+		return surface;
 	}
 }
