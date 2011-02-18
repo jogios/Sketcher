@@ -5,13 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import org.sketcher.R.string;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -29,8 +27,7 @@ public class FileHelper {
 
 	private File getSDDir() {
 		String path = Environment.getExternalStorageDirectory()
-				.getAbsolutePath()
-				+ "/sketcher/";
+				.getAbsolutePath() + "/sketcher/";
 
 		File file = new File(path);
 		if (!file.exists()) {
@@ -87,8 +84,8 @@ public class FileHelper {
 	private void saveBitmap(File file) {
 		try {
 			FileOutputStream fos = new FileOutputStream(file);
-			context.getSurface().getBitmap().compress(CompressFormat.PNG, 100,
-					fos);
+			context.getSurface().getBitmap()
+					.compress(CompressFormat.PNG, 100, fos);
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		}
@@ -97,7 +94,7 @@ public class FileHelper {
 	private boolean isStorageAvailable() {
 		String externalStorageState = Environment.getExternalStorageState();
 		if (!externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
-			Toast.makeText(context, string.sd_card_is_not_available,
+			Toast.makeText(context, R.string.sd_card_is_not_available,
 					Toast.LENGTH_SHORT).show();
 			return false;
 		}
@@ -118,8 +115,8 @@ public class FileHelper {
 				Intent i = new Intent(Intent.ACTION_SEND);
 				i.setType("image/png");
 				i.putExtra(Intent.EXTRA_STREAM, uri);
-				context.startActivity(Intent.createChooser(i, context
-						.getString(string.send_image_to)));
+				context.startActivity(Intent.createChooser(i,
+						context.getString(R.string.send_image_to)));
 
 				super.onPostExecute(file);
 			}
