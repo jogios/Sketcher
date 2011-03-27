@@ -7,6 +7,11 @@
 	<string name="sd_card_is_not_available">SD card is not available</string>
 	<string name="send_image_to">Send Image To:</string>
 
+	<!-- Confirm dialog -->
+	<string name="yes">Yes</string>
+	<string name="are_you_sure">Are you sure that you want to clear the canvas?
+	</string>
+
 	<!-- Menu -->
 	<string name="brushes">Brushes</string>
 	<string name="color">Color</string>

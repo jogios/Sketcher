@@ -5,7 +5,9 @@ import org.sketcher.colorpicker.PickerDialog;
 import org.sketcher.style.StylesFactory;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
@@ -100,7 +102,7 @@ public class Sketcher extends Activity {
 
 		switch (item.getItemId()) {
 		case MENU_CLEAR:
-			getSurface().clearBitmap();
+			clearCanvas();
 			return true;
 		case MENU_SAVE:
 			fileHelper.saveToSD();
@@ -123,6 +125,25 @@ public class Sketcher extends Activity {
 		default:
 			return false;
 		}
+	}
+
+	private void clearCanvas() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(R.string.are_you_sure)
+				.setCancelable(false)
+				.setPositiveButton(R.string.yes,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								getSurface().clearBitmap();
+							}
+						})
+				.setNegativeButton(R.string.cancel,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								dialog.cancel();
+							}
+						});
+		builder.create().show();
 	}
 
 	private void showAboutDialog() {
