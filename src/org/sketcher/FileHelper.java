@@ -84,8 +84,11 @@ public class FileHelper {
 	private void saveBitmap(File file) {
 		try {
 			FileOutputStream fos = new FileOutputStream(file);
-			context.getSurface().getBitmap()
-					.compress(CompressFormat.PNG, 100, fos);
+			Bitmap bitmap = context.getSurface().getBitmap();
+			if (bitmap == null) {
+				return;
+			}
+			bitmap.compress(CompressFormat.PNG, 100, fos);
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		}

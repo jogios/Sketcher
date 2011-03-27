@@ -64,7 +64,8 @@ public class AlphaPicker extends View implements Picker {
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 		case MotionEvent.ACTION_MOVE:
-			int alpha = (int) ((1f - event.getX() / getWidth()) * 255f);
+			float x = Math.max(0, Math.min(getWidth(), event.getX()));
+			int alpha = (int) ((1f - x / getWidth()) * 255f);
 			mColor.setColor(Color.HSVToColor(alpha, mHsv));
 
 			mListener.colorChanged(mColor);
