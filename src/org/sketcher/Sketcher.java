@@ -1,10 +1,12 @@
 package org.sketcher;
 
-import org.sketcher.ColorPickerDialog.OnColorChangedListener;
+import org.sketcher.colorpicker.Picker;
+import org.sketcher.colorpicker.PickerDialog;
 import org.sketcher.style.StylesFactory;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,13 +63,18 @@ public class Sketcher extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
-		menu.add(0, MENU_SAVE, 0, R.string.save).setIcon(R.drawable.save);
-		menu.add(0, MENU_SHARE, 0, R.string.send).setIcon(R.drawable.send);
-		menu.add(0, MENU_CLEAR, 0, R.string.clear).setIcon(R.drawable.clear);
-		menu.add(0, MENU_COLOR, 0, R.string.color).setIcon(R.drawable.color);
-		menu.add(0, MENU_ABOUT, 0, R.string.about);
+		menu.add(0, MENU_SAVE, 0, R.string.save).setIcon(
+				android.R.drawable.ic_menu_save);
+		menu.add(0, MENU_SHARE, 0, R.string.send).setIcon(
+				android.R.drawable.ic_menu_send);
+		menu.add(0, MENU_CLEAR, 0, R.string.clear).setIcon(
+				android.R.drawable.ic_menu_close_clear_cancel);
+		menu.add(0, MENU_COLOR, 0, R.string.color).setIcon(
+				android.R.drawable.ic_menu_preferences);
+		menu.add(0, MENU_ABOUT, 0, R.string.about).setIcon(
+				android.R.drawable.ic_menu_info_details);
 		SubMenu subMenu = menu.addSubMenu(R.string.brushes).setIcon(
-				R.drawable.brushes);
+				android.R.drawable.ic_menu_edit);
 		subMenu.add(GROUP_BRUSHES, StylesFactory.ERASER, 0, R.string.eraser);
 		subMenu.add(GROUP_BRUSHES, StylesFactory.SKETCHY, 0, R.string.sketchy);
 		subMenu.add(GROUP_BRUSHES, StylesFactory.SIMPLE, 0, R.string.simple);
@@ -105,9 +112,9 @@ public class Sketcher extends Activity {
 			showAboutDialog();
 			return true;
 		case MENU_COLOR:
-			new ColorPickerDialog(this, new OnColorChangedListener() {
+			new PickerDialog(this, new Picker.OnColorChangedListener() {
 				@Override
-				public void colorChanged(int color) {
+				public void colorChanged(Paint color) {
 					getSurface().setPaintColor(color);
 				}
 			}, getSurface().getPaintColor()).show();

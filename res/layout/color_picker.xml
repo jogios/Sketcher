@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content" android:layout_height="fill_parent"
+	android:orientation="vertical">
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:orientation="horizontal">
+
+		<org.sketcher.colorpicker.SatValPicker
+			android:id="@+id/satval_picker" android:layout_width="0dp"
+			android:layout_height="wrap_content" android:layout_weight="20"
+			android:layout_margin="5px" />
+		<org.sketcher.colorpicker.HuePicker
+			android:id="@+id/hue_picker" android:layout_width="0dp"
+			android:layout_height="wrap_content" android:layout_weight="80"
+			android:layout_margin="5px" />
+	</LinearLayout>
+
+	<org.sketcher.colorpicker.AlphaPicker
+		android:id="@+id/alpha_picker" android:layout_width="fill_parent"
+		android:layout_height="30dp" android:layout_margin="5px" />
+
+	<RelativeLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" xmlns:android="http://schemas.android.com/apk/res/android">
+
+		<org.sketcher.colorpicker.PreviewView
+			android:id="@+id/preview_new" android:layout_width="100dp"
+			android:layout_height="50dp" android:layout_centerInParent="true" />
+	</RelativeLayout>
+
+	<!-- <SeekBar android:id="@+id/width_bar" android:max="100" -->
+	<!-- android:layout_width="fill_parent" android:layout_height="wrap_content" 
+		/> -->
+
+	<RelativeLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" xmlns:android="http://schemas.android.com/apk/res/android">
+
+		<LinearLayout android:orientation="horizontal"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_centerInParent="true">
+
+			<Button android:id="@+id/picker_button_cancel"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:text="@string/cancel" />
+			<Button android:id="@+id/picker_button_accept"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:text="@string/accept" />
+		</LinearLayout>
+	</RelativeLayout>
+
+</LinearLayout>

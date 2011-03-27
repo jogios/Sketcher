@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
@@ -127,11 +128,11 @@ public final class Surface extends SurfaceView implements Callback {
 		controller.clear();
 	}
 
-	public void setPaintColor(int color) {
+	public void setPaintColor(Paint color) {
 		controller.setPaintColor(color);
 	}
 
-	public int getPaintColor() {
+	public Paint getPaintColor() {
 		return controller.getPaintColor();
 	}
 

@@ -29,15 +29,21 @@
 	<string name="sketchy">Sketchy</string>
 	<string name="eraser">Eraser</string>
 
+	<!-- Picker dialog -->
+	<string name="accept">Accept</string>
+	<string name="cancel">Cancel</string>
+
 	<!-- About dialog -->
 	<string name="about_title">About</string>
 	<string name="about_text">Sketcher is an open-source application licensed under
-		<i>Apache License v2.0</i>: http://www.apache.org/licenses/LICENSE-2.0.html.
-		Source code available at https://github.com/wargoth/Sketcher. This application is a port of 
+		<i>Apache License v2.0</i>: 
+		http://www.apache.org/licenses/LICENSE-2.0.html. Official web site:
+		http://sites.google.com/site/sketcherapp/.
+		Source code	available at https://github.com/wargoth/Sketcher. 
+		This application is	a port of
 		Harmony drawing application http://mrdoob.com/projects/harmony
 		\n
-        \nProgramming: Valentine Mayamsin yavalek@gmail.com
-		\nDesign: Jakub Netza http://www.jakubnetza.com
+		\nProgramming: Valentine Mayamsin yavalek@gmail.com
 		\n
 		\n<b>Special thanks to:</b>
 		\n

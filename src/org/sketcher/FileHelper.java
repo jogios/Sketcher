@@ -54,9 +54,6 @@ public class FileHelper {
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		}
-		if (savedBitmap.isRecycled()) {
-			return null;
-		}
 		return savedBitmap;
 	}
 

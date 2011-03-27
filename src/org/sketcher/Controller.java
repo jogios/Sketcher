@@ -3,7 +3,7 @@ package org.sketcher;
 import org.sketcher.style.StylesFactory;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -11,7 +11,7 @@ public class Controller implements View.OnTouchListener {
 	private Style style;
 	private Canvas canvas = new Canvas();
 	private boolean toDraw = false;
-	private int color = Color.BLACK;
+	private Paint mColor = new Paint();
 
 	{
 		clear();
@@ -25,7 +25,7 @@ public class Controller implements View.OnTouchListener {
 
 	public void setStyle(Style style) {
 		toDraw = false;
-		style.setColor(color);
+		style.setColor(mColor.getColor());
 		this.style = style;
 	}
 
@@ -53,13 +53,13 @@ public class Controller implements View.OnTouchListener {
 		setStyle(StylesFactory.getCurrentStyle());
 	}
 
-	public void setPaintColor(int color) {
-		this.color = color;
-		style.setColor(color);
+	public void setPaintColor(Paint color) {
+		mColor = color;
+		style.setColor(color.getColor());
 	}
 
-	public int getPaintColor() {
-		return color;
+	public Paint getPaintColor() {
+		return mColor;
 	}
 
 }
