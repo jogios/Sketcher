@@ -35,13 +35,17 @@
 
 	<!-- About dialog -->
     <string name="about_title">О программе</string>
-    <string name="about_text">Sketcher - приложение с открытым исходным кодом, лицензированным под
-        <i>лицензией Apache версии 2.0</i>: http://www.apache.org/licenses/LICENSE-2.0.html.
-        Официальный сайт: http://sites.google.com/site/sketcherapp/.
-        Исходные коды доступны здесь: https://github.com/wargoth/Sketcher. Это приложение - порт рисовалки
-        Harmony: http://mrdoob.com/projects/harmony
-        \n
-        \nПрограммирование: Маямсин Валентин yavalek@gmail.com
+    <string name="about_text">Поддержите разработку приложения рублем:
+    	\nhttp://bit.ly/sketcherdonate 
+    	\nSketcher - приложение с открытым исходным кодом, лицензированным под
+        <i>лицензией Apache версии 2.0</i>: 
+		\nhttp://bit.ly/apachelicense.
+        \nОфициальный сайт: 
+		\nhttp://bit.ly/sketcherapp.
+        \nИсходные коды доступны здесь: 
+		\nhttp://github.com/wargoth/Sketcher.
+		\nЭто приложение - порт рисовалки Harmony: 
+		\nhttp://mrdoob.com/projects/harmony
         \n
         \n<b>Отдельное спасибо:</b>
         \n

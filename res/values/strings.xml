@@ -40,20 +40,22 @@
 
 	<!-- About dialog -->
 	<string name="about_title">About</string>
-	<string name="about_text">Sketcher is an open-source application licensed under
+	<string name="about_text">Please donate if you like this application: 
+		\nhttp://bit.ly/sketcherdonate
+		\nSketcher is an open-source application licensed under
 		<i>Apache License v2.0</i>: 
-		http://www.apache.org/licenses/LICENSE-2.0.html. Official web site:
-		http://sites.google.com/site/sketcherapp/.
-		Source code	available at https://github.com/wargoth/Sketcher. 
-		This application is	a port of
-		Harmony drawing application http://mrdoob.com/projects/harmony
-		\n
-		\nProgramming: Valentine Mayamsin yavalek@gmail.com
+		\nhttp://bit.ly/apachelicense. 
+		\nOfficial web site:
+		\nhttp://bit.ly/sketcherapp.
+		\nSource code available at 
+		\nhttp://github.com/wargoth/Sketcher. 
+		\nThis application is a port of	Harmony drawing application 
+		\nhttp://mrdoob.com/projects/harmony
 		\n
 		\n<b>Special thanks to:</b>
 		\n
-		\nMichael Crombeen for tranlation to French
-		\nScott for tranlation to Korean
+		\nMichael Crombeen for translation to French
+		\nScott for translation to Korean
 	</string>
 	<string name="button_close">Close</string>
 </resources>
