@@ -1,4 +1,5 @@
-Sketcher is an Android drawing tool written in java. A port of Harmony procedural drawing tool http://mrdoob.com/projects/harmony/. Official web site: http://sites.google.com/site/sketcherapp/ 
+Sketcher is an Android drawing tool written in java. A port of Harmony procedural drawing tool http://mrdoob.com/projects/harmony/. 
+Official web site: http://sites.google.com/site/sketcherapp/. Donate: http://sites.google.com/site/sketcherapp/donate/ 
 
 Features:
 * 11 brushes
