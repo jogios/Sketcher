@@ -67,8 +67,8 @@ public final class Surface extends SurfaceView implements Callback {
 	}
 
 	private DrawThread drawThread;
-	private Controller controller = new Controller();
-	private Canvas drawCanvas;
+	private final Canvas drawCanvas = new Canvas();
+	private Controller controller = new Controller(drawCanvas);
 	private Bitmap initialBitmap;
 	private Bitmap bitmap;
 
@@ -97,8 +97,7 @@ public final class Surface extends SurfaceView implements Callback {
 		bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 		bitmap.eraseColor(Color.WHITE);
 
-		drawCanvas = new Canvas(bitmap);
-		controller.setCanvas(drawCanvas);
+		drawCanvas.setBitmap(bitmap);
 
 		if (initialBitmap != null) {
 			drawCanvas.drawBitmap(initialBitmap, 0, 0, null);

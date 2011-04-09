@@ -9,17 +9,18 @@ import android.view.View;
 
 public class Controller implements View.OnTouchListener {
 	private Style style;
-	private Canvas canvas = new Canvas();
+	private final Canvas mCanvas;
 	private boolean toDraw = false;
 	private Paint mColor = new Paint();
 
-	{
+	public Controller(Canvas canvas) {
 		clear();
+		mCanvas = canvas;
 	}
 
 	public void draw() {
 		if (toDraw) {
-			style.draw(canvas);
+			style.draw(mCanvas);
 		}
 	}
 
@@ -27,10 +28,6 @@ public class Controller implements View.OnTouchListener {
 		toDraw = false;
 		style.setColor(mColor.getColor());
 		this.style = style;
-	}
-
-	public void setCanvas(Canvas canvas) {
-		this.canvas = canvas;
 	}
 
 	@Override
@@ -41,7 +38,7 @@ public class Controller implements View.OnTouchListener {
 			style.strokeStart(event.getX(), event.getY());
 			break;
 		case MotionEvent.ACTION_MOVE:
-			style.stroke(canvas, event.getX(), event.getY());
+			style.stroke(mCanvas, event.getX(), event.getY());
 			break;
 		}
 		return true;
