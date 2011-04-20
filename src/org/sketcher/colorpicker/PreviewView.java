@@ -27,6 +27,11 @@ public class PreviewView extends View {
 		invalidate();
 	}
 
+	public void setColor(int color) {
+		mPaint.setColor(color);
+		invalidate();
+	}
+
 	@Override
 	protected void onDraw(Canvas canvas) {
 		int width = getWidth();

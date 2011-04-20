@@ -37,7 +37,7 @@ public class PickerDialog extends Dialog {
 			@Override
 			public void colorChanged(Paint paint) {
 				mPaint.setColor(paint.getColor());
-				previewView.invalidate();
+				previewView.setColor(paint.getColor());
 			}
 		});
 
@@ -45,8 +45,8 @@ public class PickerDialog extends Dialog {
 		Picker.OnColorChangedListener satValLstr = new Picker.OnColorChangedListener() {
 			public void colorChanged(Paint paint) {
 				alphaBar.setColor(paint.getColor());
+				previewView.setColor(paint.getColor());
 				mPaint.setColor(paint.getColor());
-				previewView.invalidate();
 			}
 		};
 		satValPicker.setOnColorChangedListener(satValLstr);
@@ -58,8 +58,8 @@ public class PickerDialog extends Dialog {
 			public void colorChanged(Paint paint) {
 				alphaBar.setColor(paint.getColor());
 				satValPicker.setColor(paint.getColor());
+				previewView.setColor(paint.getColor());
 				mPaint.setColor(paint.getColor());
-				previewView.invalidate();
 			}
 		};
 		huePicker.setOnColorChangedListener(hueLstr);
