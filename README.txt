@@ -10,4 +10,5 @@ Thanks to:
 
 * Michael Crombeen - translation to French
 * Scott - translation to Korean
+* Piyush Mor - translation to Hindi
 * mrdoob - the author of original Harmony procedural drawing tool
