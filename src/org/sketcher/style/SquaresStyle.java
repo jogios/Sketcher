@@ -5,12 +5,14 @@ import org.sketcher.Style;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 
 class SquaresStyle implements Style {
 	private float prevX;
 	private float prevY;
 
 	private Paint paint = new Paint();
+	private Paint mBackgroundPaint = new Paint();
 
 	{
 		paint.setColor(Color.BLACK);
@@ -18,23 +20,35 @@ class SquaresStyle implements Style {
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setAntiAlias(true);
 	}
+	
+	{
+		mBackgroundPaint.setColor(Color.WHITE);
+		mBackgroundPaint.setStyle(Paint.Style.FILL);
+	}
+	
+	private static final Path PATH = new Path();
+	
+	private static final float ALPHA = 1.57079633F;
+	private static final float COS_ALPHA = (float) Math.cos(ALPHA);
+	private static final float SIN_ALPHA = (float) Math.sin(ALPHA);
 
 	@Override
 	public void stroke(Canvas c, float x, float y) {
 		float dx = x - prevX;
 		float dy = y - prevY;
 
-		float alpha = 1.57079633F;
+		float ax = COS_ALPHA * dx - SIN_ALPHA * dy;
+		float ay = SIN_ALPHA * dx + COS_ALPHA * dy;
 
-		double cosA = Math.cos(alpha);
-		double sinA = Math.sin(alpha);
-		float ax = (float) (cosA * dx - sinA * dy);
-		float ay = (float) (sinA * dx + cosA * dy);
+		PATH.reset();
+		PATH.moveTo(prevX - ax, prevY - ay);
+		PATH.lineTo(prevX + ax, prevY + ay);
+		PATH.lineTo(x + ax, y + ay);
+		PATH.lineTo(x - ax, y - ay);
+		PATH.close();
 
-		c.drawLine(prevX - ax, prevY - ay, prevX + ax, prevY + ay, paint);
-		c.drawLine(prevX + ax, prevY + ay, x + ax, y + ay, paint);
-		c.drawLine(x + ax, y + ay, x - ax, y - ay, paint);
-		c.drawLine(x - ax, y - ay, prevX - ax, prevY - ay, paint);
+		c.drawPath(PATH, mBackgroundPaint);
+		c.drawPath(PATH, paint);
 
 		prevX = x;
 		prevY = y;
