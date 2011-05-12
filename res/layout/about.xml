@@ -10,6 +10,11 @@
 			android:layout_height="fill_parent" android:text="@string/about_text" />
 	</ScrollView>
 
-	<Button android:layout_height="wrap_content" android:id="@+id/button_close"
-		android:layout_width="wrap_content" android:text="@string/button_close" />
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:background="@android:drawable/bottom_bar"
+		android:gravity="center_vertical">
+		<Button android:layout_height="wrap_content" android:id="@+id/button_close"
+			android:layout_weight="1.0" android:layout_width="0dip"
+			android:text="@string/button_close" />
+	</LinearLayout>
 </LinearLayout>
