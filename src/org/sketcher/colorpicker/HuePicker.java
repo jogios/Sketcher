@@ -14,6 +14,7 @@ import android.view.View;
 
 public class HuePicker extends View implements Picker {
 	private static final float PICKER_RADIUS = 4;
+	private static final float[] MARGIN = new float[] { 5, 0, 0, 0 };
 
 	private Picker.OnColorChangedListener mListener = null;
 
@@ -32,19 +33,6 @@ public class HuePicker extends View implements Picker {
 		mTrackerPaint.setStrokeWidth(1);
 		mTrackerPaint.setColor(Color.WHITE);
 		mTrackerPaint.setStyle(Style.STROKE);
-	}
-
-	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-		int width = MeasureSpec.getSize(widthMeasureSpec);
-		int height = MeasureSpec.getSize(heightMeasureSpec);
-
-		int size = Math.min(width, height);
-
-		setMeasuredDimension(size, (size + 10) * 4 - 10); // aspect ratio and
-															// margin hardcode
 	}
 
 	@Override
@@ -70,18 +58,18 @@ public class HuePicker extends View implements Picker {
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-		canvas.drawRect(PICKER_RADIUS, 0, getWidth() - PICKER_RADIUS,
-				getHeight(), mGradient);
+		canvas.drawRect(PICKER_RADIUS + MARGIN[0], MARGIN[1], getWidth()
+				- PICKER_RADIUS - MARGIN[2], getHeight() - MARGIN[3], mGradient);
 
 		float[] hsv = Utils.color2HSV(mColor.getColor());
 		float hue = hsv[0];
 		float y = hueToOffset(hue);
 
 		RectF rect = new RectF();
-		rect.left = 0;
-		rect.right = getWidth();
-		rect.top = y - PICKER_RADIUS;
-		rect.bottom = y + PICKER_RADIUS;
+		rect.left = MARGIN[0];
+		rect.top = y - PICKER_RADIUS + MARGIN[1];
+		rect.right = getWidth() - MARGIN[2];
+		rect.bottom = y + PICKER_RADIUS - MARGIN[3];
 
 		canvas.drawRoundRect(rect, PICKER_RADIUS, PICKER_RADIUS, mTrackerPaint);
 	}

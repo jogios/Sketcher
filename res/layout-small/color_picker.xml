@@ -8,18 +8,16 @@
 		android:orientation="horizontal">
 
 		<org.sketcher.colorpicker.SatValPicker
-			android:id="@+id/satval_picker" android:layout_width="0dp"
-			android:layout_height="wrap_content" android:layout_weight="20"
-			android:layout_marginLeft="5px" android:layout_marginRight="5px" />
+			android:id="@+id/satval_picker" android:layout_width="240dp"
+			android:layout_height="240dp" />
 		<org.sketcher.colorpicker.HuePicker
-			android:id="@+id/hue_picker" android:layout_width="0dp"
-			android:layout_height="wrap_content" android:layout_weight="80"
-			android:layout_marginLeft="5px" android:layout_marginRight="5px" />
+			android:id="@+id/hue_picker" android:layout_width="50dp"
+			android:layout_height="240dp" />
 	</LinearLayout>
 
 	<org.sketcher.colorpicker.AlphaPicker
 		android:id="@+id/alpha_picker" android:layout_width="fill_parent"
-		android:layout_height="20dp" android:layout_marginTop="5px"
+		android:layout_height="30dp" android:layout_marginTop="5px"
 		android:layout_marginBottom="5px" android:background="@drawable/backrepeat" />
 
 	<LinearLayout android:layout_width="fill_parent"

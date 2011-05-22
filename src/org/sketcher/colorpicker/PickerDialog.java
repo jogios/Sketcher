@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 
 public class PickerDialog extends Dialog {
-
 	private Picker.OnColorChangedListener mListener;
 	private final Paint mPaint;
 

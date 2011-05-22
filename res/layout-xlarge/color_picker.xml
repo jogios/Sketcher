@@ -8,11 +8,11 @@
 		android:orientation="horizontal">
 
 		<org.sketcher.colorpicker.SatValPicker
-			android:id="@+id/satval_picker" android:layout_width="240dp"
-			android:layout_height="240dp" />
+			android:id="@+id/satval_picker" android:layout_width="400dp"
+			android:layout_height="400dp" />
 		<org.sketcher.colorpicker.HuePicker
-			android:id="@+id/hue_picker" android:layout_width="50dp"
-			android:layout_height="240dp" />
+			android:id="@+id/hue_picker" android:layout_width="60dp"
+			android:layout_height="400dp" />
 	</LinearLayout>
 
 	<org.sketcher.colorpicker.AlphaPicker
