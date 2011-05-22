@@ -3,6 +3,7 @@
 	<string name="app_name">Sketcher</string>
 	<string name="pick_a_color">Выберите цвет</string>
 	<string name="saving_to_sd_please_wait">Сохраняю...</string>
+	<string name="successfully_saved_to">Рисунок сохранен в %s</string>
 	<string name="please_wait">Минуточку...</string>
 	<string name="sd_card_is_not_available">SD-карта не доступна</string>
 	<string name="send_image_to">Отправить:</string>

@@ -158,6 +158,15 @@ public class FileHelper {
 
 		protected void onPostExecute(File file) {
 			dialog.hide();
+
+			String absolutePath = file.getAbsolutePath();
+			String sdPath = Environment.getExternalStorageDirectory()
+					.getAbsolutePath();
+			String beautifiedPath = absolutePath.replace(sdPath, "SD:/");
+			
+			Toast.makeText(context, context.getString(R.string.successfully_saved_to, beautifiedPath),
+					Toast.LENGTH_LONG).show();
+
 			context.getSurface().getDrawThread().resumeDrawing();
 		}
 	}
