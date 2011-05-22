@@ -30,20 +30,9 @@ public class PickerDialog extends Dialog {
 		final PreviewView previewView = (PreviewView) findViewById(R.id.preview_new);
 		previewView.setPaint(mPaint);
 
-		final Picker alphaBar = (Picker) findViewById(R.id.alpha_picker);
-		alphaBar.setColor(mPaint.getColor());
-		alphaBar.setOnColorChangedListener(new Picker.OnColorChangedListener() {
-			@Override
-			public void colorChanged(Paint paint) {
-				mPaint.setColor(paint.getColor());
-				previewView.setColor(paint.getColor());
-			}
-		});
-
 		final Picker satValPicker = (Picker) findViewById(R.id.satval_picker);
 		Picker.OnColorChangedListener satValLstr = new Picker.OnColorChangedListener() {
 			public void colorChanged(Paint paint) {
-				alphaBar.setColor(paint.getColor());
 				previewView.setColor(paint.getColor());
 				mPaint.setColor(paint.getColor());
 			}
@@ -55,7 +44,6 @@ public class PickerDialog extends Dialog {
 		Picker.OnColorChangedListener hueLstr = new Picker.OnColorChangedListener() {
 			@Override
 			public void colorChanged(Paint paint) {
-				alphaBar.setColor(paint.getColor());
 				satValPicker.setColor(paint.getColor());
 				previewView.setColor(paint.getColor());
 				mPaint.setColor(paint.getColor());
