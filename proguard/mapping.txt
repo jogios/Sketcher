@@ -1,0 +1,238 @@
+org.sketcher.AboutDialog -> org.sketcher.m:
+org.sketcher.AboutDialog$1 -> org.sketcher.h:
+    org.sketcher.AboutDialog this$0 -> a
+    void onClick(android.view.View) -> onClick
+org.sketcher.AboutDialog$2 -> org.sketcher.g:
+    org.sketcher.AboutDialog this$0 -> a
+    void onClick(android.view.View) -> onClick
+org.sketcher.Controller -> org.sketcher.e:
+    org.sketcher.Style style -> a
+    android.graphics.Canvas mCanvas -> b
+    boolean toDraw -> c
+    android.graphics.Paint mColor -> d
+    void draw() -> a
+    void setStyle(org.sketcher.Style) -> a
+    boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
+    void clear() -> b
+    void setPaintColor(android.graphics.Paint) -> a
+    android.graphics.Paint getPaintColor() -> c
+org.sketcher.FileHelper -> org.sketcher.c:
+    org.sketcher.Sketcher context -> b
+    boolean isSaved -> a
+    java.io.File getSDDir() -> e
+    android.graphics.Bitmap getSavedBitmap() -> a
+    boolean isStorageAvailable() -> f
+    void share() -> b
+    void saveToSD() -> c
+    java.io.File saveBitmap() -> d
+    org.sketcher.Sketcher access$0(org.sketcher.FileHelper) -> a
+org.sketcher.FileHelper$1 -> org.sketcher.d:
+    org.sketcher.FileHelper this$0 -> a
+    void onPostExecute(java.io.File) -> a
+org.sketcher.FileHelper$SaveTask -> org.sketcher.b:
+    android.app.ProgressDialog dialog -> a
+    org.sketcher.FileHelper this$0 -> b
+    void onPostExecute(java.io.File) -> a
+    void onPostExecute(java.lang.Object) -> onPostExecute
+    java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+org.sketcher.Sketcher -> org.sketcher.Sketcher:
+    org.sketcher.Surface surface -> a
+    org.sketcher.FileHelper fileHelper -> b
+    void onCreate(android.os.Bundle) -> onCreate
+    void onPause() -> onPause
+    void onResume() -> onResume
+    boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
+    boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
+    void showAboutDialog() -> b
+    org.sketcher.Surface getSurface() -> a
+    org.sketcher.FileHelper access$0(org.sketcher.Sketcher) -> a
+org.sketcher.Sketcher$1 -> org.sketcher.k:
+    org.sketcher.Sketcher this$0 -> a
+    void run() -> run
+org.sketcher.Sketcher$2 -> org.sketcher.i:
+    org.sketcher.Sketcher this$0 -> a
+    void colorChanged(android.graphics.Paint) -> a
+org.sketcher.Sketcher$3 -> org.sketcher.j:
+    org.sketcher.Sketcher this$0 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+org.sketcher.Sketcher$4 -> org.sketcher.l:
+    org.sketcher.Sketcher this$0 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+org.sketcher.Style -> org.sketcher.a:
+    void strokeStart(float,float) -> a
+    void stroke(android.graphics.Canvas,float,float) -> a
+    void draw(android.graphics.Canvas) -> a
+    void setColor(int) -> a
+org.sketcher.Surface -> org.sketcher.Surface:
+    org.sketcher.Surface$DrawThread drawThread -> a
+    android.graphics.Canvas drawCanvas -> b
+    org.sketcher.Controller controller -> c
+    android.graphics.Bitmap initialBitmap -> d
+    android.graphics.Bitmap bitmap -> e
+    void setStyle(org.sketcher.Style) -> a
+    org.sketcher.Surface$DrawThread getDrawThread() -> a
+    void surfaceChanged(android.view.SurfaceHolder,int,int,int) -> surfaceChanged
+    void surfaceCreated(android.view.SurfaceHolder) -> surfaceCreated
+    void surfaceDestroyed(android.view.SurfaceHolder) -> surfaceDestroyed
+    void clearBitmap() -> b
+    void setPaintColor(android.graphics.Paint) -> a
+    android.graphics.Paint getPaintColor() -> c
+    void setInitialBitmap(android.graphics.Bitmap) -> a
+    android.graphics.Bitmap getBitmap() -> d
+    org.sketcher.Controller access$0(org.sketcher.Surface) -> a
+    android.graphics.Bitmap access$1(org.sketcher.Surface) -> b
+org.sketcher.Surface$DrawThread -> org.sketcher.f:
+    boolean mRun -> a
+    boolean mPause -> b
+    org.sketcher.Surface this$0 -> c
+    void run() -> run
+    void stopDrawing() -> a
+    void pauseDrawing() -> b
+    void resumeDrawing() -> c
+org.sketcher.colorpicker.Picker -> org.sketcher.colorpicker.g:
+org.sketcher.colorpicker.Picker$OnColorChangedListener -> org.sketcher.colorpicker.f:
+    void colorChanged(android.graphics.Paint) -> a
+org.sketcher.colorpicker.PickerDialog -> org.sketcher.colorpicker.c:
+    org.sketcher.colorpicker.Picker$OnColorChangedListener mListener -> a
+    android.graphics.Paint mPaint -> b
+    void onCreate(android.os.Bundle) -> onCreate
+    android.graphics.Paint access$0(org.sketcher.colorpicker.PickerDialog) -> a
+    org.sketcher.colorpicker.Picker$OnColorChangedListener access$1(org.sketcher.colorpicker.PickerDialog) -> b
+org.sketcher.colorpicker.PickerDialog$1 -> org.sketcher.colorpicker.d:
+    org.sketcher.colorpicker.PickerDialog this$0 -> a
+    org.sketcher.colorpicker.PreviewView val$previewView -> b
+    void colorChanged(android.graphics.Paint) -> a
+org.sketcher.colorpicker.PickerDialog$2 -> org.sketcher.colorpicker.e:
+    org.sketcher.colorpicker.PickerDialog this$0 -> a
+    org.sketcher.colorpicker.Picker val$satValPicker -> b
+    org.sketcher.colorpicker.PreviewView val$previewView -> c
+    void colorChanged(android.graphics.Paint) -> a
+org.sketcher.colorpicker.PickerDialog$3 -> org.sketcher.colorpicker.a:
+    org.sketcher.colorpicker.PickerDialog this$0 -> a
+    void onClick(android.view.View) -> onClick
+org.sketcher.colorpicker.PickerDialog$4 -> org.sketcher.colorpicker.b:
+    org.sketcher.colorpicker.PickerDialog this$0 -> a
+    void onClick(android.view.View) -> onClick
+org.sketcher.colorpicker.PreviewView -> org.sketcher.colorpicker.PreviewView:
+    android.graphics.Paint mPaint -> a
+    android.graphics.Paint mOldPaint -> b
+    android.graphics.Paint mBorderPaint -> c
+    void setPaint(android.graphics.Paint) -> a
+    void setColor(int) -> a
+    void onDraw(android.graphics.Canvas) -> onDraw
+org.sketcher.style.ChromeStyle -> org.sketcher.a.c:
+    float prevX -> a
+    float prevY -> b
+    java.util.ArrayList points -> c
+    android.graphics.Paint paint -> d
+    android.graphics.Paint randPaint -> e
+    void stroke(android.graphics.Canvas,float,float) -> a
+    void strokeStart(float,float) -> a
+    void draw(android.graphics.Canvas) -> a
+    void setColor(int) -> a
+org.sketcher.style.CirclesStyle -> org.sketcher.a.a:
+    float prevX -> a
+    float prevY -> b
+    android.graphics.Paint paint -> c
+    void stroke(android.graphics.Canvas,float,float) -> a
+    void strokeStart(float,float) -> a
+    void draw(android.graphics.Canvas) -> a
+    void setColor(int) -> a
+org.sketcher.style.EraserStyle -> org.sketcher.a.n:
+    float prevX -> a
+    float prevY -> b
+    android.graphics.Paint paint -> c
+    void stroke(android.graphics.Canvas,float,float) -> a
+    void strokeStart(float,float) -> a
+    void draw(android.graphics.Canvas) -> a
+    void setColor(int) -> a
+org.sketcher.style.FurStyle -> org.sketcher.a.f:
+    float prevX -> a
+    float prevY -> b
+    java.util.ArrayList points -> c
+    android.graphics.Paint paint -> d
+    void stroke(android.graphics.Canvas,float,float) -> a
+    void strokeStart(float,float) -> a
+    void draw(android.graphics.Canvas) -> a
+    void setColor(int) -> a
+org.sketcher.style.GridStyle -> org.sketcher.a.g:
+    android.graphics.Paint paint -> a
+    void stroke(android.graphics.Canvas,float,float) -> a
+    void strokeStart(float,float) -> a
+    void draw(android.graphics.Canvas) -> a
+    void setColor(int) -> a
+org.sketcher.style.LongfurStyle -> org.sketcher.a.h:
+    java.util.ArrayList points -> a
+    android.graphics.Paint paint -> b
+    void stroke(android.graphics.Canvas,float,float) -> a
+    void strokeStart(float,float) -> a
+    void draw(android.graphics.Canvas) -> a
+    void setColor(int) -> a
+org.sketcher.style.RibbonStyle -> org.sketcher.a.b:
+    android.graphics.Paint paint -> a
+    org.sketcher.style.RibbonStyle$Painter[] painters -> b
+    float x -> c
+    float y -> d
+    void draw(android.graphics.Canvas) -> a
+    void stroke(android.graphics.Canvas,float,float) -> a
+    void strokeStart(float,float) -> a
+    void setColor(int) -> a
+org.sketcher.style.RibbonStyle$Painter -> org.sketcher.a.j:
+    float dx -> a
+    float dy -> b
+    float ax -> c
+    float ay -> d
+    float div -> e
+    float ease -> f
+    org.sketcher.style.RibbonStyle this$0 -> g
+org.sketcher.style.ShadedStyle -> org.sketcher.a.m:
+    java.util.ArrayList points -> a
+    android.graphics.Paint paint -> b
+    void stroke(android.graphics.Canvas,float,float) -> a
+    void strokeStart(float,float) -> a
+    void draw(android.graphics.Canvas) -> a
+    void setColor(int) -> a
+org.sketcher.style.SimpleStyle -> org.sketcher.a.k:
+    float prevX -> a
+    float prevY -> b
+    android.graphics.Paint paint -> c
+    void stroke(android.graphics.Canvas,float,float) -> a
+    void strokeStart(float,float) -> a
+    void draw(android.graphics.Canvas) -> a
+    void setColor(int) -> a
+org.sketcher.style.SketchyStyle -> org.sketcher.a.i:
+    float prevX -> a
+    float prevY -> b
+    java.util.ArrayList points -> c
+    android.graphics.Paint paint -> d
+    void stroke(android.graphics.Canvas,float,float) -> a
+    void strokeStart(float,float) -> a
+    void draw(android.graphics.Canvas) -> a
+    void setColor(int) -> a
+org.sketcher.style.SquaresStyle -> org.sketcher.a.e:
+    float prevX -> a
+    float prevY -> b
+    android.graphics.Paint paint -> c
+    android.graphics.Paint mBackgroundPaint -> d
+    android.graphics.Path PATH -> e
+    float COS_ALPHA -> f
+    float SIN_ALPHA -> g
+    void stroke(android.graphics.Canvas,float,float) -> a
+    void strokeStart(float,float) -> a
+    void draw(android.graphics.Canvas) -> a
+    void setColor(int) -> a
+org.sketcher.style.StylesFactory -> org.sketcher.a.l:
+    java.util.Map cache -> a
+    int currentStyle -> b
+    org.sketcher.Style getStyle(int) -> a
+    org.sketcher.Style getCurrentStyle() -> a
+    void clearCache() -> b
+org.sketcher.style.WebStyle -> org.sketcher.a.d:
+    float prevX -> a
+    float prevY -> b
+    java.util.ArrayList points -> c
+    android.graphics.Paint paint -> d
+    void stroke(android.graphics.Canvas,float,float) -> a
+    void strokeStart(float,float) -> a
+    void draw(android.graphics.Canvas) -> a
+    void setColor(int) -> a
