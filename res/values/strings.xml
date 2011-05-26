@@ -40,8 +40,11 @@
 	<string name="cancel">Cancel</string>
 
 	<!-- About dialog -->
-	<string name="about_title">About</string>
-	<string name="about_text">Sketcher is an open-source application licensed under
+	<string name="about_title">What\'s new?</string>
+	<string name="about_text">- updated app icons
+		\n- fixed color picker layout for different screen sizes
+		\n- other fixes
+		\n<b>Sketcher</b> is an open-source application licensed under
 		<i>Apache License v2.0</i>: 
 		\nhttp://bit.ly/apachelicense. 
 		\nOfficial web site:

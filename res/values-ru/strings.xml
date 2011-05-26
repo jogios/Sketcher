@@ -34,8 +34,11 @@
 	<string name="eraser">Ластик</string>
 
 	<!-- About dialog -->
-    <string name="about_title">О программе</string>
-    <string name="about_text">Sketcher - приложение с открытым исходным кодом, лицензированным под
+    <string name="about_title">Что нового?</string>
+    <string name="about_text">\n- обновил иконки приложения
+		\n- починил выбор цветов
+		\n- другие фиксы
+		\nSketcher - приложение с открытым исходным кодом, лицензированным под
         <i>лицензией Apache версии 2.0</i>: 
 		\nhttp://bit.ly/apachelicense.
         \nОфициальный сайт: 

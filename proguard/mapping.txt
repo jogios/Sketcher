@@ -69,15 +69,15 @@ org.sketcher.Surface -> org.sketcher.Surface:
     org.sketcher.Controller controller -> c
     android.graphics.Bitmap initialBitmap -> d
     android.graphics.Bitmap bitmap -> e
-    void setStyle(org.sketcher.Style) -> a
+    void setStyle(org.sketcher.Style) -> setStyle
     org.sketcher.Surface$DrawThread getDrawThread() -> a
     void surfaceChanged(android.view.SurfaceHolder,int,int,int) -> surfaceChanged
     void surfaceCreated(android.view.SurfaceHolder) -> surfaceCreated
     void surfaceDestroyed(android.view.SurfaceHolder) -> surfaceDestroyed
     void clearBitmap() -> b
-    void setPaintColor(android.graphics.Paint) -> a
+    void setPaintColor(android.graphics.Paint) -> setPaintColor
     android.graphics.Paint getPaintColor() -> c
-    void setInitialBitmap(android.graphics.Bitmap) -> a
+    void setInitialBitmap(android.graphics.Bitmap) -> setInitialBitmap
     android.graphics.Bitmap getBitmap() -> d
     org.sketcher.Controller access$0(org.sketcher.Surface) -> a
     android.graphics.Bitmap access$1(org.sketcher.Surface) -> b
@@ -89,8 +89,35 @@ org.sketcher.Surface$DrawThread -> org.sketcher.f:
     void stopDrawing() -> a
     void pauseDrawing() -> b
     void resumeDrawing() -> c
-org.sketcher.colorpicker.Picker -> org.sketcher.colorpicker.g:
-org.sketcher.colorpicker.Picker$OnColorChangedListener -> org.sketcher.colorpicker.f:
+org.sketcher.colorpicker.AlphaPicker -> org.sketcher.colorpicker.AlphaPicker:
+    org.sketcher.colorpicker.Picker$OnColorChangedListener mListener -> a
+    android.graphics.Paint mColor -> b
+    float[] mHsv -> c
+    android.graphics.Paint mGradient -> d
+    android.graphics.Paint mTrackerPaint -> e
+    void onSizeChanged(int,int,int,int) -> onSizeChanged
+    void setColor(int) -> setColor
+    void applyChages(int,int) -> a
+    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    void setOnColorChangedListener(org.sketcher.colorpicker.Picker$OnColorChangedListener) -> setOnColorChangedListener
+    void onDraw(android.graphics.Canvas) -> onDraw
+org.sketcher.colorpicker.HuePicker -> org.sketcher.colorpicker.HuePicker:
+    float[] MARGIN -> a
+    org.sketcher.colorpicker.Picker$OnColorChangedListener mListener -> b
+    int[] mColors -> c
+    android.graphics.Paint mColor -> d
+    android.graphics.Paint mGradient -> e
+    android.graphics.Paint mTrackerPaint -> f
+    void onSizeChanged(int,int,int,int) -> onSizeChanged
+    void setColor(int) -> setColor
+    void setOnColorChangedListener(org.sketcher.colorpicker.Picker$OnColorChangedListener) -> setOnColorChangedListener
+    void onDraw(android.graphics.Canvas) -> onDraw
+    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    int ave(int,int,float) -> a
+org.sketcher.colorpicker.Picker -> org.sketcher.colorpicker.h:
+    void setOnColorChangedListener(org.sketcher.colorpicker.Picker$OnColorChangedListener) -> setOnColorChangedListener
+    void setColor(int) -> setColor
+org.sketcher.colorpicker.Picker$OnColorChangedListener -> org.sketcher.colorpicker.g:
     void colorChanged(android.graphics.Paint) -> a
 org.sketcher.colorpicker.PickerDialog -> org.sketcher.colorpicker.c:
     org.sketcher.colorpicker.Picker$OnColorChangedListener mListener -> a
@@ -117,9 +144,23 @@ org.sketcher.colorpicker.PreviewView -> org.sketcher.colorpicker.PreviewView:
     android.graphics.Paint mPaint -> a
     android.graphics.Paint mOldPaint -> b
     android.graphics.Paint mBorderPaint -> c
-    void setPaint(android.graphics.Paint) -> a
-    void setColor(int) -> a
+    void setPaint(android.graphics.Paint) -> setPaint
+    void setColor(int) -> setColor
     void onDraw(android.graphics.Canvas) -> onDraw
+org.sketcher.colorpicker.SatValPicker -> org.sketcher.colorpicker.SatValPicker:
+    org.sketcher.colorpicker.Picker$OnColorChangedListener mListener -> a
+    android.graphics.Paint mColor -> b
+    android.graphics.Paint mGradient -> c
+    android.graphics.Paint mTrackerPaint -> d
+    float mHue -> e
+    void onSizeChanged(int,int,int,int) -> onSizeChanged
+    void applyChages(int,int) -> a
+    void setColor(int) -> setColor
+    void setOnColorChangedListener(org.sketcher.colorpicker.Picker$OnColorChangedListener) -> setOnColorChangedListener
+    void onDraw(android.graphics.Canvas) -> onDraw
+    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+org.sketcher.colorpicker.Utils -> org.sketcher.colorpicker.f:
+    float[] color2HSV(int) -> a
 org.sketcher.style.ChromeStyle -> org.sketcher.a.c:
     float prevX -> a
     float prevY -> b
