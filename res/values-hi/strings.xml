@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">स्केचर</string>
+	<string name="app_name">स्केचर Light</string>
 	<string name="pick_a_color">एक रंग चुनें</string>
 	<string name="saving_to_sd_please_wait">कार्ड के लिए सहेजा जा रहा है। कृपया प्रतीक्षा करें...</string>
 	<string name="please_wait">कृपया प्रतीक्षा करें...</string>

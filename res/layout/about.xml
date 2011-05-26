@@ -10,7 +10,7 @@
 			android:layout_width="wrap_content" android:orientation="vertical">
 			<Button android:id="@+id/about_buy" android:layout_weight="1.0"
 				android:layout_width="fill_parent" android:layout_height="wrap_content"
-				android:text="@string/buy_pro_version" />
+				android:text="@string/buy_pro_version" android:drawableLeft="@drawable/icon_pro" />
 
 			<TextView android:autoLink="all" android:layout_width="wrap_content"
 				android:layout_height="fill_parent" android:text="@string/about_text" />

@@ -8,8 +8,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -21,6 +26,8 @@ public class Sketcher extends Activity {
 	private static final short MENU_SHARE = 0x2003;
 	private static final short MENU_COLOR = 0x2004;
 	private static final short MENU_ABOUT = 0x2005;
+	private static final String PREFS_NAME = "preferences";
+	private static final String KEY_CHANGELOG_VERSION_VIEWED = "lastVersionDialogShowed";
 
 	private Surface surface;
 	private FileHelper fileHelper = new FileHelper(this);
@@ -35,6 +42,27 @@ public class Sketcher extends Activity {
 
 		setContentView(R.layout.main);
 		surface = (Surface) findViewById(R.id.surface);
+
+		try {
+			// current version
+			PackageInfo packageInfo = getPackageManager().getPackageInfo(
+					getPackageName(), 0);
+			int versionCode = packageInfo.versionCode;
+
+			// version where changelog has been viewed
+			SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+			int viewedChangelogVersion = settings.getInt(
+					KEY_CHANGELOG_VERSION_VIEWED, 0);
+
+			if (viewedChangelogVersion < versionCode) {
+				Editor editor = settings.edit();
+				editor.putInt(KEY_CHANGELOG_VERSION_VIEWED, versionCode);
+				editor.commit();
+				showAboutDialog();
+			}
+		} catch (NameNotFoundException e) {
+			Log.w("Unable to get version code. Will not show changelog", e);
+		}
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Sketcher</string>
+	<string name="app_name">Sketcher Light</string>
 	<string name="pick_a_color">Pick a Color</string>
 	<string name="saving_to_sd_please_wait">Saving to SD. Please wait...</string>
 	<string name="successfully_saved_to">Picture saved to "%s"</string>
@@ -41,9 +41,7 @@
 
 	<!-- About dialog -->
 	<string name="about_title">About</string>
-	<string name="about_text">Please donate if you like this application: 
-		\nhttp://bit.ly/sketcherdonate
-		\nSketcher is an open-source application licensed under
+	<string name="about_text">Sketcher is an open-source application licensed under
 		<i>Apache License v2.0</i>: 
 		\nhttp://bit.ly/apachelicense. 
 		\nOfficial web site:
@@ -59,6 +57,6 @@
 		\nScott for translation to Korean
 		\nPiyush Mor for translation to Hindi
 	</string>
-	<string name="buy_pro_version">Buy PRO version</string>
+	<string name="buy_pro_version">Buy Sketcher PRO</string>
 	<string name="button_close">Close</string>
 </resources>
