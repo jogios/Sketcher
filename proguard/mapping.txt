@@ -1,11 +1,11 @@
 org.sketcher.AboutDialog -> org.sketcher.m:
-org.sketcher.AboutDialog$1 -> org.sketcher.h:
+org.sketcher.AboutDialog$1 -> org.sketcher.i:
     org.sketcher.AboutDialog this$0 -> a
     void onClick(android.view.View) -> onClick
-org.sketcher.AboutDialog$2 -> org.sketcher.g:
+org.sketcher.AboutDialog$2 -> org.sketcher.h:
     org.sketcher.AboutDialog this$0 -> a
     void onClick(android.view.View) -> onClick
-org.sketcher.Controller -> org.sketcher.e:
+org.sketcher.Controller -> org.sketcher.f:
     org.sketcher.Style style -> a
     android.graphics.Canvas mCanvas -> b
     boolean toDraw -> c
@@ -26,7 +26,7 @@ org.sketcher.FileHelper -> org.sketcher.c:
     void saveToSD() -> c
     java.io.File saveBitmap() -> d
     org.sketcher.Sketcher access$0(org.sketcher.FileHelper) -> a
-org.sketcher.FileHelper$1 -> org.sketcher.d:
+org.sketcher.FileHelper$1 -> org.sketcher.e:
     org.sketcher.FileHelper this$0 -> a
     void onPostExecute(java.io.File) -> a
 org.sketcher.FileHelper$SaveTask -> org.sketcher.b:
@@ -35,6 +35,16 @@ org.sketcher.FileHelper$SaveTask -> org.sketcher.b:
     void onPostExecute(java.io.File) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+org.sketcher.HistoryHelper -> org.sketcher.l:
+    org.sketcher.Surface mSurface -> a
+    org.sketcher.HistoryHelper$State mUndoState -> b
+    org.sketcher.HistoryHelper$State mRedoState -> c
+    boolean isSwaped -> d
+    void undo() -> a
+    void saveState() -> b
+org.sketcher.HistoryHelper$State -> org.sketcher.d:
+    byte[] mBuffer -> a
+    java.util.HashMap stylesState -> b
 org.sketcher.Sketcher -> org.sketcher.Sketcher:
     org.sketcher.Surface surface -> a
     org.sketcher.FileHelper fileHelper -> b
@@ -45,30 +55,29 @@ org.sketcher.Sketcher -> org.sketcher.Sketcher:
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
     void showAboutDialog() -> b
     org.sketcher.Surface getSurface() -> a
+    boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
     org.sketcher.FileHelper access$0(org.sketcher.Sketcher) -> a
 org.sketcher.Sketcher$1 -> org.sketcher.k:
     org.sketcher.Sketcher this$0 -> a
     void run() -> run
-org.sketcher.Sketcher$2 -> org.sketcher.i:
+org.sketcher.Sketcher$2 -> org.sketcher.j:
     org.sketcher.Sketcher this$0 -> a
     void colorChanged(android.graphics.Paint) -> a
-org.sketcher.Sketcher$3 -> org.sketcher.j:
-    org.sketcher.Sketcher this$0 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-org.sketcher.Sketcher$4 -> org.sketcher.l:
-    org.sketcher.Sketcher this$0 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
 org.sketcher.Style -> org.sketcher.a:
     void strokeStart(float,float) -> a
     void stroke(android.graphics.Canvas,float,float) -> a
     void draw(android.graphics.Canvas) -> a
     void setColor(int) -> a
+    void saveState(java.util.HashMap) -> a
+    void restoreState(java.util.HashMap) -> b
 org.sketcher.Surface -> org.sketcher.Surface:
     org.sketcher.Surface$DrawThread drawThread -> a
     android.graphics.Canvas drawCanvas -> b
     org.sketcher.Controller controller -> c
     android.graphics.Bitmap initialBitmap -> d
     android.graphics.Bitmap bitmap -> e
+    org.sketcher.HistoryHelper mHistoryHelper -> f
+    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
     void setStyle(org.sketcher.Style) -> setStyle
     org.sketcher.Surface$DrawThread getDrawThread() -> a
     void surfaceChanged(android.view.SurfaceHolder,int,int,int) -> surfaceChanged
@@ -79,9 +88,10 @@ org.sketcher.Surface -> org.sketcher.Surface:
     android.graphics.Paint getPaintColor() -> c
     void setInitialBitmap(android.graphics.Bitmap) -> setInitialBitmap
     android.graphics.Bitmap getBitmap() -> d
+    void undo() -> e
     org.sketcher.Controller access$0(org.sketcher.Surface) -> a
     android.graphics.Bitmap access$1(org.sketcher.Surface) -> b
-org.sketcher.Surface$DrawThread -> org.sketcher.f:
+org.sketcher.Surface$DrawThread -> org.sketcher.g:
     boolean mRun -> a
     boolean mPause -> b
     org.sketcher.Surface this$0 -> c
@@ -171,6 +181,8 @@ org.sketcher.style.ChromeStyle -> org.sketcher.a.c:
     void strokeStart(float,float) -> a
     void draw(android.graphics.Canvas) -> a
     void setColor(int) -> a
+    void restoreState(java.util.HashMap) -> b
+    void saveState(java.util.HashMap) -> a
 org.sketcher.style.CirclesStyle -> org.sketcher.a.a:
     float prevX -> a
     float prevY -> b
@@ -179,6 +191,8 @@ org.sketcher.style.CirclesStyle -> org.sketcher.a.a:
     void strokeStart(float,float) -> a
     void draw(android.graphics.Canvas) -> a
     void setColor(int) -> a
+    void saveState(java.util.HashMap) -> a
+    void restoreState(java.util.HashMap) -> b
 org.sketcher.style.EraserStyle -> org.sketcher.a.n:
     float prevX -> a
     float prevY -> b
@@ -187,6 +201,8 @@ org.sketcher.style.EraserStyle -> org.sketcher.a.n:
     void strokeStart(float,float) -> a
     void draw(android.graphics.Canvas) -> a
     void setColor(int) -> a
+    void saveState(java.util.HashMap) -> a
+    void restoreState(java.util.HashMap) -> b
 org.sketcher.style.FurStyle -> org.sketcher.a.f:
     float prevX -> a
     float prevY -> b
@@ -196,12 +212,16 @@ org.sketcher.style.FurStyle -> org.sketcher.a.f:
     void strokeStart(float,float) -> a
     void draw(android.graphics.Canvas) -> a
     void setColor(int) -> a
+    void saveState(java.util.HashMap) -> a
+    void restoreState(java.util.HashMap) -> b
 org.sketcher.style.GridStyle -> org.sketcher.a.g:
     android.graphics.Paint paint -> a
     void stroke(android.graphics.Canvas,float,float) -> a
     void strokeStart(float,float) -> a
     void draw(android.graphics.Canvas) -> a
     void setColor(int) -> a
+    void saveState(java.util.HashMap) -> a
+    void restoreState(java.util.HashMap) -> b
 org.sketcher.style.LongfurStyle -> org.sketcher.a.h:
     java.util.ArrayList points -> a
     android.graphics.Paint paint -> b
@@ -209,6 +229,8 @@ org.sketcher.style.LongfurStyle -> org.sketcher.a.h:
     void strokeStart(float,float) -> a
     void draw(android.graphics.Canvas) -> a
     void setColor(int) -> a
+    void saveState(java.util.HashMap) -> a
+    void restoreState(java.util.HashMap) -> b
 org.sketcher.style.RibbonStyle -> org.sketcher.a.b:
     android.graphics.Paint paint -> a
     org.sketcher.style.RibbonStyle$Painter[] painters -> b
@@ -218,6 +240,8 @@ org.sketcher.style.RibbonStyle -> org.sketcher.a.b:
     void stroke(android.graphics.Canvas,float,float) -> a
     void strokeStart(float,float) -> a
     void setColor(int) -> a
+    void saveState(java.util.HashMap) -> a
+    void restoreState(java.util.HashMap) -> b
 org.sketcher.style.RibbonStyle$Painter -> org.sketcher.a.j:
     float dx -> a
     float dy -> b
@@ -233,6 +257,8 @@ org.sketcher.style.ShadedStyle -> org.sketcher.a.m:
     void strokeStart(float,float) -> a
     void draw(android.graphics.Canvas) -> a
     void setColor(int) -> a
+    void saveState(java.util.HashMap) -> a
+    void restoreState(java.util.HashMap) -> b
 org.sketcher.style.SimpleStyle -> org.sketcher.a.k:
     float prevX -> a
     float prevY -> b
@@ -241,6 +267,8 @@ org.sketcher.style.SimpleStyle -> org.sketcher.a.k:
     void strokeStart(float,float) -> a
     void draw(android.graphics.Canvas) -> a
     void setColor(int) -> a
+    void saveState(java.util.HashMap) -> a
+    void restoreState(java.util.HashMap) -> b
 org.sketcher.style.SketchyStyle -> org.sketcher.a.i:
     float prevX -> a
     float prevY -> b
@@ -250,6 +278,8 @@ org.sketcher.style.SketchyStyle -> org.sketcher.a.i:
     void strokeStart(float,float) -> a
     void draw(android.graphics.Canvas) -> a
     void setColor(int) -> a
+    void saveState(java.util.HashMap) -> a
+    void restoreState(java.util.HashMap) -> b
 org.sketcher.style.SquaresStyle -> org.sketcher.a.e:
     float prevX -> a
     float prevY -> b
@@ -262,12 +292,16 @@ org.sketcher.style.SquaresStyle -> org.sketcher.a.e:
     void strokeStart(float,float) -> a
     void draw(android.graphics.Canvas) -> a
     void setColor(int) -> a
+    void saveState(java.util.HashMap) -> a
+    void restoreState(java.util.HashMap) -> b
 org.sketcher.style.StylesFactory -> org.sketcher.a.l:
     java.util.Map cache -> a
     int currentStyle -> b
     org.sketcher.Style getStyle(int) -> a
     org.sketcher.Style getCurrentStyle() -> a
     void clearCache() -> b
+    void saveState(java.util.HashMap) -> a
+    void restoreState(java.util.HashMap) -> b
 org.sketcher.style.WebStyle -> org.sketcher.a.d:
     float prevX -> a
     float prevY -> b
@@ -277,3 +311,5 @@ org.sketcher.style.WebStyle -> org.sketcher.a.d:
     void strokeStart(float,float) -> a
     void draw(android.graphics.Canvas) -> a
     void setColor(int) -> a
+    void saveState(java.util.HashMap) -> a
+    void restoreState(java.util.HashMap) -> b
