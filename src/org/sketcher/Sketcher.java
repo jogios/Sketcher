@@ -15,6 +15,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -26,11 +27,12 @@ public class Sketcher extends Activity {
 	private static final short MENU_SHARE = 0x2003;
 	private static final short MENU_COLOR = 0x2004;
 	private static final short MENU_ABOUT = 0x2005;
+	private static final short MENU_UNDO = 0x2006;
 	private static final String PREFS_NAME = "preferences";
 	private static final String KEY_CHANGELOG_VERSION_VIEWED = "lastVersionDialogShowed";
 
 	private Surface surface;
-	private FileHelper fileHelper = new FileHelper(this);
+	private final FileHelper fileHelper = new FileHelper(this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,18 +95,22 @@ public class Sketcher extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
+		menu.add(0, MENU_UNDO, 0, R.string.undo).setIcon(
+				android.R.drawable.ic_menu_revert);
 		menu.add(0, MENU_SAVE, 0, R.string.save).setIcon(
 				android.R.drawable.ic_menu_save);
-		menu.add(0, MENU_SHARE, 0, R.string.send).setIcon(
-				android.R.drawable.ic_menu_send);
-		menu.add(0, MENU_CLEAR, 0, R.string.clear).setIcon(
-				android.R.drawable.ic_menu_close_clear_cancel);
+		SubMenu subMenu = menu.addSubMenu(R.string.brushes).setIcon(
+				android.R.drawable.ic_menu_edit);
 		menu.add(0, MENU_COLOR, 0, R.string.color).setIcon(
 				android.R.drawable.ic_menu_preferences);
 		menu.add(0, MENU_ABOUT, 0, R.string.about).setIcon(
 				android.R.drawable.ic_menu_info_details);
-		SubMenu subMenu = menu.addSubMenu(R.string.brushes).setIcon(
-				android.R.drawable.ic_menu_edit);
+
+		menu.add(0, MENU_SHARE, 0, R.string.send).setIcon(
+				android.R.drawable.ic_menu_send);
+		menu.add(0, MENU_CLEAR, 0, R.string.clear).setIcon(
+				android.R.drawable.ic_menu_close_clear_cancel);
+
 		subMenu.add(GROUP_BRUSHES, StylesFactory.ERASER, 0, R.string.eraser);
 		subMenu.add(GROUP_BRUSHES, StylesFactory.SKETCHY, 0, R.string.sketchy);
 		subMenu.add(GROUP_BRUSHES, StylesFactory.SIMPLE, 0, R.string.simple);
@@ -117,7 +123,6 @@ public class Sketcher extends Activity {
 		subMenu.add(GROUP_BRUSHES, StylesFactory.RIBBON, 0, R.string.ribbon);
 		subMenu.add(GROUP_BRUSHES, StylesFactory.CIRCLES, 0, R.string.circles);
 		subMenu.add(GROUP_BRUSHES, StylesFactory.GRID, 0, R.string.grid);
-
 		return true;
 	}
 
@@ -130,7 +135,7 @@ public class Sketcher extends Activity {
 
 		switch (item.getItemId()) {
 		case MENU_CLEAR:
-			clearCanvas();
+			getSurface().clearBitmap();
 			return true;
 		case MENU_SAVE:
 			fileHelper.saveToSD();
@@ -149,29 +154,13 @@ public class Sketcher extends Activity {
 				}
 			}, getSurface().getPaintColor()).show();
 			return true;
+		case MENU_UNDO:
+			getSurface().undo();
+			return true;
 
 		default:
 			return false;
 		}
-	}
-
-	private void clearCanvas() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(R.string.are_you_sure)
-				.setCancelable(false)
-				.setPositiveButton(R.string.yes,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								getSurface().clearBitmap();
-							}
-						})
-				.setNegativeButton(R.string.cancel,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
-							}
-						});
-		builder.create().show();
 	}
 
 	private void showAboutDialog() {
@@ -181,5 +170,15 @@ public class Sketcher extends Activity {
 
 	Surface getSurface() {
 		return surface;
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		switch(keyCode) {
+		case KeyEvent.KEYCODE_BACK:
+			getSurface().undo();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

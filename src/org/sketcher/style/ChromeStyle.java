@@ -1,6 +1,7 @@
 package org.sketcher.style;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.sketcher.Style;
 
@@ -46,8 +47,9 @@ class ChromeStyle implements Style {
 			length = dx * dx + dy * dy;
 
 			if (length < 1000) {
-				randPaint.setARGB(35, (int) (Math.random() * 255), (int) (Math
-						.random() * 255), (int) (Math.random() * 255));
+				randPaint.setARGB(35, (int) (Math.random() * 255),
+						(int) (Math.random() * 255),
+						(int) (Math.random() * 255));
 				float ddx = dx * 0.2F;
 				float ddy = dy * 0.2F;
 				c.drawLine(current.x + ddx, current.y + ddy, point.x - ddx,
@@ -73,5 +75,21 @@ class ChromeStyle implements Style {
 	public void setColor(int color) {
 		paint.setColor(color);
 		paint.setAlpha(30);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void restoreState(HashMap<Integer, Object> state) {
+		this.points.clear();
+		ArrayList<PointF> points = (ArrayList<PointF>) state
+				.get(StylesFactory.CHROME);
+		this.points.addAll(points);
+	}
+
+	@Override
+	public void saveState(HashMap<Integer, Object> state) {
+		ArrayList<PointF> points = new ArrayList<PointF>();
+		points.addAll(this.points);
+		state.put(StylesFactory.CHROME, points);
 	}
 }

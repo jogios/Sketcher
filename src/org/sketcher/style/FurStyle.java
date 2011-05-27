@@ -1,6 +1,7 @@
 package org.sketcher.style;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.sketcher.Style;
 
@@ -67,5 +68,21 @@ class FurStyle implements Style {
 	public void setColor(int color) {
 		paint.setColor(color);
 		paint.setAlpha(25);
+	}
+
+	@Override
+	public void saveState(HashMap<Integer, Object> state) {
+		ArrayList<PointF> points = new ArrayList<PointF>();
+		points.addAll(this.points);
+		state.put(StylesFactory.FUR, points);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void restoreState(HashMap<Integer, Object> state) {
+		this.points.clear();
+		ArrayList<PointF> points = (ArrayList<PointF>) state
+				.get(StylesFactory.FUR);
+		this.points.addAll(points);
 	}
 }

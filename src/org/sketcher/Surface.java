@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
@@ -76,13 +77,23 @@ public final class Surface extends SurfaceView implements Callback {
 	private final Controller controller = new Controller(drawCanvas);
 	private Bitmap initialBitmap;
 	private Bitmap bitmap;
+	private final HistoryHelper mHistoryHelper = new HistoryHelper(this);
 
 	public Surface(Context context, AttributeSet attributes) {
 		super(context, attributes);
 
 		getHolder().addCallback(this);
 		setFocusable(true);
-		setOnTouchListener(controller);
+	}
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		switch (event.getAction()) {
+		case MotionEvent.ACTION_UP:
+			mHistoryHelper.saveState();
+			break;
+		}
+		return controller.onTouch(this, event);
 	}
 
 	public void setStyle(Style style) {
@@ -107,6 +118,7 @@ public final class Surface extends SurfaceView implements Callback {
 		if (initialBitmap != null) {
 			drawCanvas.drawBitmap(initialBitmap, 0, 0, null);
 		}
+		mHistoryHelper.saveState();
 	}
 
 	@Override
@@ -130,6 +142,7 @@ public final class Surface extends SurfaceView implements Callback {
 	public void clearBitmap() {
 		bitmap.eraseColor(Color.WHITE);
 		controller.clear();
+		mHistoryHelper.saveState();
 	}
 
 	public void setPaintColor(Paint color) {
@@ -146,5 +159,9 @@ public final class Surface extends SurfaceView implements Callback {
 
 	public Bitmap getBitmap() {
 		return bitmap;
+	}
+	
+	public void undo() {
+		mHistoryHelper.undo();
 	}
 }

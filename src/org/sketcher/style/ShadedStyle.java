@@ -1,6 +1,7 @@
 package org.sketcher.style;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.sketcher.Style;
 
@@ -54,5 +55,21 @@ class ShadedStyle implements Style {
 	@Override
 	public void setColor(int color) {
 		paint.setColor(color);
+	}
+
+	@Override
+	public void saveState(HashMap<Integer, Object> state) {
+		ArrayList<PointF> points = new ArrayList<PointF>();
+		points.addAll(this.points);
+		state.put(StylesFactory.SHADED, points);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void restoreState(HashMap<Integer, Object> state) {
+		this.points.clear();
+		ArrayList<PointF> points = (ArrayList<PointF>) state
+				.get(StylesFactory.SHADED);
+		this.points.addAll(points);
 	}
 }

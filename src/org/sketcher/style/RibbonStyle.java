@@ -1,5 +1,7 @@
 package org.sketcher.style;
 
+import java.util.HashMap;
+
 import org.sketcher.Style;
 
 import android.graphics.Canvas;
@@ -74,5 +76,13 @@ class RibbonStyle implements Style {
 	public void setColor(int color) {
 		paint.setColor(color);
 		paint.setAlpha(25);
+	}
+
+	@Override
+	public void saveState(HashMap<Integer, Object> state) {
+	}
+
+	@Override
+	public void restoreState(HashMap<Integer, Object> state) {
 	}
 }

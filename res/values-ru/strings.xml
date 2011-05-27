@@ -18,6 +18,7 @@
 	<string name="send">Отправить</string>
 	<string name="save">Сохранить</string>
 	<string name="about">О программе</string>
+	<string name="undo">Отмена</string>
 
 	<!-- Submenu -->
 	<string name="grid">Grid</string>

@@ -1,5 +1,7 @@
 package org.sketcher.style;
 
+import java.util.HashMap;
+
 import org.sketcher.Style;
 
 import android.graphics.Canvas;
@@ -20,14 +22,14 @@ class SquaresStyle implements Style {
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setAntiAlias(true);
 	}
-	
+
 	{
 		mBackgroundPaint.setColor(Color.WHITE);
 		mBackgroundPaint.setStyle(Paint.Style.FILL);
 	}
-	
+
 	private static final Path PATH = new Path();
-	
+
 	private static final float ALPHA = 1.57079633F;
 	private static final float COS_ALPHA = (float) Math.cos(ALPHA);
 	private static final float SIN_ALPHA = (float) Math.sin(ALPHA);
@@ -68,5 +70,13 @@ class SquaresStyle implements Style {
 	public void setColor(int color) {
 		paint.setColor(color);
 		paint.setAlpha(100);
+	}
+
+	@Override
+	public void saveState(HashMap<Integer, Object> state) {
+	}
+
+	@Override
+	public void restoreState(HashMap<Integer, Object> state) {
 	}
 }

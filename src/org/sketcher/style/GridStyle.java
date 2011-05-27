@@ -1,5 +1,7 @@
 package org.sketcher.style;
 
+import java.util.HashMap;
+
 import org.sketcher.Style;
 
 import android.graphics.Canvas;
@@ -24,8 +26,8 @@ class GridStyle implements Style {
 		float dy = (gridy - y) * 10;
 
 		for (int i = 0; i < 50; i++) {
-			c.drawLine(x + (float) Math.random() * dx, y
-					+ (float) Math.random() * dy, gridx, gridy, paint);
+			c.drawLine(x + (float) Math.random() * dx,
+					y + (float) Math.random() * dy, gridx, gridy, paint);
 		}
 	}
 
@@ -41,5 +43,13 @@ class GridStyle implements Style {
 	public void setColor(int color) {
 		paint.setColor(color);
 		paint.setAlpha(25);
+	}
+
+	@Override
+	public void saveState(HashMap<Integer, Object> state) {
+	}
+
+	@Override
+	public void restoreState(HashMap<Integer, Object> state) {
 	}
 }

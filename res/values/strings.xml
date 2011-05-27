@@ -20,6 +20,7 @@
 	<string name="send">Share</string>
 	<string name="save">Save</string>
 	<string name="about">About</string>
+	<string name="undo">Undo</string>
 
 	<!-- Submenu -->
 	<string name="grid">Grid</string>
