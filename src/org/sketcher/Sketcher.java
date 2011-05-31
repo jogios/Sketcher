@@ -5,9 +5,7 @@ import org.sketcher.colorpicker.PickerDialog;
 import org.sketcher.style.StylesFactory;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
@@ -52,7 +50,7 @@ public class Sketcher extends Activity {
 			int versionCode = packageInfo.versionCode;
 
 			// version where changelog has been viewed
-			SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+			SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 			int viewedChangelogVersion = settings.getInt(
 					KEY_CHANGELOG_VERSION_VIEWED, 0);
 

@@ -42,9 +42,7 @@
 
 	<!-- About dialog -->
 	<string name="about_title">What\'s new?</string>
-	<string name="about_text">- updated app icons
-		\n- fixed color picker layout for different screen sizes
-		\n- other fixes
+	<string name="about_text">- implemented undo/redo
 		\n<b>Sketcher</b> is an open-source application licensed under
 		<i>Apache License v2.0</i>: 
 		\nhttp://bit.ly/apachelicense. 
