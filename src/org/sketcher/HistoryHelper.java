@@ -21,6 +21,9 @@ public class HistoryHelper {
 	}
 
 	public void undo() {
+		if (mRedoState.mBuffer == null || mUndoState.mBuffer == null) {
+			return;
+		}
 		restoreState(mSurface.getBitmap(), isSwaped ? mRedoState : mUndoState);
 		isSwaped = !isSwaped;
 	}
