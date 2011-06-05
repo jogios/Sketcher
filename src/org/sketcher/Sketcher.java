@@ -13,7 +13,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -170,13 +169,13 @@ public class Sketcher extends Activity {
 		return surface;
 	}
 	
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		switch(keyCode) {
-		case KeyEvent.KEYCODE_BACK:
-			getSurface().undo();
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+//		switch(keyCode) {
+//		case KeyEvent.KEYCODE_BACK:
+//			getSurface().undo();
+//			return true;
+//		}
+//		return super.onKeyDown(keyCode, event);
+//	}
 }

@@ -55,7 +55,6 @@ org.sketcher.Sketcher -> org.sketcher.Sketcher:
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
     void showAboutDialog() -> b
     org.sketcher.Surface getSurface() -> a
-    boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
     org.sketcher.FileHelper access$0(org.sketcher.Sketcher) -> a
 org.sketcher.Sketcher$1 -> org.sketcher.k:
     org.sketcher.Sketcher this$0 -> a
