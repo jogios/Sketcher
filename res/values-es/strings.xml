@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Translated by jogios@users.sourceforge.net -->
+<resources>
+	<string name="pick_a_color">Elija un Color</string>
+	<string name="saving_to_sd_please_wait">Guardando en la SD. Espere por favor...</string>
+	<string name="successfully_saved_to">Imagen guardada en "%s"</string>
+	<string name="please_wait">Espere por favor...</string>
+	<string name="sd_card_is_not_available">La targeta SD no está disponible</string>
+	<string name="send_image_to">Enviar Imagen a:</string>
+
+	<!-- Confirm dialog -->
+	<string name="yes">Sí</string>
+	<string name="are_you_sure">¿Está seguro que desea borrar el lienzo?</string>
+
+	<!-- Menu -->
+	<string name="brushes">Pinceles</string>
+	<string name="color">Color</string>
+	<string name="clear">Borrar</string>
+	<string name="send">Compartir</string>
+	<string name="save">Guardar</string>
+	<string name="about">Acerca de...</string>
+	<string name="undo">Deshacer</string>
+
+	<!-- Submenu -->
+	<string name="grid">Rejilla</string>
+	<string name="circles">Círculos</string>
+	<string name="ribbon">Cinta</string>
+	<string name="squares">Cuadrados</string>
+	<string name="web">Red</string>
+	<string name="longfur">Pelaje largo</string>
+	<string name="fur">Pelaje</string>
+	<string name="chrome">Cromo</string>
+	<string name="shaded">Sombreado</string>
+	<string name="simple">Simple</string>
+	<string name="sketchy">Sketchy</string>
+	<string name="eraser">Goma de borrar</string>
+
+	<!-- Picker dialog -->
+	<string name="accept">Aceptar</string>
+	<string name="cancel">Cancelar</string>
+
+	<!-- About dialog -->
+	<string name="about_title">¿Qué hay nuevo?</string>
+	<string name="buy_pro_version">Comprar Sketcher PRO</string>
+	<string name="button_close">Cerrar</string>
+</resources>
