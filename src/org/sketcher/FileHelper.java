@@ -26,10 +26,8 @@ public class FileHelper {
 	}
 
 	private File getSDDir() {
-		String path = Environment.getExternalStorageDirectory()
-				.getAbsolutePath() + "/sketcher/";
-
-		File file = new File(path);
+		File file = new File(Environment.getExternalStorageDirectory(),
+				"sketcher");
 		if (!file.exists()) {
 			file.mkdirs();
 		}
@@ -157,15 +155,17 @@ public class FileHelper {
 		}
 
 		protected void onPostExecute(File file) {
-			dialog.hide();
+			dialog.dismiss();
 
 			String absolutePath = file.getAbsolutePath();
 			String sdPath = Environment.getExternalStorageDirectory()
 					.getAbsolutePath();
 			String beautifiedPath = absolutePath.replace(sdPath, "SD:/");
-			
-			Toast.makeText(context, context.getString(R.string.successfully_saved_to, beautifiedPath),
-					Toast.LENGTH_LONG).show();
+
+			Toast.makeText(
+					context,
+					context.getString(R.string.successfully_saved_to,
+							beautifiedPath), Toast.LENGTH_LONG).show();
 
 			context.getSurface().getDrawThread().resumeDrawing();
 		}
