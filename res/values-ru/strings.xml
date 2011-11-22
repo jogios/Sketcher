@@ -36,8 +36,7 @@
 
 	<!-- About dialog -->
     <string name="about_title">Что нового?</string>
-    <string name="about_text">- реализовал отмену действия
-    	\n- небольшие фиксы
+    <string name="about_text">- небольшие фиксы
 		\n<b>Sketcher</b> - приложение с открытым исходным кодом, лицензированным под
         <i>лицензией Apache версии 2.0</i>: 
 		\nhttp://bit.ly/apachelicense.

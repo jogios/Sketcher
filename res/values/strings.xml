@@ -42,7 +42,7 @@
 
 	<!-- About dialog -->
 	<string name="about_title">What\'s new?</string>
-	<string name="about_text">- implemented undo/redo
+	<string name="about_text">- added Spanish translation
 		\n- minor fixes
 		\n<b>Sketcher</b> is an open-source application licensed under
 		<i>Apache License v2.0</i>: 
