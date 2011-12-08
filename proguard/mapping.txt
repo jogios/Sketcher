@@ -1,11 +1,260 @@
+org.acra.ACRA -> org.acra.e:
+    java.lang.String LOG_TAG -> a
+    android.app.Application mApplication -> d
+    org.acra.annotation.ReportsCrashes mReportsCrashes -> e
+    android.content.SharedPreferences$OnSharedPreferenceChangeListener mPrefListener -> f
+    android.text.format.Time mAppStartDate -> g
+    org.acra.ReportField[] DEFAULT_MAIL_REPORT_FIELDS -> b
+    org.acra.ReportField[] DEFAULT_REPORT_FIELDS -> c
+    186:249:void init(android.app.Application) -> a
+    257:301:void initAcra() -> d
+    331:337:android.content.SharedPreferences getACRASharedPreferences() -> a
+    346:346:org.acra.annotation.ReportsCrashes getConfig() -> b
+    77:77:void access$000() -> c
+org.acra.ACRA$1 -> org.acra.k:
+    201:220:void onSharedPreferenceChanged(android.content.SharedPreferences,java.lang.String) -> onSharedPreferenceChanged
+org.acra.ACRA$2 -> org.acra.j:
+    int[] $SwitchMap$org$acra$ReportingInteractionMode -> a
+org.acra.ACRAConfigurationException -> org.acra.r:
+org.acra.Compatibility -> org.acra.d:
+    40:52:int getAPILevel() -> a
+org.acra.ConfigurationInspector -> org.acra.p:
+    android.util.SparseArray mHardKeyboardHiddenValues -> a
+    android.util.SparseArray mKeyboardValues -> b
+    android.util.SparseArray mKeyboardHiddenValues -> c
+    android.util.SparseArray mNavigationValues -> d
+    android.util.SparseArray mNavigationHiddenValues -> e
+    android.util.SparseArray mOrientationValues -> f
+    android.util.SparseArray mScreenLayoutValues -> g
+    android.util.SparseArray mTouchScreenValues -> h
+    android.util.SparseArray mUiModeValues -> i
+    java.util.HashMap mValueArrays -> j
+    120:139:java.lang.String toString(android.content.res.Configuration) -> a
+    196:211:java.lang.String activeFlags(android.util.SparseArray,int) -> a
+org.acra.CrashReportData -> org.acra.t:
+    org.acra.CrashReportData defaults -> a
+    java.lang.String lineSeparator -> b
+    93:130:void dumpString(java.lang.StringBuilder,java.lang.String,boolean) -> a
+    142:146:java.lang.String getProperty(org.acra.ReportField) -> a
+    252:265:void load(java.io.InputStream) -> a
+    269:282:boolean isEbcdic(java.io.BufferedInputStream) -> a
+    314:472:void load(java.io.Reader) -> a
+    534:552:void store(java.io.OutputStream,java.lang.String) -> a
+org.acra.CrashReportDialog -> org.acra.CrashReportDialog:
+    android.content.SharedPreferences prefs -> b
+    android.widget.EditText userComment -> c
+    android.widget.EditText userEmail -> d
+    java.lang.String mReportFileName -> a
+    62:189:void onCreate(android.os.Bundle) -> onCreate
+    48:48:android.widget.EditText access$000(org.acra.CrashReportDialog) -> a
+    48:48:android.content.SharedPreferences access$100(org.acra.CrashReportDialog) -> b
+    48:48:android.widget.EditText access$200(org.acra.CrashReportDialog) -> c
+org.acra.CrashReportDialog$1 -> org.acra.g:
+    org.acra.CrashReportDialog this$0 -> a
+    131:161:void onClick(android.view.View) -> onClick
+org.acra.CrashReportDialog$2 -> org.acra.h:
+    org.acra.CrashReportDialog this$0 -> a
+    171:173:void onClick(android.view.View) -> onClick
+org.acra.DeviceFeaturesCollector -> org.acra.u:
+    35:61:java.lang.String getFeatures(android.content.Context) -> a
+org.acra.DropBoxCollector -> org.acra.l:
+    java.lang.String[] SYSTEM_TAGS -> a
+    56:124:java.lang.String read(android.content.Context,java.lang.String[]) -> a
+org.acra.DumpSysCollector -> org.acra.v:
+    40:60:java.lang.String collectMemInfo() -> a
+org.acra.ErrorReporter -> org.acra.b:
+    boolean enabled -> a
+    java.util.ArrayList mReportSenders -> b
+    org.acra.CrashReportData mCrashProperties -> c
+    java.util.Map mCustomParameters -> d
+    java.lang.String SILENT_SUFFIX -> e
+    java.lang.Thread$UncaughtExceptionHandler mDfltExceptionHandler -> f
+    org.acra.ErrorReporter mInstanceSingleton -> g
+    android.content.Context mContext -> h
+    java.lang.String mInitialConfiguration -> i
+    org.acra.ReportingInteractionMode mReportingInteractionMode -> j
+    245:256:void approvePendingReports() -> a
+    324:331:java.lang.String createCustomInfoString() -> g
+    340:343:org.acra.ErrorReporter getInstance() -> b
+    357:365:void init(android.content.Context) -> a
+    614:664:void uncaughtException(java.lang.Thread,java.lang.Throwable) -> uncaughtException
+    681:761:org.acra.ErrorReporter$ReportsSenderWorker handleException(java.lang.Throwable,org.acra.ReportingInteractionMode) -> a
+    807:833:void notifySendReport(java.lang.String) -> a
+    847:863:void sendCrashReport$5e3fe510(org.acra.CrashReportData) -> a
+    878:899:java.lang.String saveCrashReportFile(java.lang.String,org.acra.CrashReportData) -> a
+    908:928:java.lang.String[] getCrashReportFilesList() -> h
+    942:977:void checkAndSendReports(android.content.Context,boolean) -> a
+    980:988:org.acra.CrashReportData loadCrashReport(android.content.Context,java.lang.String) -> a
+    992:996:void deleteFile(android.content.Context,java.lang.String) -> b
+    1005:1006:void setReportingInteractionMode(org.acra.ReportingInteractionMode) -> a
+    1012:1046:void checkReportsOnApplicationStart() -> c
+    1074:1075:void deletePendingReports() -> d
+    1104:1117:void deletePendingReports$49601cee(boolean,int) -> a
+    1123:1132:void disable() -> e
+    1173:1173:boolean isApproved(java.lang.String) -> b
+    1224:1225:void addReportSender(org.acra.sender.ReportSender) -> a
+    1277:1278:void setAppStartDate(android.text.format.Time) -> a
+    88:88:android.content.Context access$000() -> f
+    88:88:void access$100(android.content.Context,java.lang.String,java.lang.String,java.lang.String) -> a
+org.acra.ErrorReporter$1 -> org.acra.m:
+    org.acra.ErrorReporter this$0 -> a
+    714:717:void run() -> run
+org.acra.ErrorReporter$2 -> org.acra.n:
+    org.acra.ErrorReporter this$0 -> a
+    920:920:boolean accept(java.io.File,java.lang.String) -> accept
+org.acra.ErrorReporter$ReportsSenderWorker -> org.acra.c:
+    java.lang.String mCommentedReportFileName -> a
+    java.lang.String mUserComment -> b
+    java.lang.String mUserEmail -> c
+    boolean mSendOnlySilentReports -> d
+    boolean mApprovePendingReports -> e
+    org.acra.ErrorReporter this$0 -> f
+    135:148:void run() -> run
+    175:177:void setUserComment(java.lang.String,java.lang.String) -> a
+    188:190:void setUserEmail(java.lang.String,java.lang.String) -> b
+    196:197:void setApprovePendingReports() -> a
+org.acra.LogCatCollector -> org.acra.i:
+    59:97:java.lang.String collectLogCat(java.lang.String) -> a
+org.acra.ReflectionCollector -> org.acra.f:
+    39:54:java.lang.String collectConstants(java.lang.Class) -> a
+    63:82:java.lang.String collectStaticGettersResults(java.lang.Class) -> b
+org.acra.ReportField -> org.acra.s:
+    org.acra.ReportField REPORT_ID -> a
+    org.acra.ReportField APP_VERSION_CODE -> b
+    org.acra.ReportField APP_VERSION_NAME -> c
+    org.acra.ReportField PACKAGE_NAME -> d
+    org.acra.ReportField FILE_PATH -> e
+    org.acra.ReportField PHONE_MODEL -> f
+    org.acra.ReportField ANDROID_VERSION -> g
+    org.acra.ReportField BUILD -> h
+    org.acra.ReportField BRAND -> i
+    org.acra.ReportField PRODUCT -> j
+    org.acra.ReportField TOTAL_MEM_SIZE -> k
+    org.acra.ReportField AVAILABLE_MEM_SIZE -> l
+    org.acra.ReportField CUSTOM_DATA -> m
+    org.acra.ReportField STACK_TRACE -> n
+    org.acra.ReportField INITIAL_CONFIGURATION -> o
+    org.acra.ReportField CRASH_CONFIGURATION -> p
+    org.acra.ReportField DISPLAY -> q
+    org.acra.ReportField USER_COMMENT -> r
+    org.acra.ReportField USER_APP_START_DATE -> s
+    org.acra.ReportField USER_CRASH_DATE -> t
+    org.acra.ReportField DUMPSYS_MEMINFO -> u
+    org.acra.ReportField DROPBOX -> v
+    org.acra.ReportField LOGCAT -> w
+    org.acra.ReportField EVENTSLOG -> x
+    org.acra.ReportField RADIOLOG -> y
+    org.acra.ReportField IS_SILENT -> z
+    org.acra.ReportField DEVICE_ID -> A
+    org.acra.ReportField INSTALLATION_ID -> B
+    org.acra.ReportField USER_EMAIL -> C
+    org.acra.ReportField DEVICE_FEATURES -> D
+    org.acra.ReportField ENVIRONMENT -> E
+    org.acra.ReportField SETTINGS_SYSTEM -> F
+    org.acra.ReportField SETTINGS_SECURE -> G
+    org.acra.ReportField SHARED_PREFERENCES -> H
+    org.acra.ReportField[] $VALUES -> I
+    26:26:org.acra.ReportField[] values() -> values
+    26:26:org.acra.ReportField valueOf(java.lang.String) -> valueOf
+org.acra.ReportingInteractionMode -> org.acra.q:
+    org.acra.ReportingInteractionMode SILENT -> a
+    org.acra.ReportingInteractionMode NOTIFICATION -> b
+    org.acra.ReportingInteractionMode TOAST -> c
+    org.acra.ReportingInteractionMode[] $VALUES -> d
+    30:30:org.acra.ReportingInteractionMode[] values() -> values
+    30:30:org.acra.ReportingInteractionMode valueOf(java.lang.String) -> valueOf
+org.acra.SettingsCollector -> org.acra.o:
+    45:65:java.lang.String collectSystemSettings(android.content.Context) -> a
+    78:95:java.lang.String collectSecureSettings(android.content.Context) -> b
+org.acra.SharedPreferencesCollector -> org.acra.a:
+    13:42:java.lang.String collect(android.content.Context) -> a
+org.acra.annotation.ReportsCrashes -> org.acra.c.a:
+    java.lang.String formKey() -> a
+    java.lang.String formUri() -> b
+    org.acra.ReportingInteractionMode mode() -> c
+    int resDialogCommentPrompt() -> d
+    int resDialogEmailPrompt() -> e
+    int resDialogIcon() -> f
+    int resDialogOkToast() -> g
+    int resDialogText() -> h
+    int resDialogTitle() -> i
+    int resNotifIcon() -> j
+    int resNotifText() -> k
+    int resNotifTickerText() -> l
+    int resNotifTitle() -> m
+    int resToastText() -> n
+    java.lang.String sharedPreferencesName() -> o
+    int sharedPreferencesMode() -> p
+    boolean includeDropBoxSystemTags() -> q
+    java.lang.String[] additionalDropBoxTags() -> r
+    int dropboxCollectionMinutes() -> s
+    java.lang.String[] logcatArguments() -> t
+    java.lang.String formUriBasicAuthLogin() -> u
+    java.lang.String formUriBasicAuthPassword() -> v
+    org.acra.ReportField[] customReportContent() -> w
+    java.lang.String mailTo() -> x
+    boolean deleteUnapprovedReportsOnApplicationStart() -> y
+    int socketTimeout() -> z
+    boolean forceCloseDialogAfterToast() -> A
+    java.lang.String[] additionalSharedPreferences() -> B
+org.acra.sender.EmailIntentSender -> org.acra.a.c:
+    android.content.Context mContext -> a
+    41:51:void send(org.acra.CrashReportData) -> a
+    54:64:java.lang.String buildBody(org.acra.CrashReportData) -> b
+org.acra.sender.GoogleFormSender -> org.acra.a.b:
+    android.net.Uri mFormUri -> a
+    52:64:void send(org.acra.CrashReportData) -> a
+org.acra.sender.GoogleFormSender$1 -> org.acra.a.d:
+    int[] $SwitchMap$org$acra$ReportField -> a
+org.acra.sender.HttpPostSender -> org.acra.a.a:
+    android.net.Uri mFormUri -> a
+    java.util.Map mMapping -> b
+    100:106:void send(org.acra.CrashReportData) -> a
+org.acra.sender.ReportSender -> org.acra.a.f:
+    void send(org.acra.CrashReportData) -> a
+org.acra.sender.ReportSenderException -> org.acra.a.e:
+org.acra.util.BoundedLinkedList -> org.acra.b.b:
+    int maxSize -> a
+    46:49:boolean add(java.lang.Object) -> add
+    59:63:void add(int,java.lang.Object) -> add
+    72:77:boolean addAll(java.util.Collection) -> addAll
+    93:93:boolean addAll(int,java.util.Collection) -> addAll
+    104:104:void addFirst(java.lang.Object) -> addFirst
+    114:115:void addLast(java.lang.Object) -> addLast
+    124:130:java.lang.String toString() -> toString
+org.acra.util.FakeSocketFactory -> org.acra.b.c:
+    javax.net.ssl.SSLContext sslcontext -> a
+    28:32:javax.net.ssl.SSLContext createEasySSLContext() -> a
+    37:40:javax.net.ssl.SSLContext getSSLContext() -> b
+    46:63:java.net.Socket connectSocket(java.net.Socket,java.lang.String,int,java.net.InetAddress,int,org.apache.http.params.HttpParams) -> connectSocket
+    68:68:java.net.Socket createSocket() -> createSocket
+    73:73:boolean isSecure(java.net.Socket) -> isSecure
+    79:79:java.net.Socket createSocket(java.net.Socket,java.lang.String,int,boolean) -> createSocket
+org.acra.util.HttpRequest -> org.acra.b.e:
+    org.apache.http.impl.client.DefaultHttpClient httpClient -> a
+    org.apache.http.protocol.HttpContext localContext -> b
+    org.apache.http.client.methods.HttpPost httpPost -> c
+    org.apache.http.client.methods.HttpGet httpGet -> e
+    org.apache.http.auth.UsernamePasswordCredentials creds -> d
+org.acra.util.HttpUtils -> org.acra.b.f:
+    43:60:void doPost(java.util.Map,java.net.URL,java.lang.String,java.lang.String) -> a
+    63:63:boolean isNull(java.lang.String) -> a
+org.acra.util.Installation -> org.acra.b.a:
+    java.lang.String sID -> a
+    31:41:java.lang.String id(android.content.Context) -> a
+    45:52:java.lang.String readInstallationFile(java.io.File) -> a
+org.acra.util.NaiveTrustManager -> org.acra.b.d:
+    34:34:java.security.cert.X509Certificate[] getAcceptedIssuers() -> getAcceptedIssuers
+    47:47:void checkClientTrusted(java.security.cert.X509Certificate[],java.lang.String) -> checkClientTrusted
+    59:59:void checkServerTrusted(java.security.cert.X509Certificate[],java.lang.String) -> checkServerTrusted
 org.sketcher.AboutDialog -> org.sketcher.m:
-org.sketcher.AboutDialog$1 -> org.sketcher.i:
+org.sketcher.AboutDialog$1 -> org.sketcher.d:
     org.sketcher.AboutDialog this$0 -> a
     23:26:void onClick(android.view.View) -> onClick
-org.sketcher.AboutDialog$2 -> org.sketcher.h:
+org.sketcher.AboutDialog$2 -> org.sketcher.c:
     org.sketcher.AboutDialog this$0 -> a
     33:34:void onClick(android.view.View) -> onClick
-org.sketcher.Controller -> org.sketcher.f:
+org.sketcher.Controller -> org.sketcher.k:
     org.sketcher.Style style -> a
     android.graphics.Canvas mCanvas -> b
     boolean toDraw -> c
@@ -16,7 +265,7 @@ org.sketcher.Controller -> org.sketcher.f:
     48:51:void clear() -> b
     54:56:void setPaintColor(android.graphics.Paint) -> a
     59:59:android.graphics.Paint getPaintColor() -> c
-org.sketcher.FileHelper -> org.sketcher.c:
+org.sketcher.FileHelper -> org.sketcher.a:
     org.sketcher.Sketcher context -> b
     boolean isSaved -> a
     29:35:java.io.File getSDDir() -> e
@@ -26,49 +275,51 @@ org.sketcher.FileHelper -> org.sketcher.c:
     128:133:void saveToSD() -> c
     136:139:java.io.File saveBitmap() -> d
     21:21:org.sketcher.Sketcher access$0(org.sketcher.FileHelper) -> a
-org.sketcher.FileHelper$1 -> org.sketcher.e:
+org.sketcher.FileHelper$1 -> org.sketcher.l:
     org.sketcher.FileHelper this$0 -> a
     112:123:void onPostExecute(java.io.File) -> a
-org.sketcher.FileHelper$SaveTask -> org.sketcher.b:
+org.sketcher.FileHelper$SaveTask -> org.sketcher.i:
     android.app.ProgressDialog dialog -> a
     org.sketcher.FileHelper this$0 -> b
     158:171:void onPostExecute(java.io.File) -> a
     1:1:void onPostExecute(java.lang.Object) -> onPostExecute
     1:1:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-org.sketcher.HistoryHelper -> org.sketcher.l:
+org.sketcher.HistoryHelper -> org.sketcher.g:
     org.sketcher.Surface mSurface -> a
     org.sketcher.HistoryHelper$State mUndoState -> b
     org.sketcher.HistoryHelper$State mRedoState -> c
     boolean isSwaped -> d
     24:29:void undo() -> a
-    38:40:void saveState() -> b
-org.sketcher.HistoryHelper$State -> org.sketcher.d:
+    39:41:void saveState() -> b
+org.sketcher.HistoryHelper$State -> org.sketcher.j:
     byte[] mBuffer -> a
     java.util.HashMap stylesState -> b
 org.sketcher.Sketcher -> org.sketcher.Sketcher:
     org.sketcher.Surface surface -> a
     org.sketcher.FileHelper fileHelper -> b
-    36:65:void onCreate(android.os.Bundle) -> onCreate
-    69:82:void onPause() -> onPause
-    86:89:void onResume() -> onResume
-    93:123:boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
-    128:159:boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
-    164:166:void showAboutDialog() -> b
-    169:169:org.sketcher.Surface getSurface() -> a
+    36:66:void onCreate(android.os.Bundle) -> onCreate
+    70:83:void onPause() -> onPause
+    87:90:void onResume() -> onResume
+    94:124:boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
+    129:160:boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
+    165:167:void showAboutDialog() -> b
+    170:170:org.sketcher.Surface getSurface() -> a
     32:32:org.sketcher.FileHelper access$0(org.sketcher.Sketcher) -> a
-org.sketcher.Sketcher$1 -> org.sketcher.k:
+org.sketcher.Sketcher$1 -> org.sketcher.f:
     org.sketcher.Sketcher this$0 -> a
-    79:80:void run() -> run
-org.sketcher.Sketcher$2 -> org.sketcher.j:
+    80:81:void run() -> run
+org.sketcher.Sketcher$2 -> org.sketcher.e:
     org.sketcher.Sketcher this$0 -> a
-    150:151:void colorChanged(android.graphics.Paint) -> a
-org.sketcher.Style -> org.sketcher.a:
+    151:152:void colorChanged(android.graphics.Paint) -> a
+org.sketcher.SketcherApplication -> org.sketcher.SketcherApplication:
+    12:14:void onCreate() -> onCreate
+org.sketcher.Style -> org.sketcher.h:
     void strokeStart(float,float) -> a
     void stroke(android.graphics.Canvas,float,float) -> a
     void draw(android.graphics.Canvas) -> a
     void setColor(int) -> a
-    void saveState(java.util.HashMap) -> a
-    void restoreState(java.util.HashMap) -> b
+    void saveState(java.util.HashMap) -> b
+    void restoreState(java.util.HashMap) -> a
 org.sketcher.Surface -> org.sketcher.Surface:
     org.sketcher.Surface$DrawThread drawThread -> a
     android.graphics.Canvas drawCanvas -> b
@@ -91,7 +342,7 @@ org.sketcher.Surface -> org.sketcher.Surface:
     174:175:void undo() -> e
     77:77:org.sketcher.Controller access$0(org.sketcher.Surface) -> a
     79:79:android.graphics.Bitmap access$1(org.sketcher.Surface) -> b
-org.sketcher.Surface$DrawThread -> org.sketcher.g:
+org.sketcher.Surface$DrawThread -> org.sketcher.b:
     boolean mRun -> a
     boolean mPause -> b
     org.sketcher.Surface this$0 -> c
@@ -124,30 +375,30 @@ org.sketcher.colorpicker.HuePicker -> org.sketcher.colorpicker.HuePicker:
     61:75:void onDraw(android.graphics.Canvas) -> onDraw
     85:95:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
     122:122:int ave(int,int,float) -> a
-org.sketcher.colorpicker.Picker -> org.sketcher.colorpicker.h:
+org.sketcher.colorpicker.Picker -> org.sketcher.colorpicker.c:
     void setOnColorChangedListener(org.sketcher.colorpicker.Picker$OnColorChangedListener) -> setOnColorChangedListener
     void setColor(int) -> setColor
-org.sketcher.colorpicker.Picker$OnColorChangedListener -> org.sketcher.colorpicker.g:
+org.sketcher.colorpicker.Picker$OnColorChangedListener -> org.sketcher.colorpicker.b:
     void colorChanged(android.graphics.Paint) -> a
-org.sketcher.colorpicker.PickerDialog -> org.sketcher.colorpicker.c:
+org.sketcher.colorpicker.PickerDialog -> org.sketcher.colorpicker.a:
     org.sketcher.colorpicker.Picker$OnColorChangedListener mListener -> a
     android.graphics.Paint mPaint -> b
     26:71:void onCreate(android.os.Bundle) -> onCreate
     14:14:android.graphics.Paint access$0(org.sketcher.colorpicker.PickerDialog) -> a
     13:13:org.sketcher.colorpicker.Picker$OnColorChangedListener access$1(org.sketcher.colorpicker.PickerDialog) -> b
-org.sketcher.colorpicker.PickerDialog$1 -> org.sketcher.colorpicker.d:
+org.sketcher.colorpicker.PickerDialog$1 -> org.sketcher.colorpicker.f:
     org.sketcher.colorpicker.PickerDialog this$0 -> a
     org.sketcher.colorpicker.PreviewView val$previewView -> b
     36:38:void colorChanged(android.graphics.Paint) -> a
-org.sketcher.colorpicker.PickerDialog$2 -> org.sketcher.colorpicker.e:
+org.sketcher.colorpicker.PickerDialog$2 -> org.sketcher.colorpicker.g:
     org.sketcher.colorpicker.PickerDialog this$0 -> a
     org.sketcher.colorpicker.Picker val$satValPicker -> b
     org.sketcher.colorpicker.PreviewView val$previewView -> c
     47:50:void colorChanged(android.graphics.Paint) -> a
-org.sketcher.colorpicker.PickerDialog$3 -> org.sketcher.colorpicker.a:
+org.sketcher.colorpicker.PickerDialog$3 -> org.sketcher.colorpicker.d:
     org.sketcher.colorpicker.PickerDialog this$0 -> a
     59:61:void onClick(android.view.View) -> onClick
-org.sketcher.colorpicker.PickerDialog$4 -> org.sketcher.colorpicker.b:
+org.sketcher.colorpicker.PickerDialog$4 -> org.sketcher.colorpicker.e:
     org.sketcher.colorpicker.PickerDialog this$0 -> a
     68:69:void onClick(android.view.View) -> onClick
 org.sketcher.colorpicker.PreviewView -> org.sketcher.colorpicker.PreviewView:
@@ -169,9 +420,9 @@ org.sketcher.colorpicker.SatValPicker -> org.sketcher.colorpicker.SatValPicker:
     69:70:void setOnColorChangedListener(org.sketcher.colorpicker.Picker$OnColorChangedListener) -> setOnColorChangedListener
     74:81:void onDraw(android.graphics.Canvas) -> onDraw
     85:99:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
-org.sketcher.colorpicker.Utils -> org.sketcher.colorpicker.f:
+org.sketcher.colorpicker.Utils -> org.sketcher.colorpicker.h:
     7:14:float[] color2HSV(int) -> a
-org.sketcher.style.ChromeStyle -> org.sketcher.a.c:
+org.sketcher.style.ChromeStyle -> org.sketcher.a.a:
     float prevX -> a
     float prevY -> b
     java.util.ArrayList points -> c
@@ -181,9 +432,9 @@ org.sketcher.style.ChromeStyle -> org.sketcher.a.c:
     66:68:void strokeStart(float,float) -> a
     72:72:void draw(android.graphics.Canvas) -> a
     76:78:void setColor(int) -> a
-    83:87:void restoreState(java.util.HashMap) -> b
-    91:94:void saveState(java.util.HashMap) -> a
-org.sketcher.style.CirclesStyle -> org.sketcher.a.a:
+    83:87:void restoreState(java.util.HashMap) -> a
+    91:94:void saveState(java.util.HashMap) -> b
+org.sketcher.style.CirclesStyle -> org.sketcher.a.g:
     float prevX -> a
     float prevY -> b
     android.graphics.Paint paint -> c
@@ -191,8 +442,8 @@ org.sketcher.style.CirclesStyle -> org.sketcher.a.a:
     48:50:void strokeStart(float,float) -> a
     54:54:void draw(android.graphics.Canvas) -> a
     58:60:void setColor(int) -> a
-    64:64:void saveState(java.util.HashMap) -> a
-    68:68:void restoreState(java.util.HashMap) -> b
+    64:64:void saveState(java.util.HashMap) -> b
+    68:68:void restoreState(java.util.HashMap) -> a
 org.sketcher.style.EraserStyle -> org.sketcher.a.n:
     float prevX -> a
     float prevY -> b
@@ -201,9 +452,9 @@ org.sketcher.style.EraserStyle -> org.sketcher.a.n:
     34:36:void strokeStart(float,float) -> a
     40:40:void draw(android.graphics.Canvas) -> a
     44:44:void setColor(int) -> a
-    48:48:void saveState(java.util.HashMap) -> a
-    52:52:void restoreState(java.util.HashMap) -> b
-org.sketcher.style.FurStyle -> org.sketcher.a.f:
+    48:48:void saveState(java.util.HashMap) -> b
+    52:52:void restoreState(java.util.HashMap) -> a
+org.sketcher.style.FurStyle -> org.sketcher.a.j:
     float prevX -> a
     float prevY -> b
     java.util.ArrayList points -> c
@@ -212,26 +463,26 @@ org.sketcher.style.FurStyle -> org.sketcher.a.f:
     59:61:void strokeStart(float,float) -> a
     65:65:void draw(android.graphics.Canvas) -> a
     69:71:void setColor(int) -> a
-    75:78:void saveState(java.util.HashMap) -> a
-    83:87:void restoreState(java.util.HashMap) -> b
-org.sketcher.style.GridStyle -> org.sketcher.a.g:
+    75:78:void saveState(java.util.HashMap) -> b
+    83:87:void restoreState(java.util.HashMap) -> a
+org.sketcher.style.GridStyle -> org.sketcher.a.c:
     android.graphics.Paint paint -> a
     22:32:void stroke(android.graphics.Canvas,float,float) -> a
     36:36:void strokeStart(float,float) -> a
     40:40:void draw(android.graphics.Canvas) -> a
     44:46:void setColor(int) -> a
-    50:50:void saveState(java.util.HashMap) -> a
-    54:54:void restoreState(java.util.HashMap) -> b
-org.sketcher.style.LongfurStyle -> org.sketcher.a.h:
+    50:50:void saveState(java.util.HashMap) -> b
+    54:54:void restoreState(java.util.HashMap) -> a
+org.sketcher.style.LongfurStyle -> org.sketcher.a.k:
     java.util.ArrayList points -> a
     android.graphics.Paint paint -> b
     26:51:void stroke(android.graphics.Canvas,float,float) -> a
     55:55:void strokeStart(float,float) -> a
     59:59:void draw(android.graphics.Canvas) -> a
     63:65:void setColor(int) -> a
-    69:72:void saveState(java.util.HashMap) -> a
-    77:81:void restoreState(java.util.HashMap) -> b
-org.sketcher.style.RibbonStyle -> org.sketcher.a.b:
+    69:72:void saveState(java.util.HashMap) -> b
+    77:81:void restoreState(java.util.HashMap) -> a
+org.sketcher.style.RibbonStyle -> org.sketcher.a.h:
     android.graphics.Paint paint -> a
     org.sketcher.style.RibbonStyle$Painter[] painters -> b
     float x -> c
@@ -240,9 +491,9 @@ org.sketcher.style.RibbonStyle -> org.sketcher.a.b:
     59:61:void stroke(android.graphics.Canvas,float,float) -> a
     65:73:void strokeStart(float,float) -> a
     77:79:void setColor(int) -> a
-    83:83:void saveState(java.util.HashMap) -> a
-    87:87:void restoreState(java.util.HashMap) -> b
-org.sketcher.style.RibbonStyle$Painter -> org.sketcher.a.j:
+    83:83:void saveState(java.util.HashMap) -> b
+    87:87:void restoreState(java.util.HashMap) -> a
+org.sketcher.style.RibbonStyle$Painter -> org.sketcher.a.e:
     float dx -> a
     float dy -> b
     float ax -> c
@@ -257,9 +508,9 @@ org.sketcher.style.ShadedStyle -> org.sketcher.a.m:
     49:49:void strokeStart(float,float) -> a
     53:53:void draw(android.graphics.Canvas) -> a
     57:58:void setColor(int) -> a
-    62:65:void saveState(java.util.HashMap) -> a
-    70:74:void restoreState(java.util.HashMap) -> b
-org.sketcher.style.SimpleStyle -> org.sketcher.a.k:
+    62:65:void saveState(java.util.HashMap) -> b
+    70:74:void restoreState(java.util.HashMap) -> a
+org.sketcher.style.SimpleStyle -> org.sketcher.a.f:
     float prevX -> a
     float prevY -> b
     android.graphics.Paint paint -> c
@@ -267,9 +518,9 @@ org.sketcher.style.SimpleStyle -> org.sketcher.a.k:
     34:36:void strokeStart(float,float) -> a
     40:40:void draw(android.graphics.Canvas) -> a
     44:46:void setColor(int) -> a
-    50:50:void saveState(java.util.HashMap) -> a
-    54:54:void restoreState(java.util.HashMap) -> b
-org.sketcher.style.SketchyStyle -> org.sketcher.a.i:
+    50:50:void saveState(java.util.HashMap) -> b
+    54:54:void restoreState(java.util.HashMap) -> a
+org.sketcher.style.SketchyStyle -> org.sketcher.a.d:
     float prevX -> a
     float prevY -> b
     java.util.ArrayList points -> c
@@ -278,9 +529,9 @@ org.sketcher.style.SketchyStyle -> org.sketcher.a.i:
     59:61:void strokeStart(float,float) -> a
     65:65:void draw(android.graphics.Canvas) -> a
     69:71:void setColor(int) -> a
-    75:78:void saveState(java.util.HashMap) -> a
-    83:87:void restoreState(java.util.HashMap) -> b
-org.sketcher.style.SquaresStyle -> org.sketcher.a.e:
+    75:78:void saveState(java.util.HashMap) -> b
+    83:87:void restoreState(java.util.HashMap) -> a
+org.sketcher.style.SquaresStyle -> org.sketcher.a.b:
     float prevX -> a
     float prevY -> b
     android.graphics.Paint paint -> c
@@ -292,8 +543,8 @@ org.sketcher.style.SquaresStyle -> org.sketcher.a.e:
     61:63:void strokeStart(float,float) -> a
     67:67:void draw(android.graphics.Canvas) -> a
     71:73:void setColor(int) -> a
-    77:77:void saveState(java.util.HashMap) -> a
-    81:81:void restoreState(java.util.HashMap) -> b
+    77:77:void saveState(java.util.HashMap) -> b
+    81:81:void restoreState(java.util.HashMap) -> a
 org.sketcher.style.StylesFactory -> org.sketcher.a.l:
     java.util.Map cache -> a
     int currentStyle -> b
@@ -302,7 +553,7 @@ org.sketcher.style.StylesFactory -> org.sketcher.a.l:
     40:41:void clearCache() -> b
     76:80:void saveState(java.util.HashMap) -> a
     83:88:void restoreState(java.util.HashMap) -> b
-org.sketcher.style.WebStyle -> org.sketcher.a.d:
+org.sketcher.style.WebStyle -> org.sketcher.a.i:
     float prevX -> a
     float prevY -> b
     java.util.ArrayList points -> c
@@ -311,5 +562,5 @@ org.sketcher.style.WebStyle -> org.sketcher.a.d:
     57:59:void strokeStart(float,float) -> a
     63:63:void draw(android.graphics.Canvas) -> a
     67:69:void setColor(int) -> a
-    73:76:void saveState(java.util.HashMap) -> a
-    81:85:void restoreState(java.util.HashMap) -> b
+    73:76:void saveState(java.util.HashMap) -> b
+    81:85:void restoreState(java.util.HashMap) -> a
